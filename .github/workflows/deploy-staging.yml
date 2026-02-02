@@ -16,50 +16,19 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
       
-      - name: Setup SSH
+      - name: Deploy via rsync
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/github-actions
-          chmod 600 ~/.ssh/github-actions
-          ssh-keyscan -H ${{ env.STAGING_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
-          
-      - name: Test SSH Connection
-        run: |
-          ssh -i ~/.ssh/github-actions -o StrictHostKeyChecking=no -o ConnectTimeout=10 \
-            ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
-            "echo 'SSH connection test successful' && whoami && pwd"
-      
-      - name: Deploy to staging via rsync
-        run: |
-          echo "Deploying to: ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }}:${{ env.STAGING_PATH }}/"
+          echo "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ env.STAGING_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
           rsync -avz --delete \
-            --exclude='.git' \
-            --exclude='.gitignore' \
-            --exclude='.github' \
-            --exclude='.env' \
-            --exclude='*.bak' \
-            --exclude='node_modules' \
-            --exclude='*.py' \
-            -e "ssh -i ~/.ssh/github-actions -o StrictHostKeyChecking=no" \
+            --exclude='.git' --exclude='.gitignore' --exclude='.github' \
+            --exclude='.env' --exclude='*.bak' --exclude='node_modules' --exclude='*.py' \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./ ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }}:${{ env.STAGING_PATH }}/
-          echo "Deployment completed"
-      
-      - name: Verify deployment
-        run: |
-          echo "Checking deployment path: ${{ env.STAGING_PATH }}"
-          ssh -i ~/.ssh/github-actions ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
-            "ls -la ${{ env.STAGING_PATH }} | head -20 && echo '---' && echo 'Deployment verified'"
-      
-      - name: Notify deployment
-        if: success()
-        run: |
-          echo "✅ Successfully deployed to staging: stg.creditmonkey.com"
-      
-      - name: Notify failure
-        if: failure()
-        run: |
-          echo "❌ Deployment failed"
-          exit 1
+          echo "✅ Deployment completed"
