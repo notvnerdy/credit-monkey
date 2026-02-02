@@ -27,6 +27,19 @@ p, span, div, li {
     color: #64748b !important;
 }
 
+/* Icon styling */
+.bi {
+    font-size: 0.95rem;
+    color: #94a3b8 !important;
+    opacity: 0.85;
+}
+
+.btn .bi,
+.navbar .bi {
+    color: currentColor !important;
+    opacity: 0.9;
+}
+
 /* Ensure content is visible even if AOS JS doesn't load */
 [data-aos] {
     opacity: 1 !important;
