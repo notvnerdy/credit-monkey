@@ -1,0 +1,67 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+
+env:
+  STAGING_HOST: ${{ secrets.STAGING_HOST }}
+  STAGING_USER: ${{ secrets.STAGING_USER }}
+  STAGING_PATH: ${{ secrets.STAGING_PATH }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/github
+          chmod 600 ~/.ssh/github
+          ssh-keyscan -H ${{ env.STAGING_HOST }} >> ~/.ssh/known_hosts
+      
+      - name: Validate HTML
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y html-validate
+          find . -name "*.html" -type f ! -path "./.git/*" -exec html-validate {} +
+        continue-on-error: true
+      
+      - name: Deploy to staging
+        run: |
+          rsync -avz --delete \
+            --exclude='.git' \
+            --exclude='.gitignore' \
+            --exclude='.github' \
+            --exclude='.env' \
+            --exclude='.ssh-github' \
+            --exclude='.ssh-github.pub' \
+            --exclude='*.bak' \
+            --exclude='node_modules' \
+            -e "ssh -i ~/.ssh/github" \
+            ./ ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }}:${{ env.STAGING_PATH }}/
+      
+      - name: Verify deployment
+        run: |github
+          ssh -i ~/.ssh/id_rsa ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
+            "ls -la ${{ env.STAGING_PATH }} && echo 'Deployment successful'"
+      
+      - name: Notify deployment
+        if: success()
+        run: |
+          echo "✅ Successfully deployed to staging: stg.creditvana.com"
+      
+      - name: Notify failure
+        if: failure()
+        run: |
+          echo "❌ Deployment failed"
+          exit 1
