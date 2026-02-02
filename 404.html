@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Page Not Found - Credit Monkey</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0D2241 0%, #112D55 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .error-page::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 20s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(-50px, -50px) rotate(180deg); }
+        }
+        
+        .error-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+        
+        .error-code {
+            font-size: 150px;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(45deg, #fff, #a8d5ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .error-icon {
+            font-size: 120px;
+            opacity: 0.3;
+            margin-bottom: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 100px;
+            }
+            .error-icon {
+                font-size: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="error-page">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="error-content">
+                        <i class="bi bi-compass error-icon"></i>
+                        <div class="error-code">404</div>
+                        <h1 class="display-4 fw-bold mb-4">Page Not Found</h1>
+                        <p class="lead mb-4 opacity-75">
+                            Oops! The page you're looking for seems to have wandered off. 
+                            Don't worry, we'll help you get back on track to better credit!
+                        </p>
+                        
+                        <div class="d-flex flex-wrap gap-3 justify-content-center mb-5">
+                            <a href="/" class="btn btn-light btn-lg px-5">
+                                <i class="bi bi-house-door-fill me-2"></i> Go Home
+                            </a>
+                            <a href="/contact-us" class="btn btn-outline-light btn-lg px-4">
+                                <i class="bi bi-headset me-2"></i> Contact Support
+                            </a>
+                        </div>
+                        
+                        <div class="row g-4 mt-4">
+                            <div class="col-md-4">
+                                <div class="card bg-white bg-opacity-10 border-0 text-white h-100 p-4">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-credit-card-2-front fs-1 mb-3 opacity-75"></i>
+                                        <h5 class="fw-bold mb-2">Credit Repair</h5>
+                                        <p class="small mb-3 opacity-75">Professional services to improve your credit score</p>
+                                        <a href="/services" class="btn btn-sm btn-light">Learn More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-white bg-opacity-10 border-0 text-white h-100 p-4">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-graph-up-arrow fs-1 mb-3 opacity-75"></i>
+                                        <h5 class="fw-bold mb-2">Build Credit</h5>
+                                        <p class="small mb-3 opacity-75">Tools and strategies to build strong credit</p>
+                                        <a href="/build-personal-credit" class="btn btn-sm btn-light">Get Started</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-white bg-opacity-10 border-0 text-white h-100 p-4">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-cash-coin fs-1 mb-3 opacity-75"></i>
+                                        <h5 class="fw-bold mb-2">View Pricing</h5>
+                                        <p class="small mb-3 opacity-75">Transparent pricing starting at $99/month</p>
+                                        <a href="/pricing" class="btn btn-sm btn-light">See Plans</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-5 pt-4 border-top border-white border-opacity-25">
+                            <p class="small mb-2 opacity-50">Common pages you might be looking for:</p>
+                            <div class="d-flex flex-wrap gap-3 justify-content-center small">
+                                <a href="/how-credit-repair-works" class="text-white text-decoration-none opacity-75 hover-opacity-100">How It Works</a>
+                                <span class="opacity-25">•</span>
+                                <a href="/states-we-fix-credit-in" class="text-white text-decoration-none opacity-75 hover-opacity-100">Service Areas</a>
+                                <span class="opacity-25">•</span>
+                                <a href="/about-us" class="text-white text-decoration-none opacity-75 hover-opacity-100">About Us</a>
+                                <span class="opacity-25">•</span>
+                                <a href="/contact-us" class="text-white text-decoration-none opacity-75 hover-opacity-100">Contact</a>
+                                <span class="opacity-25">•</span>
+                                <a href="/privacy-policy" class="text-white text-decoration-none opacity-75 hover-opacity-100">Privacy</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Track 404 errors (optional - for analytics)
+        if (window.gtag) {
+            gtag('event', '404_error', {
+                'page_path': window.location.pathname,
+                'page_referrer': document.referrer
+            });
+        }
+    </script>
+</body>
+</html>

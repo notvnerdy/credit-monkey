@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h6 class="fw-bold mb-3">Support</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="http://secureclientaccess.com/" class="text-dark text-decoration-none" target="_blank" rel="noopener noreferrer">Client Login</a></li>
-                        <li class="mb-2"><a href="${prefix}index.html#contact" class="text-dark text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="${prefix}contact-us" class="text-dark text-decoration-none">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
