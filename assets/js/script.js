@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const navList = document.querySelector('.navbar .navbar-nav');
     if (navList) {
         navList.innerHTML = `
-                    <li class="nav-item"><a class="nav-link" href="${prefix}index.html#how-it-works">How It Works</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}#how-it-works">How It Works</a></li>
                     <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works">How Credit Repair Works</a></li>
                     <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in">States We Fix Credit In</a></li>
                     <li class="nav-item">
