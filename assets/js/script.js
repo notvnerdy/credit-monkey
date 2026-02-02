@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (navList) {
         navList.innerHTML = `
                     <li class="nav-item"><a class="nav-link" href="${prefix}index.html#how-it-works">How It Works</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works.html">How Credit Repair Works</a></li>
-                    <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in.html">States We Fix Credit In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works">How Credit Repair Works</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in">States We Fix Credit In</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="http://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-box-arrow-in-right"></i> Login
@@ -77,18 +77,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h6 class="fw-bold mb-3">Services</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="${prefix}index.html#how-it-works" class="text-dark text-decoration-none">How It Works</a></li>
-                        <li class="mb-2"><a href="${prefix}services.html" class="text-dark text-decoration-none">Services</a></li>
-                        <li class="mb-2"><a href="${prefix}pricing.html" class="text-dark text-decoration-none">Pricing</a></li>
-                        <li class="mb-2"><a href="${prefix}build-personal-credit.html" class="text-dark text-decoration-none">Build Personal Credit</a></li>
-                        <li class="mb-2"><a href="${prefix}build-business-credit.html" class="text-dark text-decoration-none">Build Business Credit</a></li>
-                        <li class="mb-2"><a href="${prefix}how-credit-repair-works.html" class="text-dark text-decoration-none">How Credit Repair Works</a></li>
+                        <li class="mb-2"><a href="${prefix}services" class="text-dark text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="${prefix}pricing" class="text-dark text-decoration-none">Pricing</a></li>
+                        <li class="mb-2"><a href="${prefix}build-personal-credit" class="text-dark text-decoration-none">Build Personal Credit</a></li>
+                        <li class="mb-2"><a href="${prefix}build-business-credit" class="text-dark text-decoration-none">Build Business Credit</a></li>
+                        <li class="mb-2"><a href="${prefix}how-credit-repair-works" class="text-dark text-decoration-none">How Credit Repair Works</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2">
                     <h6 class="fw-bold mb-3">Company</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="${prefix}about-us.html" class="text-dark text-decoration-none">About Us</a></li>
-                        <li class="mb-2"><a href="${prefix}contact-us.html" class="text-dark text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="${prefix}about-us" class="text-dark text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="${prefix}contact-us" class="text-dark text-decoration-none">Contact Us</a></li>
                         <li class="mb-2"><a href="${prefix}index.html#reviews" class="text-dark text-decoration-none">Reviews</a></li>
                         <li class="mb-2"><a href="${prefix}index.html#faq" class="text-dark text-decoration-none">FAQ</a></li>
                     </ul>
@@ -96,10 +96,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="col-lg-2">
                     <h6 class="fw-bold mb-3">Legal</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="${prefix}privacy-policy.html" class="text-dark text-decoration-none">Privacy Policy</a></li>
-                        <li class="mb-2"><a href="${prefix}terms-of-use.html" class="text-dark text-decoration-none">Terms of Use</a></li>
+                        <li class="mb-2"><a href="${prefix}privacy-policy" class="text-dark text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="${prefix}terms-of-use" class="text-dark text-decoration-none">Terms of Use</a></li>
                         <li class="mb-2"><a href="#" class="text-dark text-decoration-none">Disclosures</a></li>
-                        <li class="mb-2"><a href="${prefix}late-payments.html" class="text-dark text-decoration-none">Late Payments</a></li>
+                        <li class="mb-2"><a href="${prefix}late-payments" class="text-dark text-decoration-none">Late Payments</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2">
