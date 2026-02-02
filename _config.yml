@@ -1,0 +1,25 @@
+# GitHub Pages Jekyll Configuration
+# This helps control caching behavior
+
+# Build settings
+markdown: kramdown
+permalink: /:categories/:year/:month/:day/:title:output_ext
+
+# Exclude these files from the build
+exclude:
+  - .gitignore
+  - README.md
+  - DEPLOYMENT.md
+  - "*.py"
+  - "*.bak"
+
+# Disable plugins for faster builds
+plugins: []
+
+# This tells GitHub Pages to use the repo as-is (minimal theme)
+theme: null
+
+# Cache settings for real-time updates
+# HTML files: no cache (10 minutes default from GitHub)
+# Assets (CSS, JS, images): short cache (1 hour recommended for updates)
+# Using meta tags in HTML headers for no-cache behavior
