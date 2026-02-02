@@ -42,6 +42,7 @@ jobs:
       
       - name: Deploy to staging
         run: |
+          echo "Deploying to: ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }}:${{ env.STAGING_PATH }}/"
           rsync -avz --delete \
             --exclude='.git' \
             --exclude='.gitignore' \
@@ -53,9 +54,11 @@ jobs:
             --exclude='node_modules' \
             -e "ssh -i ~/.ssh/github-actions -o StrictHostKeyChecking=no" \
             ./ ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }}:${{ env.STAGING_PATH }}/
+          echo "Deployment completed"
       
-      - name: Verify deployment
-        run: |
+      - naecho "Checking deployment path: ${{ env.STAGING_PATH }}"
+          ssh -i ~/.ssh/github-actions ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
+            "ls -la ${{ env.STAGING_PATH }} && echo '---' && echo 'File count:' && find ${{ env.STAGING_PATH }} -type f | wc -l && echo 'Deployment verified
           ssh -i ~/.ssh/github-actions ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
             "ls -la ${{ env.STAGING_PATH }} && echo 'Deployment successful'"
       
