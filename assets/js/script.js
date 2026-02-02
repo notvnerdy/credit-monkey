@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const navList = document.querySelector('.navbar .navbar-nav');
     if (navList) {
         navList.innerHTML = `
-                    <li class="nav-item"><a class="nav-link" href="${prefix}#how-it-works">How It Works</a></li>
                     <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works">How Credit Repair Works</a></li>
                     <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in">States We Fix Credit In</a></li>
                     <li class="nav-item">
@@ -80,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="col-lg-2">
                     <h6 class="fw-bold mb-3">Services</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="${prefix}#how-it-works" class="text-dark text-decoration-none">How It Works</a></li>
                         <li class="mb-2"><a href="${prefix}services" class="text-dark text-decoration-none">Services</a></li>
                         <li class="mb-2"><a href="${prefix}pricing" class="text-dark text-decoration-none">Pricing</a></li>
                         <li class="mb-2"><a href="${prefix}build-personal-credit" class="text-dark text-decoration-none">Build Personal Credit</a></li>
