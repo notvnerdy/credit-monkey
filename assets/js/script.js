@@ -5,13 +5,87 @@ document.addEventListener('DOMContentLoaded', function() {
     // Reduce animations on mobile devices
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
-    if (window.AOS) {
-        AOS.init({
-            duration: isMobile ? 400 : 800,
-            once: true,
-            offset: isMobile ? 50 : 100,
-            disable: false
-        });
+    // Initialize AOS with error handling
+    try {
+        if (window.AOS) {
+            AOS.init({
+                duration: isMobile ? 400 : 800,
+                once: true,
+                offset: isMobile ? 50 : 100,
+                disable: false
+            });
+        }
+    } catch (error) {
+        console.error('AOS initialization error:', error);
+    }
+    
+    // Cookie Consent Banner
+    function initCookieConsent() {
+        const cookieConsent = localStorage.getItem('cookieConsent');
+        
+        if (!cookieConsent) {
+            // Create cookie consent banner if it doesn't exist
+            let banner = document.getElementById('cookieConsent');
+            if (!banner) {
+                banner = document.createElement('div');
+                banner.id = 'cookieConsent';
+                banner.setAttribute('role', 'dialog');
+                banner.setAttribute('aria-label', 'Cookie Consent');
+                banner.setAttribute('aria-live', 'polite');
+                banner.innerHTML = `
+                    <div class="cookie-content">
+                        <p>
+                            <strong>🍪 We use cookies</strong><br>
+                            We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. 
+                            By clicking "Accept", you consent to our use of cookies. 
+                            <a href="/privacy-policy" target="_blank">Learn more</a>
+                        </p>
+                        <div class="cookie-buttons">
+                            <button class="btn-accept" aria-label="Accept cookies">Accept All</button>
+                            <button class="btn-decline" aria-label="Decline cookies">Decline</button>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(banner);
+            }
+            
+            // Show banner after a short delay
+            setTimeout(() => {
+                banner.classList.add('show');
+            }, 1000);
+            
+            // Handle accept button
+            banner.querySelector('.btn-accept').addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'accepted');
+                banner.classList.remove('show');
+                setTimeout(() => banner.remove(), 400);
+                // Initialize analytics here if accepted
+                initAnalytics();
+            });
+            
+            // Handle decline button
+            banner.querySelector('.btn-decline').addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'declined');
+                banner.classList.remove('show');
+                setTimeout(() => banner.remove(), 400);
+            });
+        } else if (cookieConsent === 'accepted') {
+            // Initialize analytics if previously accepted
+            initAnalytics();
+        }
+    }
+    
+    // Initialize analytics (placeholder for Google Analytics, etc.)
+    function initAnalytics() {
+        // Add Google Analytics or other tracking scripts here
+        console.log('Analytics initialized');
+    }
+    
+    // Initialize cookie consent
+    try {
+        initCookieConsent();
+    } catch (error) {
+        console.error('Cookie consent initialization error:', error);
     }
 
     // Global navigation and footer (single source for all pages)
@@ -244,18 +318,19 @@ document.addEventListener('DOMContentLoaded', function() {
         input.addEventListener('input', () => formatPhoneNumber(input));
     });
     
-    // Show message helper
+    // Show message helper with improved accessibility
     const showMessage = (elementId, message, type = 'success') => {
         const messageEl = document.getElementById(elementId);
         if (!messageEl) return;
         
         const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
         const icon = type === 'success' ? 'check-circle-fill' : 'exclamation-triangle-fill';
+        const role = type === 'success' ? 'status' : 'alert';
         
         messageEl.innerHTML = `
-            <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
-                <i class="bi bi-${icon} me-2"></i>${message}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <div class="alert ${alertClass} alert-dismissible fade show" role="${role}" aria-live="polite">
+                <i class="bi bi-${icon} me-2" aria-hidden="true"></i>${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close message"></button>
             </div>
         `;
         
@@ -263,8 +338,12 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             const alert = messageEl.querySelector('.alert');
             if (alert) {
-                const bsAlert = new bootstrap.Alert(alert);
-                bsAlert.close();
+                try {
+                    const bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                } catch (error) {
+                    console.error('Error closing alert:', error);
+                }
             }
         }, 10000);
     };
@@ -286,18 +365,55 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    // Send to external service (can be configured)
+    // Send to external service (configured for Formspree or custom backend)
     const submitToService = async (formData, formType) => {
-        // For demonstration, we'll log to console and save locally
-        // In production, you would send to your backend or service like Formspree
+        // Configuration for Formspree
+        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'; // Replace with your Formspree ID
         
-        // Simulate API call
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                saveFormData(formData, formType);
-                resolve({ success: true });
-            }, 500);
-        });
+        // Alternative: Use your own backend endpoint
+        // const BACKEND_ENDPOINT = 'https://api.creditmonkey.com/submit-form';
+        
+        try {
+            // Option 1: Formspree Integration (recommended for quick setup)
+            const response = await fetch(FORMSPREE_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    ...formData,
+                    formType: formType,
+                    timestamp: new Date().toISOString(),
+                    source: window.location.href
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const result = await response.json();
+            
+            // Also save locally as backup
+            saveFormData(formData, formType);
+            
+            return { success: true, data: result };
+            
+        } catch (error) {
+            console.error('Form submission error:', error);
+            
+            // Fallback: Save to localStorage if server fails
+            const saved = saveFormData(formData, formType);
+            
+            if (saved) {
+                // You could implement a retry mechanism here
+                console.log('Form data saved locally. Will retry when connection is restored.');
+            }
+            
+            // Re-throw error to be handled by caller
+            throw error;
+        }
     };
     
     // Main Consultation Form Handler
@@ -309,7 +425,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.innerHTML;
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+            submitBtn.setAttribute('aria-busy', 'true');
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Submitting...';
             
             const formData = {
                 firstName: document.getElementById('firstName').value,
@@ -338,7 +455,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             } catch (error) {
                 showMessage('formMessage', 
-                    'Sorry, there was an error submitting your request. Please try again or call us directly.',
+                    'Sorry, there was an error submitting your request. Please try again or call us at (650) 479-1555.',
                     'error'
                 );
             } finally {
