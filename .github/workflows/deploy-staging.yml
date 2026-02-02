@@ -25,9 +25,9 @@ jobs:
       - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/github
-          chmod 600 ~/.ssh/github
-          ssh-keyscan -H ${{ env.STAGING_HOST }} >> ~/.ssh/known_hosts
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/github-actions
+          chmod 600 ~/.ssh/github-actions
+          ssh-keyscan -H ${{ env.STAGING_HOST }} >> ~/.ssh/known_hosts 2>/dev/null
       
       - name: Validate HTML
         run: |
@@ -47,12 +47,12 @@ jobs:
             --exclude='.ssh-github.pub' \
             --exclude='*.bak' \
             --exclude='node_modules' \
-            -e "ssh -i ~/.ssh/github -o StrictHostKeyChecking=no" \
+            -e "ssh -i ~/.ssh/github-actions -o StrictHostKeyChecking=no" \
             ./ ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }}:${{ env.STAGING_PATH }}/
       
       - name: Verify deployment
         run: |
-          ssh -i ~/.ssh/github ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
+          ssh -i ~/.ssh/github-actions ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
             "ls -la ${{ env.STAGING_PATH }} && echo 'Deployment successful'"
       
       - name: Notify deployment
