@@ -2,11 +2,121 @@
 
 // Initialize AOS (Animate On Scroll)
 document.addEventListener('DOMContentLoaded', function() {
-    AOS.init({
-        duration: 800,
-        once: true,
-        offset: 100
-    });
+    if (window.AOS) {
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+    }
+
+    // Global navigation and footer (single source for all pages)
+    const isStatePage = window.location.pathname.includes('/states/');
+    const prefix = isStatePage ? '../' : '';
+
+    const navList = document.querySelector('.navbar .navbar-nav');
+    if (navList) {
+        navList.innerHTML = `
+                    <li class="nav-item"><a class="nav-link" href="${prefix}index.html#how-it-works">How It Works</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works.html">How Credit Repair Works</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in.html">States We Fix Credit In</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a href="https://calendly.com/creditmonkey/credit-repair-consultation" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary px-3">Free Consultation</a>
+                    </li>
+                    <li class="nav-item ms-lg-2">
+                        <a href="https://credit3278.getcredithelpnow.com/billingselection" class="btn btn-primary px-4" target="_blank" rel="noopener noreferrer">Get Started</a>
+                    </li>
+        `;
+    }
+
+    let footer = document.querySelector('footer');
+    if (!footer) {
+        footer = document.createElement('footer');
+        document.body.appendChild(footer);
+    }
+    footer.className = 'bg-light py-5 border-top';
+    footer.innerHTML = `
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="payment-methods">
+                        <div class="payment-header">
+                            <span class="payment-title">WE SUPPORT ALL MAJOR US PAYMENT METHODS</span>
+                        </div>
+                        <div class="footer-payments">
+                            <span class="payment-badge"><span class="payment-logo">V</span>Visa</span>
+                            <span class="payment-badge"><span class="payment-logo">MC</span>Mastercard</span>
+                            <span class="payment-badge"><span class="payment-logo">AX</span>American Express</span>
+                            <span class="payment-badge"><span class="payment-logo">DS</span>Discover</span>
+                            <span class="payment-badge"><span class="payment-logo">PP</span>PayPal</span>
+                            <span class="payment-badge"><span class="payment-logo">AP</span>Apple Pay</span>
+                            <span class="payment-badge"><span class="payment-logo">GP</span>Google Pay</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">About Credit Monkey</h5>
+                    <p class="text-secondary">Professional credit repair service helping individuals across all 50 states improve their credit health through accurate reporting, expert guidance, and transparent processes.</p>
+                    <h6 class="fw-bold mb-3 mt-4">Newsletter Signup</h6>
+                    <form id="newsletterForm" class="mb-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Enter your email" required id="newsletterEmail">
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                        <small class="text-secondary d-block mt-2">Get credit tips & exclusive offers</small>
+                    </form>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Services</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="${prefix}index.html#how-it-works" class="text-dark text-decoration-none">How It Works</a></li>
+                        <li class="mb-2"><a href="${prefix}services.html" class="text-dark text-decoration-none">Services</a></li>
+                        <li class="mb-2"><a href="${prefix}pricing.html" class="text-dark text-decoration-none">Pricing</a></li>
+                        <li class="mb-2"><a href="${prefix}build-personal-credit.html" class="text-dark text-decoration-none">Build Personal Credit</a></li>
+                        <li class="mb-2"><a href="${prefix}build-business-credit.html" class="text-dark text-decoration-none">Build Business Credit</a></li>
+                        <li class="mb-2"><a href="${prefix}how-credit-repair-works.html" class="text-dark text-decoration-none">How Credit Repair Works</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="${prefix}about-us.html" class="text-dark text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="${prefix}index.html#reviews" class="text-dark text-decoration-none">Reviews</a></li>
+                        <li class="mb-2"><a href="${prefix}index.html#faq" class="text-dark text-decoration-none">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Legal</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="${prefix}privacy-policy.html" class="text-dark text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="${prefix}terms-of-use.html" class="text-dark text-decoration-none">Terms of Use</a></li>
+                        <li class="mb-2"><a href="#" class="text-dark text-decoration-none">Disclosures</a></li>
+                        <li class="mb-2"><a href="${prefix}late-payments.html" class="text-dark text-decoration-none">Late Payments</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="http://secureclientaccess.com/" class="text-dark text-decoration-none" target="_blank" rel="noopener noreferrer">Client Login</a></li>
+                        <li class="mb-2"><a href="${prefix}index.html#contact" class="text-dark text-decoration-none">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 border-secondary opacity-25">
+            <div class="row">
+                <div class="col-12 text-center text-muted small">
+                    <p class="mb-0">Copyright © 2026 Credit Monkey, Inc. All rights reserved. FICO® is a registered trademark of Fair Isaac Corporation in the United States and other countries. Credit Monkey, Inc does not provide legal advice. Credit Monkey, Inc does not guarantee the permanent removal of verifiable tradelines. Credit Monkey, Inc requires active participation from its clientele regarding requested documents and information, including investigation results for the sought-after outcome of a healthy, accurate credit report. Individual results may vary.</p>
+                </div>
+            </div>
+        </div>
+        `;
     
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');
@@ -251,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (result.success) {
                     showMessage('quickFormMessage', 
-                        'Request submitted! We\\'ll contact you during your preferred time.',
+                        "Request submitted! We'll contact you during your preferred time.",
                         'success'
                     );
                     quickConsultForm.reset();

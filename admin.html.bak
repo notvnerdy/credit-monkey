@@ -381,6 +381,5 @@
         // Load data on page load
         loadData();
     </script>
-    <script src="assets/js/script.js"></script>
 </body>
 </html>
