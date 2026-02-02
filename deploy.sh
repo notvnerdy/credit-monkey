@@ -8,7 +8,7 @@ set -e
 # Configuration
 STAGING_HOST=${STAGING_HOST:-"108.179.232.14"}
 STAGING_USER=${STAGING_USER:-"dionros"}
-STAGING_PATH=${STAGING_PATH:-"/home4/dionros/stg.creditmonkey.com"}
+STAGING_PATH=${STAGING_PATH:-"public_html/stg.monkey"}
 SSH_KEY=${SSH_KEY:-"./.ssh-github"}
 
 # Colors for output
