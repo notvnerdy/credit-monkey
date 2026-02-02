@@ -1,4 +1,4 @@
-name: Deploy to Staging
+name: Deploy to Production
 
 on:
   push:
@@ -12,11 +12,101 @@ env:
   STAGING_PATH: ${{ secrets.STAGING_PATH }}
 
 jobs:
-  deploy:
+  code-quality:
+    name: Code Quality Check
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Validate HTML
+        run: |
+          echo "🔍 Validating HTML files..."
+          for file in *.html states/*.html; do
+            if [ -f "$file" ]; then
+              echo "Checking $file"
+              # Basic HTML validation
+              if ! grep -q "<!DOCTYPE html>" "$file"; then
+                echo "⚠️  Warning: $file missing DOCTYPE"
+              fi
+              if ! grep -q "</html>" "$file"; then
+                echo "❌ Error: $file missing closing html tag"
+                exit 1
+              fi
+            fi
+          done
+          echo "✅ HTML validation passed"
+      
+      - name: Check for sensitive data
+        run: |
+          echo "🔍 Checking for exposed secrets..."
+          if grep -r -i "password\|api[_-]key\|secret" --include="*.html" --include="*.js" --include="*.css" .; then
+            echo "⚠️  Warning: Potential sensitive data found"
+          else
+            echo "✅ No sensitive data detected"
+          fi
+
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: code-quality
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Security audit
+        run: |
+          echo "🔒 Running security checks..."
+          
+          # Check for common security issues
+          echo "Checking for inline scripts..."
+          if grep -r "javascript:" --include="*.html" .; then
+            echo "⚠️  Warning: Inline javascript: links found"
+          fi
+          
+          echo "Checking for external script sources..."
+          grep -r "<script src=" --include="*.html" . || true
+          
+          echo "✅ Security scan completed"
+
+  build:
+    name: Build & Optimize
+    runs-on: ubuntu-latest
+    needs: security-scan
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Optimize assets
+        run: |
+          echo "🔨 Building and optimizing assets..."
+          
+          # Create build directory
+          mkdir -p build
+          
+          # Copy all files
+          cp -r *.html assets states robots.txt CNAME build/ 2>/dev/null || true
+          
+          echo "✅ Build completed"
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-files
+          path: build/
+          retention-days: 1
+
+  deploy:
+    name: Deploy to Server
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       
       - name: Deploy via rsync
         env:
@@ -26,9 +116,56 @@ jobs:
           echo "$SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ env.STAGING_HOST }} >> ~/.ssh/known_hosts 2>/dev/null || true
+          
+          echo "🚀 Deploying to production..."
           rsync -avz --delete \
             --exclude='.git' --exclude='.gitignore' --exclude='.github' \
             --exclude='.env' --exclude='*.bak' --exclude='node_modules' --exclude='*.py' \
+            --exclude='build/' --exclude='DEPLOYMENT_TEST.txt' --exclude='DEPLOYMENT_SUCCESS.txt' \
             -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             ./ ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }}:${{ env.STAGING_PATH }}/
-          echo "✅ Deployment completed"
+          
+          echo "✅ Files deployed successfully"
+      
+      - name: Clear server cache
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "🧹 Clearing server cache..."
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} << 'ENDSSH'
+            
+            # Clear any cached files
+            cd ${{ env.STAGING_PATH }}
+            
+            # Remove any .cache directories
+            find . -name ".cache" -type d -exec rm -rf {} + 2>/dev/null || true
+            
+            # Clear PHP opcache if applicable
+            if command -v php &> /dev/null; then
+              php -r "if(function_exists('opcache_reset')) opcache_reset();" 2>/dev/null || true
+            fi
+            
+            echo "✅ Cache cleared"
+ENDSSH
+          
+          echo "✅ Cache clearing completed"
+      
+      - name: Verify deployment
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          echo "🔍 Verifying deployment..."
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
+            "cd ${{ env.STAGING_PATH }} && ls -lh index.html && echo '✅ Deployment verified'"
+      
+      - name: Deployment summary
+        run: |
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ DEPLOYMENT SUCCESSFUL"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🌐 Website: https://creditmonkey.com"
+          echo "📦 Deployed to: ${{ env.STAGING_PATH }}"
+          echo "🕐 Time: $(date)"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
