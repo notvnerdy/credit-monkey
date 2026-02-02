@@ -224,152 +224,179 @@ img {
     margin: 1rem 0;
 }
 
-/* How It Works cards - REDESIGNED */
-.how-timeline {
-    position: relative;
-    padding: 2rem 0;
-}
-
-.how-step-card {
+/* How It Works - BRAND NEW DESIGN */
+#how-it-works {
     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-    border: 2px solid #e2e8f0;
-    border-radius: 20px;
-    padding: 2.5rem 1.75rem;
-    text-align: center;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-    height: 100%;
+    padding: 6rem 0 !important;
     position: relative;
     overflow: hidden;
-    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.how-step-card::before {
+.how-works-bg {
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(20, 184, 166, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.how-works-bg::after {
+    content: "";
+    position: absolute;
+    bottom: -150px;
+    left: 100px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(15, 42, 79, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.how-works-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* How Works Card */
+.how-works-card {
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    height: 100%;
+    position: relative;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.how-works-card::before {
     content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 0;
-    background: linear-gradient(135deg, #14b8a6 0%, #0f2a4f 100%);
-    transition: height 0.35s ease;
-    z-index: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #14b8a6 0%, #0f2a4f 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.how-step-card:hover {
+.how-works-card:hover {
     transform: translateY(-12px) scale(1.02);
-    box-shadow: 0 20px 48px rgba(20, 184, 166, 0.2);
     border-color: #14b8a6;
+    box-shadow: 0 20px 50px rgba(20, 184, 166, 0.15);
 }
 
-.how-step-card:hover::before {
-    height: 6px;
+.how-works-card:hover::before {
+    transform: scaleX(1);
 }
 
-.how-step-card .step-badge {
-    position: relative;
-    z-index: 2;
-    margin-bottom: 1.5rem;
-    display: flex;
-    justify-content: center;
+.how-works-card .step-counter {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 3rem;
+    font-weight: 900;
+    color: #e2e8f0;
+    line-height: 1;
+    z-index: 0;
+    opacity: 0.6;
 }
 
-.how-step-card .step-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 56px;
-    height: 56px;
-    background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
-    color: #ffffff !important;
-    font-weight: 800;
-    font-size: 1.5rem;
-    border-radius: 50%;
-    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.3);
-    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
-    z-index: 3;
-}
-
-.how-step-card:hover .step-number {
-    transform: scale(1.2) rotateZ(10deg);
-    box-shadow: 0 12px 40px rgba(20, 184, 166, 0.4);
-}
-
-.how-step-card .step-icon {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin: 0 auto 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.how-works-card .card-header-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
     background: linear-gradient(135deg, rgba(20, 184, 166, 0.1) 0%, rgba(15, 42, 79, 0.05) 100%);
-    color: #14b8a6 !important;
-    font-size: 2.5rem;
-    border: 3px solid #14b8a6;
-    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
     transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
-.how-step-card:hover .step-icon {
-    transform: scale(1.15) rotateY(10deg);
-    box-shadow: 0 16px 48px rgba(20, 184, 166, 0.25);
-    background: linear-gradient(135deg, rgba(20, 184, 166, 0.15) 0%, rgba(15, 42, 79, 0.08) 100%);
+.how-works-card .card-header-icon i {
+    font-size: 2rem;
+    color: #14b8a6 !important;
 }
 
-.how-step-card h5 {
+.how-works-card:hover .card-header-icon {
+    transform: scale(1.15) rotate(-10deg);
+    background: linear-gradient(135deg, rgba(20, 184, 166, 0.2) 0%, rgba(15, 42, 79, 0.08) 100%);
+}
+
+.how-works-card h4 {
     color: #0f2a4f !important;
-    font-weight: 800 !important;
+    font-size: 1.25rem !important;
     margin-bottom: 1rem !important;
-    font-size: 1.2rem !important;
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
-.how-step-card p {
+.how-works-card p {
     color: #64748b !important;
-    line-height: 1.7 !important;
     font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1.5rem !important;
+    position: relative;
+    z-index: 1;
+    flex-grow: 1;
+}
+
+.how-works-card ul {
+    position: relative;
+    z-index: 1;
+}
+
+.how-works-card .list-unstyled li {
+    color: #64748b !important;
+}
+
+/* Results Banner */
+.results-banner {
+    background: linear-gradient(135deg, #0f2a4f 0%, #14b8a6 100%);
+    box-shadow: 0 20px 60px rgba(15, 42, 79, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.results-banner::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.result-stat {
     position: relative;
     z-index: 2;
 }
 
-/* Timeline connector line for desktop */
-@media (min-width: 992px) {
-    .timeline-connector {
-        position: absolute;
-        top: 50px;
-        left: 50%;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #14b8a6 0%, #0f2a4f 100%);
-        transform: translateX(-50%);
-        pointer-events: none;
-        z-index: 0;
-    }
+.result-stat .stat-number {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
 }
 
-/* Info box styling */
-.info-box {
-    background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%) !important;
-    box-shadow: 0 8px 24px rgba(20, 184, 166, 0.08);
-    border-color: #d0f2ee !important;
-    transition: all 0.3s ease;
-}
-
-.info-box:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(20, 184, 166, 0.15);
-}
-
-.info-box h6 {
-    color: #14b8a6 !important;
-}
-
-.text-success {
-    color: #14b8a6 !important;
+.result-stat p {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1rem !important;
+    font-weight: 500;
 }
 
 /* States grid */
@@ -842,29 +869,35 @@ html {
         font-size: 0.9rem;
     }
 
-    .how-step-card {
+    .how-works-card {
         padding: 1.75rem 1.25rem;
     }
 
-    .how-step-card .step-icon {
+    .how-works-card .card-header-icon {
         width: 70px;
         height: 70px;
-        font-size: 1.75rem;
         margin-bottom: 1rem;
     }
 
-    .how-step-card .step-number {
-        width: 48px;
-        height: 48px;
-        font-size: 1.25rem;
+    .how-works-card .card-header-icon i {
+        font-size: 1.75rem;
     }
 
-    .how-step-card h5 {
-        font-size: 1.05rem !important;
+    .how-works-card h4 {
+        font-size: 1.1rem !important;
     }
 
-    .timeline-connector {
-        display: none;
+    .how-works-card p {
+        font-size: 0.9rem !important;
+        margin-bottom: 1rem !important;
+    }
+
+    .result-stat .stat-number {
+        font-size: 2.5rem;
+    }
+
+    .results-banner {
+        padding: 3rem 1.5rem !important;
     }
 
     .pricing-card .card-body {
@@ -1045,31 +1078,44 @@ html {
     }
 
     /* How it works cards */
-    .how-step-card {
+    .how-works-card {
         padding: 1.5rem 1rem !important;
     }
 
-    .how-step-card .step-icon {
+    .how-works-card .card-header-icon {
         width: 60px;
         height: 60px;
+        margin-bottom: 0.75rem;
+    }
+
+    .how-works-card .card-header-icon i {
         font-size: 1.5rem;
-        margin-bottom: 0.75rem;
     }
 
-    .how-step-card .step-number {
-        width: 42px;
-        height: 42px;
-        font-size: 1.1rem;
-        margin-bottom: 0.75rem;
-    }
-
-    .how-step-card h5 {
+    .how-works-card h4 {
         font-size: 0.95rem !important;
-        margin-bottom: 0.5rem !important;
+        margin-bottom: 0.75rem !important;
     }
 
-    .how-step-card p {
+    .how-works-card p {
         font-size: 0.85rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+
+    .how-works-card ul {
+        margin-bottom: 0 !important;
+    }
+
+    .result-stat .stat-number {
+        font-size: 2rem;
+    }
+
+    .result-stat p {
+        font-size: 0.85rem !important;
+    }
+
+    .results-banner {
+        padding: 2rem 1rem !important;
     }
 
     .how-step-card .step-icon {
