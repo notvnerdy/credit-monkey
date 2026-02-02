@@ -129,6 +129,32 @@ section:nth-child(even) {
 .hero-image-wrapper img {
     max-width: 100%;
     height: auto;
+    display: block;
+    width: 100%;
+    object-fit: contain;
+}
+
+/* Image optimization for all devices */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Responsive images with proper aspect ratio */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Optimize images for mobile */
+@media (max-width: 768px) {
+    img {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+    height: auto;
     border-radius: 20px;
 }
 
@@ -194,21 +220,25 @@ section:nth-child(even) {
 }
 
 /* How It Works cards */
-.how-step-card { background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%); border: 2px solid #e2e8f0; border-radius: 24px; padding: 2.5rem 2rem; text-align: center; box-shadow: 0 4px 20px rgba(15, 42, 79, 0.08); height: 100%; position: relative; overflow: hidden; transition: all 0.3s ease; }
+.how-step-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 2rem; text-align: center; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05); height: 100%; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
 
-.how-step-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, #14b8a6, #0f2a4f); }
+.how-step-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 0; background: linear-gradient(135deg, #14b8a6 0%, #0f2a4f 100%); transition: height 0.3s ease; }
 
-.how-step-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(20, 184, 166, 0.2); border-color: #14b8a6; }
+.how-step-card:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(20, 184, 166, 0.15); border-color: #14b8a6; }
 
-.how-step-card .step-icon { width: 56px; height: 56px; border-radius: 14px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; background: transparent; color: #112D55 !important; font-size: 1.6rem; box-shadow: none; transition: all 0.3s ease; }
+.how-step-card:hover::before { height: 4px; }
 
-.how-step-card:hover .step-icon { transform: scale(1.1) rotate(5deg); }
+.how-step-card .step-icon { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #e0f2fe 0%, #f0fdfa 100%); color: #0f2a4f !important; font-size: 2rem; border: 2px solid #14b8a6; box-shadow: 0 8px 24px rgba(20, 184, 166, 0.1); transition: all 0.3s ease; }
 
-.how-step-card .step-number { display: inline-block; background: #f1f5f9; color: #112D55 !important; font-weight: 700; font-size: 0.75rem; padding: 0.5rem 1rem; border-radius: 999px; margin-bottom: 1rem; border: 1px solid #e2e8f0; box-shadow: none; letter-spacing: 0.5px; text-transform: uppercase; text-align: center; }
+.how-step-card:hover .step-icon { transform: scale(1.12) rotate(-8deg); box-shadow: 0 12px 36px rgba(20, 184, 166, 0.2); }
 
-.how-step-card h5 { color: #0f2a4f !important; font-weight: 700 !important; margin-bottom: 0.75rem !important; }
+.how-step-card .step-number { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%); color: #ffffff !important; font-weight: 700; font-size: 0.875rem; border-radius: 50%; margin: 0 auto 1rem; box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25); letter-spacing: 0.5px; text-transform: none; transition: all 0.3s ease; position: relative; z-index: 1; }
 
-.how-step-card p { color: #64748b !important; line-height: 1.6 !important; }
+.how-step-card:hover .step-number { transform: scale(1.15); }
+
+.how-step-card h5 { color: #0f2a4f !important; font-weight: 700 !important; margin-bottom: 0.875rem !important; font-size: 1.1rem !important; }
+
+.how-step-card p { color: #64748b !important; line-height: 1.6 !important; font-size: 0.95rem !important; }
 
 /* States grid */
 .state-grid {
@@ -681,7 +711,13 @@ html {
     }
 
     .how-step-card {
-        padding: 2rem 1.5rem;
+        padding: 1.75rem 1.25rem;
+    }
+
+    .how-step-card .step-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 1.75rem;
     }
 
     .pricing-card .card-body {
@@ -694,5 +730,365 @@ html {
 
     .footer-payments {
         justify-content: center;
+    }
+}
+
+/* Enhanced Mobile Responsiveness (Extra Small Devices) */
+@media (max-width: 480px) {
+    /* General improvements */
+    body {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        margin-top: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .display-3 {
+        font-size: 1.75rem !important;
+        line-height: 1.3;
+    }
+
+    .display-4 {
+        font-size: 1.5rem !important;
+    }
+
+    .display-5 {
+        font-size: 1.3rem !important;
+    }
+
+    /* Section padding for tiny screens */
+    section {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    .py-6 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    .container {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
+    }
+
+    /* Navbar improvements */
+    .navbar {
+        padding: 0.5rem 0 !important;
+    }
+
+    .navbar-brand img {
+        height: 35px !important;
+    }
+
+    .navbar-toggler {
+        padding: 0.15rem 0.5rem !important;
+    }
+
+    .navbar-toggler-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .nav-link {
+        padding: 0.5rem 0 !important;
+        font-size: 0.9rem;
+    }
+
+    /* Button improvements */
+    .btn {
+        min-height: 44px;
+        padding: 10px 16px !important;
+        font-size: 0.95rem;
+        border-radius: 8px;
+    }
+
+    .btn-lg {
+        padding: 12px 20px !important;
+        font-size: 1rem;
+        min-height: 48px;
+    }
+
+    .btn-primary:active,
+    .btn-outline-primary:active {
+        transform: scale(0.98);
+    }
+
+    /* Form improvements for mobile */
+    .form-control,
+    .form-select,
+    .form-control-lg,
+    .form-select-lg {
+        padding: 12px !important;
+        font-size: 16px !important;
+        min-height: 44px;
+        border-radius: 8px;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    textarea.form-control {
+        min-height: 100px;
+        resize: vertical;
+    }
+
+    .form-check-input {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        margin-top: 0.25rem;
+    }
+
+    .form-check-label {
+        cursor: pointer;
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+    }
+
+    /* Input groups */
+    .input-group .form-control {
+        font-size: 16px !important;
+    }
+
+    /* Card improvements */
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-body {
+        padding: 1.25rem !important;
+    }
+
+    /* Hero section */
+    .hero-section {
+        padding-top: 5rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    .hero-image-wrapper {
+        margin-top: 2rem;
+    }
+
+    /* Stats section */
+    .stat-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .stat-number {
+        font-size: 1.8rem !important;
+    }
+
+    .stat-icon {
+        font-size: 2rem;
+    }
+
+    /* Service cards */
+    .service-card {
+        margin-bottom: 1rem;
+    }
+
+    .service-icon {
+        font-size: 2rem;
+    }
+
+    /* How it works cards */
+    .how-step-card {
+        padding: 1.5rem 1rem !important;
+    }
+
+    .how-step-card .step-icon {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 1.5rem !important;
+        margin-bottom: 1rem;
+    }
+
+    .how-step-card .step-number {
+        width: 32px !important;
+        height: 32px !important;
+        font-size: 0.8rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .how-step-card h5 {
+        font-size: 1rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    .how-step-card p {
+        font-size: 0.85rem !important;
+        line-height: 1.4;
+    }
+
+    /* Pricing cards */
+    .pricing-card {
+        margin-bottom: 1.5rem;
+    }
+
+    .pricing-card .card-body {
+        padding: 1.5rem !important;
+    }
+
+    .pricing-card .display-4 {
+        font-size: 2rem !important;
+    }
+
+    /* Tabs and accordions */
+    .nav-tabs {
+        border-bottom: 2px solid #e2e8f0;
+        gap: 0.5rem;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 0.75rem 1rem !important;
+        font-size: 0.9rem;
+        border-radius: 8px 8px 0 0;
+    }
+
+    .accordion-button {
+        padding: 1rem !important;
+        font-size: 0.9rem;
+    }
+
+    .accordion-body {
+        padding: 1rem !important;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    /* Lists and links */
+    .list-unstyled li {
+        padding: 0.5rem 0;
+        font-size: 0.9rem;
+    }
+
+    a {
+        word-break: break-word;
+    }
+
+    /* Modal improvements */
+    .modal-content {
+        border-radius: 12px;
+    }
+
+    .modal-header {
+        padding: 1rem !important;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .modal-body {
+        padding: 1.5rem !important;
+        font-size: 0.9rem;
+    }
+
+    .modal-footer {
+        padding: 1rem !important;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    /* State chips grid */
+    .state-grid {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)) !important;
+        gap: 6px !important;
+    }
+
+    .state-chip {
+        padding: 6px 8px !important;
+        font-size: 0.8rem !important;
+        border-radius: 6px;
+    }
+
+    /* Footer */
+    footer {
+        font-size: 0.85rem;
+    }
+
+    footer h6 {
+        font-size: 0.95rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+
+    footer a {
+        padding: 0.25rem 0;
+    }
+
+    .footer-link-list a {
+        font-size: 0.85rem;
+    }
+
+    .payment-badge {
+        padding: 4px 8px !important;
+        font-size: 0.75rem !important;
+    }
+
+    /* Touch-friendly spacing */
+    .nav-item {
+        margin-bottom: 0.5rem;
+    }
+
+    /* Reduce animations on small screens */
+    @media (prefers-reduced-motion: reduce) {
+        * {
+            animation-duration: 0.01ms !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+/* Mobile landscape (480px - 640px) */
+@media (max-width: 640px) and (orientation: landscape) {
+    .hero-section {
+        padding-top: 3rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+
+    .display-3 {
+        font-size: 1.5rem !important;
+    }
+
+    .hero-image-wrapper {
+        margin-top: 1rem;
+    }
+
+    section {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+
+    .py-6 {
+        padding-top: 1.5rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+}
+
+/* Tablet adjustments (641px - 767px) */
+@media (min-width: 481px) and (max-width: 767px) {
+    .display-3 {
+        font-size: 2rem !important;
+    }
+
+    .how-step-card {
+        padding: 1.5rem !important;
+    }
+
+    .how-step-card .step-icon {
+        width: 65px !important;
+        height: 65px !important;
+        font-size: 1.6rem !important;
+    }
+
+    .form-control,
+    .form-select {
+        font-size: 16px !important;
+    }
+
+    .btn {
+        min-height: 44px;
     }
 }

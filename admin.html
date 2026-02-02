@@ -39,32 +39,32 @@
                     <h4 class="mb-4"><i class="bi bi-speedometer2 me-2"></i>Admin Panel</h4>
                     <ul class="nav flex-column">
                         <li class="nav-item mb-2">
-                            <a class="nav-link text-white active" href="#" onclick="showSection('dashboard')">
+                            <a class="nav-link text-white active" href="#" data-section="dashboard">
                                 <i class="bi bi-house-door me-2"></i>Dashboard
                             </a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a class="nav-link text-white" href="#" onclick="showSection('consultations')">
+                            <a class="nav-link text-white" href="#" data-section="consultations">
                                 <i class="bi bi-people me-2"></i>Consultations
                             </a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a class="nav-link text-white" href="#" onclick="showSection('quick-requests')">
+                            <a class="nav-link text-white" href="#" data-section="quick-requests">
                                 <i class="bi bi-lightning me-2"></i>Quick Requests
                             </a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a class="nav-link text-white" href="#" onclick="showSection('newsletter')">
+                            <a class="nav-link text-white" href="#" data-section="newsletter">
                                 <i class="bi bi-envelope me-2"></i>Newsletter
                             </a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a class="nav-link text-white" href="#" onclick="showSection('plans')">
+                            <a class="nav-link text-white" href="#" data-section="plans">
                                 <i class="bi bi-credit-card me-2"></i>Plan Selections
                             </a>
                         </li>
                         <li class="nav-item mb-2">
-                            <a class="nav-link text-white" href="#" onclick="exportData()">
+                            <a class="nav-link text-white" href="#" id="exportBtn">
                                 <i class="bi bi-download me-2"></i>Export Data
                             </a>
                         </li>
@@ -82,7 +82,7 @@
                     <!-- Header -->
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h2 class="fw-bold">Form Submissions Dashboard</h2>
-                        <button class="btn btn-primary" onclick="refreshData()">
+                        <button class="btn btn-primary" id="refreshBtn">
                             <i class="bi bi-arrow-clockwise me-2"></i>Refresh
                         </button>
                     </div>
@@ -357,7 +357,6 @@
         
         function refreshData() {
             loadData();
-            alert('Data refreshed successfully!');
         }
         
         function exportData() {
@@ -380,6 +379,24 @@
         
         // Load data on page load
         loadData();
+        
+        // Setup event listeners instead of inline onclick handlers
+        document.querySelectorAll('[data-section]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection(link.dataset.section);
+            });
+        });
+        
+        document.getElementById('refreshBtn')?.addEventListener('click', () => {
+            loadData();
+            alert('Data refreshed successfully!');
+        });
+        
+        document.getElementById('exportBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            exportData();
+        });
     </script>
     <script src="assets/js/script.js"></script>
 </body>

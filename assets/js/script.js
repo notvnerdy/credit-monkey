@@ -1,12 +1,16 @@
 // Credit Monkey - Fully Functional Website with Form Handling
 
-// Initialize AOS (Animate On Scroll)
+// Initialize AOS (Animate On Scroll) with mobile optimization
 document.addEventListener('DOMContentLoaded', function() {
+    // Reduce animations on mobile devices
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
     if (window.AOS) {
         AOS.init({
-            duration: 800,
+            duration: isMobile ? 400 : 800,
             once: true,
-            offset: 100
+            offset: isMobile ? 50 : 100,
+            disable: false
         });
     }
 
@@ -21,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works">How Credit Repair Works</a></li>
                     <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in">States We Fix Credit In</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
+                        <a class="nav-link" href="https://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-box-arrow-in-right"></i> Login
                         </a>
                     </li>
@@ -105,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="col-lg-2">
                     <h6 class="fw-bold mb-3">Support</h6>
                     <ul class="list-unstyled">
-                        <li class="mb-2"><a href="http://secureclientaccess.com/" class="text-dark text-decoration-none" target="_blank" rel="noopener noreferrer">Client Login</a></li>
+                        <li class="mb-2"><a href="https://secureclientaccess.com/" class="text-dark text-decoration-none" target="_blank" rel="noopener noreferrer">Client Login</a></li>
                         <li class="mb-2"><a href="/contact-us" class="text-dark text-decoration-none">Contact Us</a></li>
                     </ul>
                 </div>
@@ -280,7 +284,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitToService = async (formData, formType) => {
         // For demonstration, we'll log to console and save locally
         // In production, you would send to your backend or service like Formspree
-        console.log(`Form Submission - ${formType}:`, formData);
         
         // Simulate API call
         return new Promise((resolve) => {
@@ -464,5 +467,72 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             form.classList.add('was-validated');
         });
+    });
+
+    // Mobile touch optimizations
+    if (isMobile) {
+        // Improve tap response on buttons
+        document.addEventListener('touchstart', function(e) {
+            if (e.target.closest('button, a.btn, .nav-link')) {
+                e.target.closest('button, a.btn, .nav-link').style.opacity = '0.8';
+            }
+        }, true);
+
+        document.addEventListener('touchend', function(e) {
+            if (e.target.closest('button, a.btn, .nav-link')) {
+                e.target.closest('button, a.btn, .nav-link').style.opacity = '1';
+            }
+        }, true);
+
+        // Prevent hover states on touch devices for better performance
+        const styleTag = document.createElement('style');
+        styleTag.textContent = '@media (hover: none) { button:hover, a:hover { background-color: inherit; color: inherit; } }';
+        document.head.appendChild(styleTag);
+    }
+
+    // Smooth scroll behavior for anchors (mobile-friendly)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && document.querySelector(href)) {
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offsetTop = target.getBoundingClientRect().top + window.scrollY - 80;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+
+    // Auto-close mobile menu when link is clicked
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    
+    if (navbarToggler && navbarCollapse) {
+        document.querySelectorAll('.navbar-nav a:not(.btn)').forEach(link => {
+            link.addEventListener('click', () => {
+                const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                    toggle: false
+                });
+                bsCollapse.hide();
+            });
+        });
+    }
+
+    // Optimize form input keyboard appearance on mobile
+    document.querySelectorAll('input[type="tel"]').forEach(input => {
+        input.setAttribute('inputmode', 'tel');
+    });
+
+    document.querySelectorAll('input[type="email"]').forEach(input => {
+        input.setAttribute('inputmode', 'email');
+    });
+
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+        input.setAttribute('inputmode', 'numeric');
     });
 });
