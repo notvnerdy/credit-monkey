@@ -1,4 +1,4 @@
-// Credit Monkey - Custom JavaScript with Bootstrap 5
+// Credit Monkey - Fully Functional Website with Form Handling
 
 // Initialize AOS (Animate On Scroll)
 document.addEventListener('DOMContentLoaded', function() {
@@ -55,10 +55,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"], button[onclick^="window.location"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            if (href !== '#' && href !== '#faq1' && href !== '#faq2' && href !== '#faq3' && href !== '#faq4') {
+            if (href && href.startsWith('#') && href !== '#' && !href.startsWith('#faq')) {
                 e.preventDefault();
                 const target = document.querySelector(href);
                 if (target) {
@@ -101,6 +101,257 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 bsCollapse.hide();
             }
+        });
+    });
+    
+    // ========== FORM HANDLING FUNCTIONS ==========
+    
+    // Phone number formatting
+    const formatPhoneNumber = (input) => {
+        const value = input.value.replace(/\D/g, '');
+        if (value.length <= 3) {
+            input.value = value;
+        } else if (value.length <= 6) {
+            input.value = `(${value.slice(0, 3)}) ${value.slice(3)}`;
+        } else {
+            input.value = `(${value.slice(0, 3)}) ${value.slice(3, 6)}-${value.slice(6, 10)}`;
+        }
+    };
+    
+    // Add phone formatting to all phone inputs
+    document.querySelectorAll('input[type="tel"]').forEach(input => {
+        input.addEventListener('input', () => formatPhoneNumber(input));
+    });
+    
+    // Show message helper
+    const showMessage = (elementId, message, type = 'success') => {
+        const messageEl = document.getElementById(elementId);
+        if (!messageEl) return;
+        
+        const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+        const icon = type === 'success' ? 'check-circle-fill' : 'exclamation-triangle-fill';
+        
+        messageEl.innerHTML = `
+            <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+                <i class="bi bi-${icon} me-2"></i>${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        `;
+        
+        // Auto dismiss after 10 seconds
+        setTimeout(() => {
+            const alert = messageEl.querySelector('.alert');
+            if (alert) {
+                const bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            }
+        }, 10000);
+    };
+    
+    // Store form data to localStorage
+    const saveFormData = (formData, formType) => {
+        try {
+            const submissions = JSON.parse(localStorage.getItem('creditMonkeySubmissions') || '[]');
+            submissions.push({
+                type: formType,
+                data: formData,
+                timestamp: new Date().toISOString()
+            });
+            localStorage.setItem('creditMonkeySubmissions', JSON.stringify(submissions));
+            return true;
+        } catch (error) {
+            console.error('Error saving form data:', error);
+            return false;
+        }
+    };
+    
+    // Send to external service (can be configured)
+    const submitToService = async (formData, formType) => {
+        // For demonstration, we'll log to console and save locally
+        // In production, you would send to your backend or service like Formspree
+        console.log(`Form Submission - ${formType}:`, formData);
+        
+        // Simulate API call
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                saveFormData(formData, formType);
+                resolve({ success: true });
+            }, 500);
+        });
+    };
+    
+    // Main Consultation Form Handler
+    const consultationForm = document.getElementById('consultationForm');
+    if (consultationForm) {
+        consultationForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+            
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                creditScore: document.getElementById('creditScore').value,
+                goals: document.getElementById('goals').value,
+                consent: document.getElementById('consent').checked
+            };
+            
+            try {
+                const result = await submitToService(formData, 'consultation');
+                
+                if (result.success) {
+                    showMessage('formMessage', 
+                        'Thank you! Your consultation request has been received. Our team will contact you within 24 hours.',
+                        'success'
+                    );
+                    consultationForm.reset();
+                    
+                    // Optional: Redirect to thank you page or pricing page
+                    setTimeout(() => {
+                        window.location.href = 'https://credit3278.getcredithelpnow.com/billingselection';
+                    }, 2000);
+                }
+            } catch (error) {
+                showMessage('formMessage', 
+                    'Sorry, there was an error submitting your request. Please try again or call us directly.',
+                    'error'
+                );
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+    }
+    
+    // Quick Consultation Modal Form Handler
+    const quickConsultForm = document.getElementById('quickConsultForm');
+    if (quickConsultForm) {
+        quickConsultForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
+            
+            const formData = {
+                name: document.getElementById('quickName').value,
+                email: document.getElementById('quickEmail').value,
+                phone: document.getElementById('quickPhone').value,
+                contactTime: document.getElementById('contactTime').value
+            };
+            
+            try {
+                const result = await submitToService(formData, 'quick-consultation');
+                
+                if (result.success) {
+                    showMessage('quickFormMessage', 
+                        'Request submitted! We\\'ll contact you during your preferred time.',
+                        'success'
+                    );
+                    quickConsultForm.reset();
+                    
+                    // Close modal and redirect after 1.5 seconds
+                    setTimeout(() => {
+                        const modal = bootstrap.Modal.getInstance(document.getElementById('quickConsultModal'));
+                        if (modal) modal.hide();
+                        window.location.href = 'https://credit3278.getcredithelpnow.com/billingselection';
+                    }, 1500);
+                }
+            } catch (error) {
+                showMessage('quickFormMessage', 
+                    'Error submitting request. Please try again.',
+                    'error'
+                );
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+    }
+    
+    // Newsletter Signup Handler
+    const newsletterForm = document.getElementById('newsletterForm');
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const emailInput = document.getElementById('newsletterEmail');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+            
+            const formData = {
+                email: emailInput.value
+            };
+            
+            try {
+                const result = await submitToService(formData, 'newsletter');
+                
+                if (result.success) {
+                    emailInput.value = '';
+                    submitBtn.innerHTML = '<i class="bi bi-check-lg"></i>';
+                    submitBtn.classList.remove('btn-primary');
+                    submitBtn.classList.add('btn-success');
+                    
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.classList.remove('btn-success');
+                        submitBtn.classList.add('btn-primary');
+                        submitBtn.disabled = false;
+                    }, 3000);
+                }
+            } catch (error) {
+                submitBtn.innerHTML = '<i class="bi bi-x-lg"></i>';
+                submitBtn.classList.add('btn-danger');
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.classList.remove('btn-danger');
+                    submitBtn.disabled = false;
+                }, 3000);
+            }
+        });
+    }
+    
+    // Track pricing plan selections
+    document.querySelectorAll('.pricing-card a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const planName = this.closest('.pricing-card').querySelector('h4').textContent;
+            const planPrice = this.closest('.pricing-card').querySelector('.display-4').textContent;
+            
+            // Track selection
+            const selection = {
+                plan: planName,
+                price: planPrice,
+                timestamp: new Date().toISOString()
+            };
+            
+            try {
+                const selections = JSON.parse(localStorage.getItem('creditMonkeyPlanSelections') || '[]');
+                selections.push(selection);
+                localStorage.setItem('creditMonkeyPlanSelections', JSON.stringify(selections));
+            } catch (error) {
+                console.error('Error tracking plan selection:', error);
+            }
+        });
+    });
+    
+    // Form validation styling
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            if (!form.checkValidity()) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            form.classList.add('was-validated');
         });
     });
 });

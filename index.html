@@ -35,15 +35,15 @@
                     <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
                     <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                     <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="http://secureclientaccess.com/" target="_blank">
                             <i class="bi bi-box-arrow-in-right"></i> Login
                         </a>
                     </li>
                     <li class="nav-item ms-lg-2">
-                        <a class="btn btn-primary px-4" href="https://credit3278.getcredithelpnow.com/billingselection" target="_blank">Get Started</a>
+                        <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#quickConsultModal">Get Started</button>
                     </li>
                 </ul>
             </div>
@@ -79,9 +79,9 @@
                     </div>
                     
                     <div class="d-flex flex-wrap gap-3 mb-4">
-                        <a href="https://credit3278.getcredithelpnow.com/billingselection" class="btn btn-primary btn-lg px-5" target="_blank">
+                        <button class="btn btn-primary btn-lg px-5" data-bs-toggle="modal" data-bs-target="#quickConsultModal">
                             Get Started Now <i class="bi bi-arrow-right ms-2"></i>
-                        </a>
+                        </button>
                         <a href="#pricing" class="btn btn-outline-primary btn-lg px-4">View Pricing</a>
                     </div>
                     
@@ -533,13 +533,124 @@
                     <h2 class="display-4 fw-bold mb-4">Ready to Take Control of Your Credit?</h2>
                     <p class="lead mb-5">Choose your plan and start your credit repair journey today. 90-day money-back guarantee included.</p>
                     <div class="d-flex flex-wrap gap-3 justify-content-center">
-                        <a href="https://credit3278.getcredithelpnow.com/billingselection" class="btn btn-light btn-lg px-5" target="_blank">Get Started Now</a>
+                        <button class="btn btn-light btn-lg px-5" data-bs-toggle="modal" data-bs-target="#quickConsultModal">Get Started Now</button>
                         <a href="#pricing" class="btn btn-outline-light btn-lg px-4">View All Plans</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-6 bg-light">
+        <div class="container">
+            <div class="row mb-5" data-aos="fade-up">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="display-5 fw-bold mb-3">Get Your Free Consultation</h2>
+                    <p class="lead text-muted">Fill out the form below and our credit experts will contact you within 24 hours</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card border-0 shadow-lg" data-aos="fade-up">
+                        <div class="card-body p-5">
+                            <form id="consultationForm">
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">First Name *</label>
+                                        <input type="text" class="form-control form-control-lg" required id="firstName" name="firstName">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Last Name *</label>
+                                        <input type="text" class="form-control form-control-lg" required id="lastName" name="lastName">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Email *</label>
+                                        <input type="email" class="form-control form-control-lg" required id="email" name="email">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-semibold">Phone *</label>
+                                        <input type="tel" class="form-control form-control-lg" required id="phone" name="phone" placeholder="(555) 555-5555">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label fw-semibold">Current Credit Score Range</label>
+                                        <select class="form-select form-select-lg" id="creditScore" name="creditScore">
+                                            <option value="">Select range...</option>
+                                            <option value="300-579">300-579 (Poor)</option>
+                                            <option value="580-669">580-669 (Fair)</option>
+                                            <option value="670-739">670-739 (Good)</option>
+                                            <option value="740-799">740-799 (Very Good)</option>
+                                            <option value="800-850">800-850 (Excellent)</option>
+                                            <option value="unknown">I don't know</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label fw-semibold">What are your credit goals?</label>
+                                        <textarea class="form-control" rows="4" id="goals" name="goals" placeholder="e.g., Buy a home, Finance a car, Lower interest rates..."></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="consent" required>
+                                            <label class="form-check-label" for="consent">
+                                                I agree to receive communications from Credit Monkey and understand that I can unsubscribe at any time.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                                            <i class="bi bi-send me-2"></i> Request Free Consultation
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div id="formMessage" class="mt-4"></div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="text-muted"><i class="bi bi-shield-check text-success me-2"></i>Your information is secure and will never be shared</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Consultation Modal -->
+    <div class="modal fade" id="quickConsultModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Quick Consultation Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <form id="quickConsultForm">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Name *</label>
+                            <input type="text" class="form-control" required id="quickName" name="name">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Email *</label>
+                            <input type="email" class="form-control" required id="quickEmail" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Phone *</label>
+                            <input type="tel" class="form-control" required id="quickPhone" name="phone">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Preferred Contact Time</label>
+                            <select class="form-select" id="contactTime" name="contactTime">
+                                <option value="morning">Morning (9am-12pm)</option>
+                                <option value="afternoon">Afternoon (12pm-5pm)</option>
+                                <option value="evening">Evening (5pm-8pm)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Submit Request</button>
+                    </form>
+                    <div id="quickFormMessage" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="bg-dark text-light py-5">
@@ -548,6 +659,14 @@
                 <div class="col-lg-4">
                     <h5 class="fw-bold mb-3">About Credit Monkey</h5>
                     <p class="text-muted">Professional credit repair service helping individuals across all 50 states improve their credit health through accurate reporting, expert guidance, and transparent processes.</p>
+                    <h6 class="fw-bold mb-3 mt-4">Newsletter Signup</h6>
+                    <form id="newsletterForm" class="mb-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Enter your email" required id="newsletterEmail">
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                        <small class="text-muted d-block mt-2">Get credit tips & exclusive offers</small>
+                    </form>
                 </div>
                 <div class="col-lg-2">
                     <h6 class="fw-bold mb-3">Services</h6>
@@ -577,7 +696,7 @@
                     <h6 class="fw-bold mb-3">Support</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="http://secureclientaccess.com/" class="text-muted text-decoration-none" target="_blank">Client Login</a></li>
-                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="#contact" class="text-muted text-decoration-none">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
