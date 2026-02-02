@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="${prefix}privacy-policy" class="text-dark text-decoration-none">Privacy Policy</a></li>
                         <li class="mb-2"><a href="${prefix}terms-of-use" class="text-dark text-decoration-none">Terms of Use</a></li>
-                        <li class="mb-2"><a href="#" class="text-dark text-decoration-none">Disclosures</a></li>
+                        <li class="mb-2"><a href="${prefix}disclosures" class="text-dark text-decoration-none">Disclosures</a></li>
                         <li class="mb-2"><a href="${prefix}late-payments" class="text-dark text-decoration-none">Late Payments</a></li>
                     </ul>
                 </div>
