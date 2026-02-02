@@ -133,21 +133,8 @@ jobs:
         run: |
           echo "🧹 Clearing server cache..."
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
-            ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} << 'ENDSSH'
-            
-            # Clear any cached files
-            cd ${{ env.STAGING_PATH }}
-            
-            # Remove any .cache directories
-            find . -name ".cache" -type d -exec rm -rf {} + 2>/dev/null || true
-            
-            # Clear PHP opcache if applicable
-            if command -v php &> /dev/null; then
-              php -r "if(function_exists('opcache_reset')) opcache_reset();" 2>/dev/null || true
-            fi
-            
-            echo "✅ Cache cleared"
-ENDSSH
+            ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
+            "cd ${{ env.STAGING_PATH }} && find . -name '.cache' -type d -exec rm -rf {} + 2>/dev/null || true && echo '✅ Cache cleared'"
           
           echo "✅ Cache clearing completed"
       
