@@ -8,8 +8,8 @@ set -e
 # Configuration
 STAGING_HOST=${STAGING_HOST:-"108.179.232.14"}
 STAGING_USER=${STAGING_USER:-"dionros"}
-STAGING_PATH=${STAGING_PATH:-"public_html"}
-SSH_KEY=${SSH_KEY:-"./.ssh-github"}
+STAGING_PATH=${STAGING_PATH:-"/home4/dionros/public_html"}
+SSH_KEY=${SSH_KEY:-"./.ssh-key"}
 
 # Colors for output
 RED='\033[0;31m'
