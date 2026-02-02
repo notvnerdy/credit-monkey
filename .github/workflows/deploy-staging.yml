@@ -47,12 +47,12 @@ jobs:
             --exclude='.ssh-github.pub' \
             --exclude='*.bak' \
             --exclude='node_modules' \
-            -e "ssh -i ~/.ssh/github" \
+            -e "ssh -i ~/.ssh/github -o StrictHostKeyChecking=no" \
             ./ ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }}:${{ env.STAGING_PATH }}/
       
       - name: Verify deployment
-        run: |github
-          ssh -i ~/.ssh/id_rsa ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
+        run: |
+          ssh -i ~/.ssh/github ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
             "ls -la ${{ env.STAGING_PATH }} && echo 'Deployment successful'"
       
       - name: Notify deployment
