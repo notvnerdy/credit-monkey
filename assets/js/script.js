@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <h6 class="fw-bold mb-3">Company</h6>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="${prefix}about-us.html" class="text-dark text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="${prefix}contact-us.html" class="text-dark text-decoration-none">Contact Us</a></li>
                         <li class="mb-2"><a href="${prefix}index.html#reviews" class="text-dark text-decoration-none">Reviews</a></li>
                         <li class="mb-2"><a href="${prefix}index.html#faq" class="text-dark text-decoration-none">FAQ</a></li>
                     </ul>
