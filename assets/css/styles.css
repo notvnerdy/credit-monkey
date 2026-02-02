@@ -175,16 +175,16 @@ section:nth-child(even) {
 }
 
 .stat-icon {
-    width: 80px;
-    height: 80px;
-    background: #ffffff;
-    border: 2px solid #e2e8f0;
+    width: 56px;
+    height: 56px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--primary-color) !important;
-    font-size: 2rem;
+    color: #94a3b8 !important;
+    font-size: 1.25rem;
 }
 
 .stat-number {
@@ -200,7 +200,7 @@ section:nth-child(even) {
 
 .how-step-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(20, 184, 166, 0.2); border-color: #14b8a6; }
 
-.how-step-card .step-icon { width: 80px; height: 80px; border-radius: 20px; margin: 0 auto 1.25rem; display: flex; align-items: center; justify-content: center; background: #112D55; color: #ffffff !important; font-size: 2rem; box-shadow: 0 10px 25px rgba(17, 45, 85, 0.3); transition: all 0.3s ease; }
+.how-step-card .step-icon { width: 56px; height: 56px; border-radius: 14px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #94a3b8 !important; font-size: 1.25rem; box-shadow: 0 6px 16px rgba(15, 42, 79, 0.08); transition: all 0.3s ease; }
 
 .how-step-card:hover .step-icon { transform: scale(1.1) rotate(5deg); }
 
@@ -250,15 +250,15 @@ section:nth-child(even) {
 }
 
 .service-icon {
-    width: 70px;
-    height: 70px;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    width: 56px;
+    height: 56px;
+    background: #f1f5f9;
     border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
-    color: var(--primary-color);
+    font-size: 1.25rem;
+    color: #94a3b8;
 }
 
 /* Step Numbers */
