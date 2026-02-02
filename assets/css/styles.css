@@ -65,6 +65,126 @@ p, span, div, li {
     margin-top: 4rem !important;
 }
 
+/* Pricing Section */
+.pricing-section {
+    padding: 6rem 0;
+    background: #ffffff;
+    overflow: visible !important;
+}
+
+.pricing-header {
+    margin-bottom: 4rem;
+}
+
+.pricing-cards-wrapper {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    overflow: visible;
+}
+
+.pricing-card {
+    flex: 0 1 320px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    overflow: visible;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pricing-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-card-featured {
+    border: 2px solid #0d6efd;
+    box-shadow: 0 8px 24px rgba(13, 110, 253, 0.15);
+}
+
+.pricing-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0d6efd;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    z-index: 10;
+}
+
+.pricing-card-inner {
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.price-display {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.price-amount {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0d6efd;
+}
+
+.price-period {
+    color: #6b7280;
+    font-size: 1rem;
+}
+
+.plan-description {
+    color: #6b7280;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+}
+
+.pricing-guarantee {
+    margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+    .pricing-section {
+        padding: 3rem 0;
+    }
+
+    .pricing-cards-wrapper {
+        gap: 1.5rem;
+    }
+
+    .pricing-card {
+        flex: 0 1 100%;
+    }
+
+    .pricing-card-featured {
+        margin-top: 1rem;
+    }
+
+    .pricing-badge {
+        top: -16px;
+    }
+
+    .pricing-card-inner {
+        padding: 2rem 1.5rem;
+    }
+
+    .price-amount {
+        font-size: 2rem;
+    }
+}
+
 /* Section styling */
 section {
     background: #ffffff !important;
