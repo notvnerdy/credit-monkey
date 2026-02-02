@@ -510,12 +510,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Auto-close mobile menu when link is clicked
     const navbarToggler = document.querySelector('.navbar-toggler');
-    const navbarCollapse = document.querySelector('.navbar-collapse');
+    let navbarCollapseElement = document.querySelector('.navbar-collapse');
     
-    if (navbarToggler && navbarCollapse) {
+    if (navbarToggler && navbarCollapseElement) {
         document.querySelectorAll('.navbar-nav a:not(.btn)').forEach(link => {
             link.addEventListener('click', () => {
-                const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                const bsCollapse = new bootstrap.Collapse(navbarCollapseElement, {
                     toggle: false
                 });
                 bsCollapse.hide();
