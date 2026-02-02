@@ -135,6 +135,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Animated counters for stats
     const animateCounter = (element, target, duration = 2000) => {
+        if (isNaN(target) || target === null) {
+            return; // Skip animation if no valid target
+        }
         let current = 0;
         const increment = target / (duration / 16);
         const timer = setInterval(() => {
@@ -156,8 +159,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const observerCallback = (entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
-                const target = parseInt(entry.target.dataset.target);
-                animateCounter(entry.target, target);
+                const targetValue = entry.target.dataset.target;
+                if (targetValue) {
+                    const target = parseInt(targetValue);
+                    if (!isNaN(target)) {
+                        animateCounter(entry.target, target);
+                    }
+                }
                 entry.target.classList.add('counted');
             }
         });
