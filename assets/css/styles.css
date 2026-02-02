@@ -200,7 +200,7 @@ section:nth-child(even) {
 
 .how-step-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(20, 184, 166, 0.2); border-color: #14b8a6; }
 
-.how-step-card .step-icon { width: 56px; height: 56px; border-radius: 14px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; background: #f1f5f9; color: #94a3b8 !important; font-size: 1.25rem; box-shadow: 0 6px 16px rgba(15, 42, 79, 0.08); transition: all 0.3s ease; }
+.how-step-card .step-icon { width: 56px; height: 56px; border-radius: 14px; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; background: transparent; color: #94a3b8 !important; font-size: 1.6rem; box-shadow: none; transition: all 0.3s ease; }
 
 .how-step-card:hover .step-icon { transform: scale(1.1) rotate(5deg); }
 
