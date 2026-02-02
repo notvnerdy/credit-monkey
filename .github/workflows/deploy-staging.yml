@@ -56,11 +56,11 @@ jobs:
             ./ ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }}:${{ env.STAGING_PATH }}/
           echo "Deployment completed"
       
-      - naecho "Checking deployment path: ${{ env.STAGING_PATH }}"
+      - name: Verify deployment
+        run: |
+          echo "Checking deployment path: ${{ env.STAGING_PATH }}"
           ssh -i ~/.ssh/github-actions ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
-            "ls -la ${{ env.STAGING_PATH }} && echo '---' && echo 'File count:' && find ${{ env.STAGING_PATH }} -type f | wc -l && echo 'Deployment verified
-          ssh -i ~/.ssh/github-actions ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
-            "ls -la ${{ env.STAGING_PATH }} && echo 'Deployment successful'"
+            "ls -la ${{ env.STAGING_PATH }} && echo '---' && echo 'File count:' && find ${{ env.STAGING_PATH }} -type f | wc -l && echo 'Deployment verified'"
       
       - name: Notify deployment
         if: success()
