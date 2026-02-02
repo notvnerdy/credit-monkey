@@ -69,5 +69,5 @@ ssh -i "$SSH_KEY" "$STAGING_USER@$STAGING_HOST" "ls -la '$STAGING_PATH' | head -
 
 echo ""
 echo -e "${GREEN}✓ Deployment complete!${NC}"
-echo "Website available at: https://stg.creditvana.com"
+echo "Website available at: https://stg.creditmonkey.com"
 echo ""

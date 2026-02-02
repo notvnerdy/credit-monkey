@@ -65,7 +65,7 @@ jobs:
       - name: Notify deployment
         if: success()
         run: |
-          echo "✅ Successfully deployed to staging: stg.creditvana.com"
+          echo "✅ Successfully deployed to staging: stg.creditmonkey.com"
       
       - name: Notify failure
         if: failure()

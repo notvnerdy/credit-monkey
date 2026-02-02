@@ -119,7 +119,7 @@ chmod 600 ./.ssh-github
 
 ### Staging Server
 - **Host**: 108.179.232.14
-- **URL**: stg.creditvana.com
+- **URL**: stg.creditmonkey.com
 - **User**: dionros
 # Option 1: Using local copy of key
 ssh -i .ssh-github dionros@108.179.232.14
