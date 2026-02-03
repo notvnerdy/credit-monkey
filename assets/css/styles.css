@@ -520,9 +520,7 @@ section:nth-child(even) {
 }
 
 .mega-menu.states-mega {
-    max-height: 72vh;
-    overflow-y: auto;
-    padding-right: 12px;
+    padding-right: 0;
 }
 
 .mega-menu.states-mega .mega-inner {
@@ -548,7 +546,8 @@ section:nth-child(even) {
 
 .states-panel {
     display: none;
-    column-count: 1;
+    column-count: 2;
+    column-gap: 24px;
 }
 
 .states-panel .dropdown-item {
