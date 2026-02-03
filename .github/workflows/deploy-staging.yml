@@ -72,6 +72,7 @@ jobs:
           echo "🔨 Building and optimizing assets..."
           mkdir -p build
           cp -r *.html assets states robots.txt CNAME build/ 2>/dev/null || true
+          cp -r backend build/ 2>/dev/null || true
           echo "✅ Build completed"
 
       - name: Upload build artifacts
@@ -104,10 +105,26 @@ jobs:
         run: |
           echo "🚀 Deploying to staging..."
           rsync -avz \
-            --exclude='.git' --exclude='.github' --exclude='.env' --exclude='*.bak' --exclude='node_modules' \
+            --exclude='.git' --exclude='.github' --exclude='backend/.env' --exclude='*.bak' --exclude='node_modules' --exclude='vendor' --exclude='backend/storage/logs/*' --exclude='backend/database/database.sqlite' \
             -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
             build/ ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }}:${{ env.STAGING_PATH }}/
           echo "✅ Files deployed successfully"
+
+      - name: Setup backend environment
+        run: |
+          echo "⚙️ Setting up backend environment..."
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} << 'EOF'
+            cd ${{ env.STAGING_PATH }}/backend
+            # Copy production env if .env doesn't exist
+            [ ! -f .env ] && cp .env.production .env || echo ".env already exists"
+            # Install composer dependencies
+            composer install --no-dev --optimize-autoloader 2>/dev/null || echo "Composer not available, skipping"
+            # Set permissions
+            chmod -R 755 storage bootstrap/cache
+            chmod -R 777 storage/logs storage/framework
+            echo "✅ Backend environment configured"
+          EOF
 
       - name: Clear server cache
         run: |
@@ -115,6 +132,13 @@ jobs:
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
             ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
             "cd ${{ env.STAGING_PATH }} && find . -name '.cache' -type d -exec rm -rf {} + 2>/dev/null || true && echo '✅ Cache cleared'"
+
+      - name: Run Laravel migrations
+        run: |
+          echo "🗄️ Running Laravel migrations..."
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ env.STAGING_USER }}@${{ env.STAGING_HOST }} \
+            "cd ${{ env.STAGING_PATH }}/backend && php artisan migrate --force"
 
       - name: Verify deployment
         run: |

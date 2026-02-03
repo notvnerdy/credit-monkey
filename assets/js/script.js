@@ -933,32 +933,59 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    // Send to external service (configured for Formspree or custom backend)
+    // Get UTM parameters from URL for tracking
+    const getUTMParams = () => {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            utm_source: params.get('utm_source') || null,
+            utm_medium: params.get('utm_medium') || null,
+            utm_campaign: params.get('utm_campaign') || null,
+            utm_term: params.get('utm_term') || null,
+            utm_content: params.get('utm_content') || null
+        };
+    };
+    
+    // Send to backend API
     const submitToService = async (formData, formType) => {
-        // Configuration for Formspree
-        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID'; // Replace with your Formspree ID
+        // Backend API endpoint
+        // For local testing: http://localhost:8000/api/leads
+        // For production: /backend/public/api/leads (same domain)
+        const API_ENDPOINT = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:8000/api/leads'
+            : '/backend/public/api/leads';
         
-        // Alternative: Use your own backend endpoint
-        // const BACKEND_ENDPOINT = 'https://api.creditmonkey.com/submit-form';
+        // Get current state from URL if available
+        const pathParts = window.location.pathname.split('/');
+        const statesIndex = pathParts.indexOf('states');
+        const currentState = statesIndex !== -1 && pathParts[statesIndex + 1] 
+            ? pathParts[statesIndex + 1].replace('.html', '').replace(/-/g, ' ')
+            : null;
         
         try {
-            // Option 1: Formspree Integration (recommended for quick setup)
-            const response = await fetch(FORMSPREE_ENDPOINT, {
+            // Prepare lead data for backend
+            const leadData = {
+                name: formData.firstName 
+                    ? `${formData.firstName} ${formData.lastName || ''}`
+                    : formData.name || '',
+                email: formData.email || '',
+                phone: formData.phone || '',
+                state: currentState || formData.state || null,
+                message: formData.message || formData.goals || formData.subject || `${formType} form submission`,
+                ...getUTMParams()
+            };
+            
+            const response = await fetch(API_ENDPOINT, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({
-                    ...formData,
-                    formType: formType,
-                    timestamp: new Date().toISOString(),
-                    source: window.location.href
-                })
+                body: JSON.stringify(leadData)
             });
             
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
             }
             
             const result = await response.json();
@@ -975,7 +1002,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const saved = saveFormData(formData, formType);
             
             if (saved) {
-                // You could implement a retry mechanism here
                 console.log('Form data saved locally. Will retry when connection is restored.');
             }
             
@@ -1121,6 +1147,51 @@ document.addEventListener('DOMContentLoaded', function() {
                     submitBtn.classList.remove('btn-danger');
                     submitBtn.disabled = false;
                 }, 3000);
+            }
+        });
+    }
+    
+    // Contact Form Handler
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.setAttribute('aria-busy', 'true');
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Sending...';
+            
+            const formData = {
+                firstName: document.getElementById('contactFirstName').value,
+                lastName: document.getElementById('contactLastName').value,
+                email: document.getElementById('contactEmail').value,
+                phone: document.getElementById('contactPhone').value,
+                subject: document.getElementById('contactSubject').value,
+                message: document.getElementById('contactMessage').value,
+                consent: document.getElementById('contactConsent').checked
+            };
+            
+            try {
+                const result = await submitToService(formData, 'contact');
+                
+                if (result.success) {
+                    showMessage('contactFormMessage', 
+                        'Thank you for contacting us! We\'ve received your message and will respond within 24 hours.',
+                        'success'
+                    );
+                    contactForm.reset();
+                }
+            } catch (error) {
+                showMessage('contactFormMessage', 
+                    'Sorry, there was an error sending your message. Please try calling us at (877) 701-7307 or email info@creditmonkey.com.',
+                    'error'
+                );
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.removeAttribute('aria-busy');
+                submitBtn.innerHTML = originalText;
             }
         });
     }
