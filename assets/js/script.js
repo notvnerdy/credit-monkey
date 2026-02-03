@@ -449,14 +449,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // States mega menu region switching (desktop)
-    document.addEventListener('click', function(event) {
-        const regionLink = event.target.closest('.states-region');
-        if (!regionLink) {
-            return;
-        }
-
-        event.preventDefault();
-
+    const activateStatesRegion = (regionLink) => {
         const region = regionLink.getAttribute('data-region');
         const container = regionLink.closest('.states-mega');
         if (!region || !container) {
@@ -473,6 +466,29 @@ document.addEventListener('DOMContentLoaded', function() {
         if (activePanel) {
             activePanel.classList.add('active');
         }
+    };
+
+    document.addEventListener('mouseover', function(event) {
+        if (!window.matchMedia('(min-width: 992px)').matches) {
+            return;
+        }
+
+        const regionLink = event.target.closest('.states-region');
+        if (!regionLink) {
+            return;
+        }
+
+        activateStatesRegion(regionLink);
+    });
+
+    document.addEventListener('click', function(event) {
+        const regionLink = event.target.closest('.states-region');
+        if (!regionLink) {
+            return;
+        }
+
+        event.preventDefault();
+        activateStatesRegion(regionLink);
     });
 
     // Global navigation and footer (single source for all pages)

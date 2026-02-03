@@ -526,7 +526,7 @@ section:nth-child(even) {
 }
 
 .mega-menu.states-mega .mega-inner {
-    grid-template-columns: 0.9fr 1.6fr 1.1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) 1.1fr;
 }
 
 .mega-menu.states-mega .mega-column .dropdown-item {
@@ -548,8 +548,7 @@ section:nth-child(even) {
 
 .states-panel {
     display: none;
-    column-count: 2;
-    column-gap: 24px;
+    column-count: 1;
 }
 
 .states-panel .dropdown-item {
@@ -558,12 +557,6 @@ section:nth-child(even) {
 
 .states-panel.active {
     display: block;
-}
-
-@media (max-width: 1199px) {
-    .states-panel {
-        column-count: 1;
-    }
 }
 
 .mega-title {
