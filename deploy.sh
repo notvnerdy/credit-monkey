@@ -64,6 +64,11 @@ else
 fi
 
 echo ""
+echo -e "${YELLOW}Clearing server cache...${NC}"
+ssh -i "$SSH_KEY" "$STAGING_USER@$STAGING_HOST" "rm -rf '$STAGING_PATH/.cache' '$STAGING_PATH/cache' '$STAGING_PATH/tmp/cache' 2>/dev/null || true"
+echo -e "${GREEN}✓ Cache cleared${NC}"
+
+echo ""
 echo -e "${YELLOW}Verifying deployment...${NC}"
 ssh -i "$SSH_KEY" "$STAGING_USER@$STAGING_HOST" "ls -la '$STAGING_PATH' | head -20"
 

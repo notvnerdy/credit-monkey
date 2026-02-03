@@ -270,6 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => banner.remove(), 400);
                 // Initialize analytics here if accepted
                 initAnalytics();
+                initIntercom();
             });
             
             // Handle decline button
@@ -281,6 +282,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (cookieConsent === 'accepted') {
             // Initialize analytics if previously accepted
             initAnalytics();
+            initIntercom();
         }
     }
     
@@ -289,12 +291,169 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add Google Analytics or other tracking scripts here
         console.log('Analytics initialized');
     }
+
+    // Initialize Intercom chat (loads after cookie consent acceptance)
+    function initIntercom() {
+        if (window.__intercomInitialized) {
+            return;
+        }
+
+        const intercomSettings = {
+            api_base: 'https://api-iam.intercom.io',
+            app_id: 'rp6qow0g'
+        };
+
+        const bodyData = document.body ? document.body.dataset : {};
+        const user = window.creditMonkeyUser || {};
+
+        const userId = user.id || bodyData.intercomUserId;
+        const userName = user.name || bodyData.intercomUserName;
+        const userEmail = user.email || bodyData.intercomUserEmail;
+        const createdAt = user.createdAt || bodyData.intercomUserCreatedAt;
+
+        if (userId) {
+            intercomSettings.user_id = userId;
+        }
+        if (userName) {
+            intercomSettings.name = userName;
+        }
+        if (userEmail) {
+            intercomSettings.email = userEmail;
+        }
+        if (createdAt) {
+            const createdAtValue = Number(createdAt);
+            if (!Number.isNaN(createdAtValue)) {
+                intercomSettings.created_at = createdAtValue;
+            }
+        }
+
+        window.intercomSettings = intercomSettings;
+
+        (function() {
+            const w = window;
+            const ic = w.Intercom;
+            if (typeof ic === 'function') {
+                ic('reattach_activator');
+                ic('update', w.intercomSettings);
+            } else {
+                const d = document;
+                const i = function() {
+                    i.c(arguments);
+                };
+                i.q = [];
+                i.c = function(args) {
+                    i.q.push(args);
+                };
+                w.Intercom = i;
+                const l = function() {
+                    const s = d.createElement('script');
+                    s.type = 'text/javascript';
+                    s.async = true;
+                    s.src = 'https://widget.intercom.io/widget/rp6qow0g';
+                    const x = d.getElementsByTagName('script')[0];
+                    x.parentNode.insertBefore(s, x);
+                };
+                if (document.readyState === 'complete') {
+                    l();
+                } else if (w.attachEvent) {
+                    w.attachEvent('onload', l);
+                } else {
+                    w.addEventListener('load', l, false);
+                }
+            }
+        })();
+
+        window.__intercomInitialized = true;
+    }
     
     // Initialize cookie consent
     try {
         initCookieConsent();
     } catch (error) {
         console.error('Cookie consent initialization error:', error);
+    }
+
+    function initStickyMobileCta() {
+        if (document.getElementById('mobileStickyCta')) {
+            return;
+        }
+
+        const cta = document.createElement('div');
+        cta.id = 'mobileStickyCta';
+        cta.className = 'mobile-sticky-cta';
+        cta.innerHTML = `
+            <a href="tel:+18883873875" class="cta-call" aria-label="Call Credit Monkey now">Call Now</a>
+            <a href="https://credit3278.getcredithelpnow.com/billingselection" class="cta-primary" target="_blank" rel="noopener noreferrer" aria-label="Get started with Credit Monkey">Get Started</a>
+        `;
+
+        document.body.appendChild(cta);
+        document.body.classList.add('has-mobile-cta');
+    }
+
+    function initExitIntentPopup() {
+        if (window.matchMedia('(pointer: coarse)').matches) {
+            return;
+        }
+
+        if (document.getElementById('exitIntentModal')) {
+            return;
+        }
+
+        const hasSeen = sessionStorage.getItem('exitIntentShown');
+        if (hasSeen) {
+            return;
+        }
+
+        const modal = document.createElement('div');
+        modal.id = 'exitIntentModal';
+        modal.className = 'exit-intent-modal';
+        modal.setAttribute('role', 'dialog');
+        modal.setAttribute('aria-modal', 'true');
+        modal.setAttribute('aria-label', 'Free credit repair checklist');
+        modal.innerHTML = `
+            <div class="exit-intent-backdrop"></div>
+            <div class="exit-intent-card">
+                <button type="button" class="exit-intent-close" aria-label="Close">&times;</button>
+                <h3>Wait! Grab your free credit repair checklist</h3>
+                <p>Get a quick, actionable checklist you can use today to start improving your credit.</p>
+                <div class="exit-intent-actions">
+                    <a href="/assets/downloads/credit-checklist.pdf" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Download the PDF</a>
+                    <a href="/contact-us" class="btn btn-outline-primary">Talk to an expert</a>
+                </div>
+            </div>
+        `;
+
+        const closeModal = () => {
+            modal.classList.remove('show');
+            document.body.classList.remove('exit-intent-open');
+        };
+
+        modal.addEventListener('click', (event) => {
+            if (event.target.classList.contains('exit-intent-backdrop')) {
+                closeModal();
+            }
+        });
+
+        modal.querySelector('.exit-intent-close').addEventListener('click', closeModal);
+        document.body.appendChild(modal);
+
+        const handleExitIntent = (event) => {
+            if (event.clientY <= 0) {
+                sessionStorage.setItem('exitIntentShown', 'true');
+                modal.classList.add('show');
+                document.body.classList.add('exit-intent-open');
+                document.removeEventListener('mouseout', handleExitIntent);
+            }
+        };
+
+        document.addEventListener('mouseout', handleExitIntent);
+    }
+
+    try {
+        initStickyMobileCta();
+        initExitIntentPopup();
+    } catch (error) {
+        console.error('Conversion feature initialization error:', error);
     }
 
     // Global navigation and footer (single source for all pages)
