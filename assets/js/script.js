@@ -448,6 +448,33 @@ document.addEventListener('DOMContentLoaded', function() {
         toggle.classList.toggle('open', !isOpen);
     });
 
+    // States mega menu region switching (desktop)
+    document.addEventListener('click', function(event) {
+        const regionLink = event.target.closest('.states-region');
+        if (!regionLink) {
+            return;
+        }
+
+        event.preventDefault();
+
+        const region = regionLink.getAttribute('data-region');
+        const container = regionLink.closest('.states-mega');
+        if (!region || !container) {
+            return;
+        }
+
+        const regionLinks = container.querySelectorAll('.states-region');
+        regionLinks.forEach((link) => link.classList.remove('active'));
+        regionLink.classList.add('active');
+
+        const panels = container.querySelectorAll('.states-panel');
+        panels.forEach((panel) => panel.classList.remove('active'));
+        const activePanel = container.querySelector(`[data-region-panel="${region}"]`);
+        if (activePanel) {
+            activePanel.classList.add('active');
+        }
+    });
+
     // Global navigation and footer (single source for all pages)
     const isStatePage = window.location.pathname.includes('/states/');
     const prefix = isStatePage ? '../' : '';
@@ -496,68 +523,77 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li class="nav-item dropdown mega-dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="statesMegaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">States we Work</a>
                         <div class="dropdown-menu mega-menu states-mega shadow" aria-labelledby="statesMegaMenu">
-                            <div class="mega-inner">
-                                <div class="mega-column">
-                                    <span class="mega-title">West</span>
-                                    <a class="dropdown-item" href="${prefix}states/alaska">❄️ Alaska</a>
-                                    <a class="dropdown-item" href="${prefix}states/arizona">🌵 Arizona</a>
-                                    <a class="dropdown-item" href="${prefix}states/california">🌴 California</a>
-                                    <a class="dropdown-item" href="${prefix}states/colorado">🏔️ Colorado</a>
-                                    <a class="dropdown-item" href="${prefix}states/hawaii">🌺 Hawaii</a>
-                                    <a class="dropdown-item" href="${prefix}states/idaho">🥔 Idaho</a>
-                                    <a class="dropdown-item" href="${prefix}states/montana">🦬 Montana</a>
-                                    <a class="dropdown-item" href="${prefix}states/nevada">🎰 Nevada</a>
-                                    <a class="dropdown-item" href="${prefix}states/new-mexico">🌶️ New Mexico</a>
-                                    <a class="dropdown-item" href="${prefix}states/oregon">🌲 Oregon</a>
-                                    <a class="dropdown-item" href="${prefix}states/utah">🏜️ Utah</a>
-                                    <a class="dropdown-item" href="${prefix}states/washington">☔ Washington</a>
-                                    <a class="dropdown-item" href="${prefix}states/wyoming">🦬 Wyoming</a>
+                            <div class="mega-inner states-mega-inner">
+                                <div class="mega-column states-region-column">
+                                    <span class="mega-title">Regions</span>
+                                    <a class="dropdown-item states-region active" href="#" data-region="west">West</a>
+                                    <a class="dropdown-item states-region" href="#" data-region="south">South</a>
+                                    <a class="dropdown-item states-region" href="#" data-region="midwest">Midwest</a>
+                                    <a class="dropdown-item states-region" href="#" data-region="northeast">Northeast</a>
                                 </div>
-                                <div class="mega-column">
-                                    <span class="mega-title">South</span>
-                                    <a class="dropdown-item" href="${prefix}states/alabama">🎸 Alabama</a>
-                                    <a class="dropdown-item" href="${prefix}states/arkansas">💎 Arkansas</a>
-                                    <a class="dropdown-item" href="${prefix}states/delaware">🦀 Delaware</a>
-                                    <a class="dropdown-item" href="${prefix}states/florida">🌴 Florida</a>
-                                    <a class="dropdown-item" href="${prefix}states/georgia">🍑 Georgia</a>
-                                    <a class="dropdown-item" href="${prefix}states/kentucky">🥃 Kentucky</a>
-                                    <a class="dropdown-item" href="${prefix}states/louisiana">⚜️ Louisiana</a>
-                                    <a class="dropdown-item" href="${prefix}states/maryland">🦀 Maryland</a>
-                                    <a class="dropdown-item" href="${prefix}states/mississippi">🎵 Mississippi</a>
-                                    <a class="dropdown-item" href="${prefix}states/north-carolina">🏁 North Carolina</a>
-                                    <a class="dropdown-item" href="${prefix}states/oklahoma">🛢️ Oklahoma</a>
-                                    <a class="dropdown-item" href="${prefix}states/south-carolina">🌴 South Carolina</a>
-                                    <a class="dropdown-item" href="${prefix}states/tennessee">🎸 Tennessee</a>
-                                    <a class="dropdown-item" href="${prefix}states/texas">🤠 Texas</a>
-                                    <a class="dropdown-item" href="${prefix}states/virginia">🏛️ Virginia</a>
-                                    <a class="dropdown-item" href="${prefix}states/west-virginia">⛰️ West Virginia</a>
-                                </div>
-                                <div class="mega-column">
-                                    <span class="mega-title">Midwest</span>
-                                    <a class="dropdown-item" href="${prefix}states/illinois">🏙️ Illinois</a>
-                                    <a class="dropdown-item" href="${prefix}states/indiana">🏎️ Indiana</a>
-                                    <a class="dropdown-item" href="${prefix}states/iowa">🌽 Iowa</a>
-                                    <a class="dropdown-item" href="${prefix}states/kansas">🌾 Kansas</a>
-                                    <a class="dropdown-item" href="${prefix}states/michigan">🚗 Michigan</a>
-                                    <a class="dropdown-item" href="${prefix}states/minnesota">🛶 Minnesota</a>
-                                    <a class="dropdown-item" href="${prefix}states/missouri">🎷 Missouri</a>
-                                    <a class="dropdown-item" href="${prefix}states/nebraska">🌽 Nebraska</a>
-                                    <a class="dropdown-item" href="${prefix}states/north-dakota">🛢️ North Dakota</a>
-                                    <a class="dropdown-item" href="${prefix}states/ohio">🏛️ Ohio</a>
-                                    <a class="dropdown-item" href="${prefix}states/south-dakota">🗿 South Dakota</a>
-                                    <a class="dropdown-item" href="${prefix}states/wisconsin">🧀 Wisconsin</a>
-                                </div>
-                                <div class="mega-column">
-                                    <span class="mega-title">Northeast</span>
-                                    <a class="dropdown-item" href="${prefix}states/connecticut">🧵 Connecticut</a>
-                                    <a class="dropdown-item" href="${prefix}states/maine">🦞 Maine</a>
-                                    <a class="dropdown-item" href="${prefix}states/massachusetts">🎓 Massachusetts</a>
-                                    <a class="dropdown-item" href="${prefix}states/new-hampshire">🍁 New Hampshire</a>
-                                    <a class="dropdown-item" href="${prefix}states/new-jersey">🎢 New Jersey</a>
-                                    <a class="dropdown-item" href="${prefix}states/new-york">🗽 New York</a>
-                                    <a class="dropdown-item" href="${prefix}states/pennsylvania">🔔 Pennsylvania</a>
-                                    <a class="dropdown-item" href="${prefix}states/rhode-island">⛵ Rhode Island</a>
-                                    <a class="dropdown-item" href="${prefix}states/vermont">🍁 Vermont</a>
+                                <div class="mega-column states-list-column">
+                                    <div class="states-panel active" data-region-panel="west">
+                                        <span class="mega-title">West</span>
+                                        <a class="dropdown-item" href="${prefix}states/alaska">❄️ Alaska</a>
+                                        <a class="dropdown-item" href="${prefix}states/arizona">🌵 Arizona</a>
+                                        <a class="dropdown-item" href="${prefix}states/california">🌴 California</a>
+                                        <a class="dropdown-item" href="${prefix}states/colorado">🏔️ Colorado</a>
+                                        <a class="dropdown-item" href="${prefix}states/hawaii">🌺 Hawaii</a>
+                                        <a class="dropdown-item" href="${prefix}states/idaho">🥔 Idaho</a>
+                                        <a class="dropdown-item" href="${prefix}states/montana">🦬 Montana</a>
+                                        <a class="dropdown-item" href="${prefix}states/nevada">🎰 Nevada</a>
+                                        <a class="dropdown-item" href="${prefix}states/new-mexico">🌶️ New Mexico</a>
+                                        <a class="dropdown-item" href="${prefix}states/oregon">🌲 Oregon</a>
+                                        <a class="dropdown-item" href="${prefix}states/utah">🏜️ Utah</a>
+                                        <a class="dropdown-item" href="${prefix}states/washington">☔ Washington</a>
+                                        <a class="dropdown-item" href="${prefix}states/wyoming">🦬 Wyoming</a>
+                                    </div>
+                                    <div class="states-panel" data-region-panel="south">
+                                        <span class="mega-title">South</span>
+                                        <a class="dropdown-item" href="${prefix}states/alabama">🎸 Alabama</a>
+                                        <a class="dropdown-item" href="${prefix}states/arkansas">💎 Arkansas</a>
+                                        <a class="dropdown-item" href="${prefix}states/delaware">🦀 Delaware</a>
+                                        <a class="dropdown-item" href="${prefix}states/florida">🌴 Florida</a>
+                                        <a class="dropdown-item" href="${prefix}states/georgia">🍑 Georgia</a>
+                                        <a class="dropdown-item" href="${prefix}states/kentucky">🥃 Kentucky</a>
+                                        <a class="dropdown-item" href="${prefix}states/louisiana">⚜️ Louisiana</a>
+                                        <a class="dropdown-item" href="${prefix}states/maryland">🦀 Maryland</a>
+                                        <a class="dropdown-item" href="${prefix}states/mississippi">🎵 Mississippi</a>
+                                        <a class="dropdown-item" href="${prefix}states/north-carolina">🏁 North Carolina</a>
+                                        <a class="dropdown-item" href="${prefix}states/oklahoma">🛢️ Oklahoma</a>
+                                        <a class="dropdown-item" href="${prefix}states/south-carolina">🌴 South Carolina</a>
+                                        <a class="dropdown-item" href="${prefix}states/tennessee">🎸 Tennessee</a>
+                                        <a class="dropdown-item" href="${prefix}states/texas">🤠 Texas</a>
+                                        <a class="dropdown-item" href="${prefix}states/virginia">🏛️ Virginia</a>
+                                        <a class="dropdown-item" href="${prefix}states/west-virginia">⛰️ West Virginia</a>
+                                    </div>
+                                    <div class="states-panel" data-region-panel="midwest">
+                                        <span class="mega-title">Midwest</span>
+                                        <a class="dropdown-item" href="${prefix}states/illinois">🏙️ Illinois</a>
+                                        <a class="dropdown-item" href="${prefix}states/indiana">🏎️ Indiana</a>
+                                        <a class="dropdown-item" href="${prefix}states/iowa">🌽 Iowa</a>
+                                        <a class="dropdown-item" href="${prefix}states/kansas">🌾 Kansas</a>
+                                        <a class="dropdown-item" href="${prefix}states/michigan">🚗 Michigan</a>
+                                        <a class="dropdown-item" href="${prefix}states/minnesota">🛶 Minnesota</a>
+                                        <a class="dropdown-item" href="${prefix}states/missouri">🎷 Missouri</a>
+                                        <a class="dropdown-item" href="${prefix}states/nebraska">🌽 Nebraska</a>
+                                        <a class="dropdown-item" href="${prefix}states/north-dakota">🛢️ North Dakota</a>
+                                        <a class="dropdown-item" href="${prefix}states/ohio">🏛️ Ohio</a>
+                                        <a class="dropdown-item" href="${prefix}states/south-dakota">🗿 South Dakota</a>
+                                        <a class="dropdown-item" href="${prefix}states/wisconsin">🧀 Wisconsin</a>
+                                    </div>
+                                    <div class="states-panel" data-region-panel="northeast">
+                                        <span class="mega-title">Northeast</span>
+                                        <a class="dropdown-item" href="${prefix}states/connecticut">🧵 Connecticut</a>
+                                        <a class="dropdown-item" href="${prefix}states/maine">🦞 Maine</a>
+                                        <a class="dropdown-item" href="${prefix}states/massachusetts">🎓 Massachusetts</a>
+                                        <a class="dropdown-item" href="${prefix}states/new-hampshire">🍁 New Hampshire</a>
+                                        <a class="dropdown-item" href="${prefix}states/new-jersey">🎢 New Jersey</a>
+                                        <a class="dropdown-item" href="${prefix}states/new-york">🗽 New York</a>
+                                        <a class="dropdown-item" href="${prefix}states/pennsylvania">🔔 Pennsylvania</a>
+                                        <a class="dropdown-item" href="${prefix}states/rhode-island">⛵ Rhode Island</a>
+                                        <a class="dropdown-item" href="${prefix}states/vermont">🍁 Vermont</a>
+                                    </div>
                                 </div>
                                 <div class="mega-highlight">
                                     <span class="badge bg-primary-subtle text-primary">Coverage</span>

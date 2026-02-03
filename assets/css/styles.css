@@ -526,12 +526,44 @@ section:nth-child(even) {
 }
 
 .mega-menu.states-mega .mega-inner {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) 1.1fr;
+    grid-template-columns: 0.9fr 1.6fr 1.1fr;
 }
 
 .mega-menu.states-mega .mega-column .dropdown-item {
     padding: 6px 0;
     font-size: 0.92rem;
+}
+
+.states-region-column .dropdown-item {
+    font-weight: 600;
+    padding: 8px 10px;
+    border-radius: 10px;
+}
+
+.states-region-column .dropdown-item.active,
+.states-region-column .dropdown-item:hover {
+    background: rgba(20, 184, 166, 0.12);
+    color: var(--primary-color);
+}
+
+.states-panel {
+    display: none;
+    column-count: 2;
+    column-gap: 24px;
+}
+
+.states-panel .dropdown-item {
+    break-inside: avoid;
+}
+
+.states-panel.active {
+    display: block;
+}
+
+@media (max-width: 1199px) {
+    .states-panel {
+        column-count: 1;
+    }
 }
 
 .mega-title {
