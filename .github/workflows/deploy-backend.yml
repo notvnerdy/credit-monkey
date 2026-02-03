@@ -90,17 +90,17 @@ jobs:
           
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
             ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'ENDSSH'
-            cd ${{ env.BACKEND_PATH }}
-            
-            # Copy production environment
-            cp .env.production .env
-            
-            # Create storage directories
-            mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs
-            chmod -R 775 storage bootstrap/cache
-            
-            echo "✅ Environment configured"
-ENDSSH
+          cd ${{ env.BACKEND_PATH }}
+          
+          # Copy production environment
+          cp .env.production .env
+          
+          # Create storage directories
+          mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs
+          chmod -R 775 storage bootstrap/cache
+          
+          echo "✅ Environment configured"
+          ENDSSH
 
       - name: Install Composer Dependencies
         run: |
@@ -108,17 +108,17 @@ ENDSSH
           
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
             ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'ENDSSH'
-            cd ${{ env.BACKEND_PATH }}
-            
-            # Install composer if needed and run install
-            if [ ! -f composer.phar ]; then
-              curl -sS https://getcomposer.org/installer | php
-            fi
-            
-            php composer.phar install --no-dev --optimize-autoloader --no-interaction
-            
-            echo "✅ Dependencies installed"
-ENDSSH
+          cd ${{ env.BACKEND_PATH }}
+          
+          # Install composer if needed and run install
+          if [ ! -f composer.phar ]; then
+            curl -sS https://getcomposer.org/installer | php
+          fi
+          
+          php composer.phar install --no-dev --optimize-autoloader --no-interaction
+          
+          echo "✅ Dependencies installed"
+          ENDSSH
 
       - name: Run Database Migrations
         run: |
@@ -126,12 +126,12 @@ ENDSSH
           
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
             ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'ENDSSH'
-            cd ${{ env.BACKEND_PATH }}
-            
-            php artisan migrate --force
-            
-            echo "✅ Migrations completed"
-ENDSSH
+          cd ${{ env.BACKEND_PATH }}
+          
+          php artisan migrate --force
+          
+          echo "✅ Migrations completed"
+          ENDSSH
 
       - name: Clear and Optimize Cache
         run: |
@@ -139,20 +139,20 @@ ENDSSH
           
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
             ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'ENDSSH'
-            cd ${{ env.BACKEND_PATH }}
-            
-            # Clear all caches (don't cache config in production with changing env)
-            php artisan config:clear
-            php artisan cache:clear
-            php artisan route:clear
-            php artisan view:clear
-            
-            # Set permissions
-            chmod -R 755 .
-            chmod -R 775 storage bootstrap/cache
-            
-            echo "✅ Laravel optimized"
-ENDSSH
+          cd ${{ env.BACKEND_PATH }}
+          
+          # Clear all caches (don't cache config in production with changing env)
+          php artisan config:clear
+          php artisan cache:clear
+          php artisan route:clear
+          php artisan view:clear
+          
+          # Set permissions
+          chmod -R 755 .
+          chmod -R 775 storage bootstrap/cache
+          
+          echo "✅ Laravel optimized"
+          ENDSSH
 
       - name: Verify Deployment
         run: |
