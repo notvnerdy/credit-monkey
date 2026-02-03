@@ -455,7 +455,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             } catch (error) {
                 showMessage('formMessage', 
-                    'Sorry, there was an error submitting your request. Please try again or call us at (650) 479-1555.',
+                    'Sorry, there was an error submitting your request. Please try again or call us at (877) 701-7307.',
                     'error'
                 );
             } finally {
