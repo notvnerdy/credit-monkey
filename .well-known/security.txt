@@ -1,0 +1,17 @@
+# Credit Monkey Security Policy
+# https://securitytxt.org/
+
+Contact: mailto:security@creditmonkey.com
+Contact: mailto:info@creditmonkey.com
+Contact: tel:+1-877-701-7307
+
+Expires: 2027-02-03T00:00:00.000Z
+
+Preferred-Languages: en
+
+Canonical: https://creditmonkey.com/.well-known/security.txt
+
+Policy: https://creditmonkey.com/privacy-policy
+
+# We take security seriously. If you discover a vulnerability,
+# please report it responsibly to our security team.

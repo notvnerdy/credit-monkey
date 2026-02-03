@@ -1,0 +1,17 @@
+/* TEAM */
+Company: Credit Monkey, Inc.
+Site: https://creditmonkey.com
+Location: United States
+Contact: info@creditmonkey.com
+Phone: (877) 701-7307
+
+/* THANKS */
+Bootstrap Team - https://getbootstrap.com
+AOS Library - https://michalsnik.github.io/aos/
+Google Fonts - https://fonts.google.com
+
+/* SITE */
+Last update: 2026/02/03
+Standards: HTML5, CSS3, ES6+
+Components: Bootstrap 5.3, AOS 2.3
+Software: Visual Studio Code, Git

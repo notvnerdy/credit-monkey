@@ -2055,3 +2055,153 @@ img.loaded {
         min-height: 44px;
     }
 }
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    /* Reset colors for printing */
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    /* Hide non-essential elements */
+    .navbar,
+    .theme-toggle,
+    .scroll-progress,
+    #cookieConsent,
+    .btn,
+    .carousel-nav,
+    .carousel-indicators,
+    footer form,
+    .modal,
+    .toast-container {
+        display: none !important;
+    }
+
+    /* Show URLs after links */
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        color: #666;
+    }
+
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after,
+    a[href^="tel:"]:after {
+        content: "";
+    }
+
+    /* Prevent page breaks inside elements */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        page-break-inside: avoid;
+    }
+
+    img, table, figure {
+        page-break-inside: avoid;
+    }
+
+    p, blockquote {
+        orphans: 3;
+        widows: 3;
+    }
+
+    /* Improve readability */
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+    }
+
+    /* Show content properly */
+    .hero-section {
+        padding: 20px 0 !important;
+    }
+
+    .pricing-card {
+        border: 1px solid #ccc !important;
+        page-break-inside: avoid;
+    }
+
+    /* Ensure images print */
+    img {
+        max-width: 100% !important;
+    }
+
+    /* Add print header */
+    body::before {
+        content: "Credit Monkey - Professional Credit Repair Services";
+        display: block;
+        font-size: 18pt;
+        font-weight: bold;
+        margin-bottom: 20px;
+        text-align: center;
+        border-bottom: 2px solid #000;
+        padding-bottom: 10px;
+    }
+
+    /* Add print footer with contact info */
+    body::after {
+        content: "Contact: (877) 701-7307 | info@creditmonkey.com | creditmonkey.com";
+        display: block;
+        font-size: 10pt;
+        margin-top: 30px;
+        text-align: center;
+        border-top: 1px solid #ccc;
+        padding-top: 10px;
+    }
+}
+
+/* ============================================
+   HIGH CONTRAST MODE SUPPORT
+   ============================================ */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #000080;
+        --secondary-color: #006666;
+        --border-color: #000;
+    }
+
+    .btn-primary {
+        border: 2px solid #000 !important;
+    }
+
+    .card,
+    .pricing-card,
+    .service-card {
+        border: 2px solid #000 !important;
+    }
+
+    a {
+        text-decoration: underline !important;
+    }
+}
+
+/* ============================================
+   FORCED COLORS MODE (Windows High Contrast)
+   ============================================ */
+@media (forced-colors: active) {
+    .btn {
+        border: 2px solid currentColor !important;
+    }
+
+    .card,
+    .pricing-card {
+        border: 2px solid currentColor !important;
+    }
+
+    .theme-toggle {
+        border: 2px solid currentColor !important;
+    }
+}
