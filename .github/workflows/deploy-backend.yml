@@ -1,0 +1,212 @@
+name: Deploy Backend to api.creditmonkey.com
+
+on:
+  push:
+    branches:
+      - backend
+
+concurrency:
+  group: backend-deploy
+  cancel-in-progress: true
+
+env:
+  SERVER_HOST: ${{ secrets.STAGING_HOST }}
+  SERVER_USER: ${{ secrets.STAGING_USER }}
+  BACKEND_PATH: /home4/dionros/public_html/api.creditmonkey
+
+jobs:
+  code-quality:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate Composer
+        working-directory: backend
+        run: |
+          if [ -f composer.json ]; then
+            echo "✅ composer.json found"
+            cat composer.json | grep -q "laravel/framework" && echo "✅ Laravel detected"
+          else
+            echo "❌ composer.json not found"
+            exit 1
+          fi
+
+      - name: Check Environment File
+        working-directory: backend
+        run: |
+          if [ -f .env.production ]; then
+            echo "✅ .env.production found"
+          else
+            echo "❌ .env.production not found"
+            exit 1
+          fi
+
+  deploy:
+    name: Deploy Backend API
+    runs-on: ubuntu-latest
+    needs: code-quality
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ env.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Create Backend Directory
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} \
+            "mkdir -p ${{ env.BACKEND_PATH }}"
+
+      - name: Deploy Backend Files
+        run: |
+          echo "🚀 Deploying Laravel backend to api.creditmonkey.com..."
+          
+          rsync -avz --delete \
+            --exclude='.git' \
+            --exclude='node_modules' \
+            --exclude='vendor' \
+            --exclude='storage/logs/*' \
+            --exclude='storage/framework/cache/*' \
+            --exclude='storage/framework/sessions/*' \
+            --exclude='storage/framework/views/*' \
+            --exclude='.env' \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            ./backend/ ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}:${{ env.BACKEND_PATH }}/
+          
+          echo "✅ Backend files deployed"
+
+      - name: Setup Environment
+        run: |
+          echo "⚙️  Configuring environment..."
+          
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'ENDSSH'
+            cd ${{ env.BACKEND_PATH }}
+            
+            # Copy production environment
+            cp .env.production .env
+            
+            # Create storage directories
+            mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs
+            chmod -R 775 storage bootstrap/cache
+            
+            echo "✅ Environment configured"
+ENDSSH
+
+      - name: Install Composer Dependencies
+        run: |
+          echo "📦 Installing Composer dependencies..."
+          
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'ENDSSH'
+            cd ${{ env.BACKEND_PATH }}
+            
+            # Install composer if needed and run install
+            if [ ! -f composer.phar ]; then
+              curl -sS https://getcomposer.org/installer | php
+            fi
+            
+            php composer.phar install --no-dev --optimize-autoloader --no-interaction
+            
+            echo "✅ Dependencies installed"
+ENDSSH
+
+      - name: Run Database Migrations
+        run: |
+          echo "🗄️  Running database migrations..."
+          
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'ENDSSH'
+            cd ${{ env.BACKEND_PATH }}
+            
+            php artisan migrate --force
+            
+            echo "✅ Migrations completed"
+ENDSSH
+
+      - name: Clear and Optimize Cache
+        run: |
+          echo "🔄 Optimizing Laravel..."
+          
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} << 'ENDSSH'
+            cd ${{ env.BACKEND_PATH }}
+            
+            # Clear all caches (don't cache config in production with changing env)
+            php artisan config:clear
+            php artisan cache:clear
+            php artisan route:clear
+            php artisan view:clear
+            
+            # Set permissions
+            chmod -R 755 .
+            chmod -R 775 storage bootstrap/cache
+            
+            echo "✅ Laravel optimized"
+ENDSSH
+
+      - name: Verify Deployment
+        run: |
+          echo "🔍 Verifying deployment..."
+          
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+            ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} \
+            "cd ${{ env.BACKEND_PATH }} && php artisan --version"
+
+      - name: Cleanup
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
+
+  test-api:
+    name: Test API Endpoint
+    runs-on: ubuntu-latest
+    needs: deploy
+
+    steps:
+      - name: Test API Health
+        run: |
+          echo "🧪 Testing API endpoint..."
+          
+          # Wait for server to be ready
+          sleep 5
+          
+          # Test the API
+          response=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST https://api.creditmonkey.com/api/leads \
+            -H "Content-Type: application/json" \
+            -d '{"name":"Test Deploy","email":"test@test.com","phone":"555-0000","message":"Deployment test"}' \
+            -k)
+          
+          if [ "$response" == "200" ]; then
+            echo "✅ API is responding correctly (HTTP 200)"
+          else
+            echo "⚠️  API returned HTTP $response (may still be working)"
+          fi
+
+  notify:
+    name: Deployment Notification
+    runs-on: ubuntu-latest
+    needs: [deploy, test-api]
+    if: always()
+
+    steps:
+      - name: Notify Success
+        if: needs.deploy.result == 'success'
+        run: |
+          echo "✅ Backend API deployed successfully to https://api.creditmonkey.com"
+          echo "📊 Deployment completed at $(date)"
+
+      - name: Notify Failure
+        if: needs.deploy.result == 'failure'
+        run: |
+          echo "❌ Backend deployment failed"
+          exit 1

@@ -949,10 +949,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitToService = async (formData, formType) => {
         // Backend API endpoint
         // For local testing: http://localhost:8000/api/leads
-        // For production: /backend/public/api/leads (same domain)
+        // For production: https://api.creditmonkey.com/api/leads
         const API_ENDPOINT = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost:8000/api/leads'
-            : '/backend/public/api/leads';
+            : 'https://api.creditmonkey.com/api/leads';
         
         // Get current state from URL if available
         const pathParts = window.location.pathname.split('/');
