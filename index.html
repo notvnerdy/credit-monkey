@@ -38,6 +38,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="dns-prefetch" href="https://unpkg.com">
     <link rel="dns-prefetch" href="https://calendly.com">
+
+    <!-- Preload Critical Resources -->
+    <link rel="preload" href="assets/images/cv-hero.png" as="image" fetchpriority="high">
+    <link rel="preload" href="assets/css/styles.css?v=202602030001" as="style">
+    <link rel="preload" href="assets/js/script.js?v=202602030001" as="script">
     
     <!-- Bootstrap 5 CSS with SRI -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -124,6 +129,14 @@
     </script>
 </head>
 <body>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+        <i class="bi bi-moon-fill" id="themeIcon"></i>
+    </button>
+
     <!-- Skip to Content Link for Accessibility -->
     <a href="#main-content" class="skip-link visually-hidden-focusable">Skip to main content</a>
     
@@ -198,7 +211,7 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
                     <div class="hero-image-wrapper">
-                        <img src="assets/images/cv-hero.png" alt="Professional working on credit repair with charts showing score improvement" class="img-fluid" loading="eager" width="600" height="450">
+                        <img src="assets/images/cv-hero.png" alt="Professional working on credit repair with charts showing score improvement" class="img-fluid" loading="eager" width="600" height="450" fetchpriority="high">
                     </div>
                 </div>
             </div>
@@ -558,18 +571,21 @@
         </div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- Testimonials Carousel -->
     <section id="reviews" class="py-6 bg-white">
         <div class="container">
             <div class="row mb-5" data-aos="fade-up">
                 <div class="col-lg-8 mx-auto text-center">
+                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 mb-3">TESTIMONIALS</span>
                     <h2 class="display-5 fw-bold mb-3">Real People, Real Results</h2>
                     <p class="lead text-muted">Here's what our clients are saying about their experience</p>
                 </div>
             </div>
-            <div class="row g-4">
+
+            <!-- Desktop: Show all 3 cards -->
+            <div class="row g-4 d-none d-lg-flex">
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="0">
-                    <div class="card h-100 border-0 shadow-sm">
+                    <div class="card h-100 border-0 shadow-sm card-hover-lift">
                         <div class="card-body p-4">
                             <div class="text-warning mb-3">
                                 <i class="bi bi-star-fill"></i>
@@ -587,7 +603,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card h-100 border-0 shadow-sm">
+                    <div class="card h-100 border-0 shadow-sm card-hover-lift">
                         <div class="card-body p-4">
                             <div class="text-warning mb-3">
                                 <i class="bi bi-star-fill"></i>
@@ -605,7 +621,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card h-100 border-0 shadow-sm">
+                    <div class="card h-100 border-0 shadow-sm card-hover-lift">
                         <div class="card-body p-4">
                             <div class="text-warning mb-3">
                                 <i class="bi bi-star-fill"></i>
@@ -621,6 +637,109 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- Mobile: Bootstrap Carousel -->
+            <div id="testimonialCarousel" class="carousel slide d-lg-none" data-bs-ride="carousel" data-bs-interval="5000">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="card border-0 shadow-sm mx-2">
+                            <div class="card-body p-4">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="text-secondary mb-4">"I was nervous about using a credit repair company, but Credit Monkey made everything so clear and easy. They explained every step, answered all my questions, and actually got several items removed from my reports."</p>
+                                <div class="border-top pt-3">
+                                    <p class="fw-bold mb-0">Jennifer K.</p>
+                                    <p class="text-secondary small mb-0">Phoenix, AZ</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card border-0 shadow-sm mx-2">
+                            <div class="card-body p-4">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="text-secondary mb-4">"After my divorce, my credit was a mess. Credit Monkey helped me understand what was actually hurting my score and worked with the bureaus on my behalf. Within a few months, I saw real improvement."</p>
+                                <div class="border-top pt-3">
+                                    <p class="fw-bold mb-0">Marcus T.</p>
+                                    <p class="text-secondary small mb-0">Atlanta, GA</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card border-0 shadow-sm mx-2">
+                            <div class="card-body p-4">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="text-secondary mb-4">"I'd tried fixing my credit on my own for over a year and got nowhere. Credit Monkey knew exactly what to do and handled everything for me. I love being able to log in and see the progress anytime."</p>
+                                <div class="border-top pt-3">
+                                    <p class="fw-bold mb-0">Sarah M.</p>
+                                    <p class="text-secondary small mb-0">Denver, CO</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card border-0 shadow-sm mx-2">
+                            <div class="card-body p-4">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="text-secondary mb-4">"Credit Monkey helped me go from a 520 credit score to over 700 in just 6 months. I was finally able to buy my first home! Their team is professional, responsive, and truly cares about your success."</p>
+                                <div class="border-top pt-3">
+                                    <p class="fw-bold mb-0">David L.</p>
+                                    <p class="text-secondary small mb-0">Houston, TX</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card border-0 shadow-sm mx-2">
+                            <div class="card-body p-4">
+                                <div class="text-warning mb-3">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                                <p class="text-secondary mb-4">"The transparency and communication were incredible. I always knew exactly what was happening with my disputes. They removed 12 negative items from my report!"</p>
+                                <div class="border-top pt-3">
+                                    <p class="fw-bold mb-0">Michelle R.</p>
+                                    <p class="text-secondary small mb-0">Miami, FL</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-indicators position-relative mt-3">
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active bg-primary" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" class="bg-primary" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" class="bg-primary" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="3" class="bg-primary" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="4" class="bg-primary" aria-label="Slide 5"></button>
                 </div>
             </div>
         </div>
