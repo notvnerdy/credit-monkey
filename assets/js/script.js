@@ -444,6 +444,37 @@ document.addEventListener('DOMContentLoaded', function() {
     if (navList) {
         navList.innerHTML = `
                     <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works">How Credit Repair Works</a></li>
+                    <li class="nav-item dropdown mega-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="megaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+                        <div class="dropdown-menu mega-menu shadow" aria-labelledby="megaMenu">
+                            <div class="mega-inner">
+                                <div class="mega-column">
+                                    <span class="mega-title">Credit Repair</span>
+                                    <a class="dropdown-item" href="${prefix}services">Full-Service Repair</a>
+                                    <a class="dropdown-item" href="${prefix}pricing">Plans & Pricing</a>
+                                    <a class="dropdown-item" href="${prefix}how-credit-repair-works">How It Works</a>
+                                </div>
+                                <div class="mega-column">
+                                    <span class="mega-title">Resources</span>
+                                    <a class="dropdown-item" href="${prefix}build-personal-credit">Build Personal Credit</a>
+                                    <a class="dropdown-item" href="${prefix}build-business-credit">Build Business Credit</a>
+                                    <a class="dropdown-item" href="${prefix}late-payments">Late Payments Help</a>
+                                </div>
+                                <div class="mega-column">
+                                    <span class="mega-title">Coverage</span>
+                                    <a class="dropdown-item" href="${prefix}states-we-fix-credit-in">All 50 States</a>
+                                    <a class="dropdown-item" href="${prefix}about-us">Why Credit Monkey</a>
+                                    <a class="dropdown-item" href="${prefix}contact-us">Talk to an Expert</a>
+                                </div>
+                                <div class="mega-highlight">
+                                    <span class="badge bg-primary-subtle text-primary">Popular</span>
+                                    <h6>Free Credit Review</h6>
+                                    <p>Get a fast, no-obligation analysis of your credit report.</p>
+                                    <a class="btn btn-primary btn-sm" href="https://calendly.com/creditmonkey/credit-repair-consultation" target="_blank" rel="noopener noreferrer">Book Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in">States We Fix Credit In</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
