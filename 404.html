@@ -75,10 +75,23 @@
                         <div class="error-code">404</div>
                         <h1 class="display-4 fw-bold mb-4">Page Not Found</h1>
                         <p class="lead mb-4 text-secondary">
-                            Oops! The page you're looking for seems to have wandered off. 
+                            Oops! The page you're looking for seems to have wandered off.
                             Don't worry, we'll help you get back on track to better credit!
                         </p>
-                        
+
+                        <!-- Search Box -->
+                        <div class="row justify-content-center mb-4">
+                            <div class="col-md-8 col-lg-6">
+                                <form id="searchForm" class="input-group shadow-sm" action="https://www.google.com/search" method="get" target="_blank">
+                                    <input type="hidden" name="sitesearch" value="creditmonkey.com">
+                                    <input type="text" name="q" class="form-control form-control-lg" placeholder="Search our site..." aria-label="Search" required>
+                                    <button class="btn btn-primary px-4" type="submit">
+                                        <i class="bi bi-search"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
                         <div class="d-flex flex-wrap gap-3 justify-content-center mb-5">
                             <a href="/" class="btn btn-primary btn-lg px-5">
                                 <i class="bi bi-house-door-fill me-2"></i> Go Home

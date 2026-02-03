@@ -1,5 +1,83 @@
 // Credit Monkey - Fully Functional Website with Form Handling
 
+// ========== SERVICE WORKER REGISTRATION ==========
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('[SW] Registered:', registration.scope);
+            })
+            .catch(function(error) {
+                console.log('[SW] Registration failed:', error);
+            });
+    });
+}
+
+// ========== WEB VITALS TRACKING ==========
+function trackWebVitals() {
+    // Track Largest Contentful Paint (LCP)
+    if ('PerformanceObserver' in window) {
+        try {
+            // LCP
+            const lcpObserver = new PerformanceObserver(function(list) {
+                const entries = list.getEntries();
+                const lastEntry = entries[entries.length - 1];
+                console.log('[Web Vitals] LCP:', Math.round(lastEntry.startTime), 'ms');
+            });
+            lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+
+            // FID (First Input Delay)
+            const fidObserver = new PerformanceObserver(function(list) {
+                list.getEntries().forEach(function(entry) {
+                    console.log('[Web Vitals] FID:', Math.round(entry.processingStart - entry.startTime), 'ms');
+                });
+            });
+            fidObserver.observe({ type: 'first-input', buffered: true });
+
+            // CLS (Cumulative Layout Shift)
+            let clsValue = 0;
+            const clsObserver = new PerformanceObserver(function(list) {
+                list.getEntries().forEach(function(entry) {
+                    if (!entry.hadRecentInput) {
+                        clsValue += entry.value;
+                    }
+                });
+                console.log('[Web Vitals] CLS:', clsValue.toFixed(4));
+            });
+            clsObserver.observe({ type: 'layout-shift', buffered: true });
+
+            // FCP (First Contentful Paint)
+            const fcpObserver = new PerformanceObserver(function(list) {
+                list.getEntries().forEach(function(entry) {
+                    if (entry.name === 'first-contentful-paint') {
+                        console.log('[Web Vitals] FCP:', Math.round(entry.startTime), 'ms');
+                    }
+                });
+            });
+            fcpObserver.observe({ type: 'paint', buffered: true });
+
+            // TTFB (Time to First Byte)
+            const navEntries = performance.getEntriesByType('navigation');
+            if (navEntries.length > 0) {
+                const ttfb = navEntries[0].responseStart - navEntries[0].requestStart;
+                console.log('[Web Vitals] TTFB:', Math.round(ttfb), 'ms');
+            }
+        } catch (e) {
+            console.log('[Web Vitals] Not supported');
+        }
+    }
+}
+
+// ========== GLOBAL ERROR HANDLER ==========
+window.addEventListener('error', function(event) {
+    console.error('[Error]', event.message, 'at', event.filename, ':', event.lineno);
+    // You can send this to an analytics service
+});
+
+window.addEventListener('unhandledrejection', function(event) {
+    console.error('[Unhandled Promise Rejection]', event.reason);
+});
+
 // ========== DARK MODE TOGGLE ==========
 function initDarkMode() {
     const themeToggle = document.getElementById('themeToggle');
@@ -130,6 +208,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize lazy loading
     initLazyLoad();
+
+    // Track Web Vitals
+    trackWebVitals();
     // Reduce animations on mobile devices
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     
