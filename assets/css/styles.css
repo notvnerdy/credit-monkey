@@ -441,11 +441,6 @@ section:nth-child(even) {
     transform: translateX(-50%);
 }
 
-@media (min-width: 992px) {
-    .mega-dropdown:hover > .dropdown-menu {
-        display: block;
-    }
-}
 
 /* Dropdown submenus for States groups */
 .dropdown-submenu {

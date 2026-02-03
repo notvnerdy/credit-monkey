@@ -491,6 +491,42 @@ document.addEventListener('DOMContentLoaded', function() {
         activateStatesRegion(regionLink);
     });
 
+    // Mega menu hover behavior: only open on hover if no menu is active
+    const megaDropdowns = document.querySelectorAll('.mega-dropdown');
+    megaDropdowns.forEach((dropdown) => {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        if (!toggle || typeof bootstrap === 'undefined') {
+            return;
+        }
+
+        const instance = bootstrap.Dropdown.getOrCreateInstance(toggle);
+
+        dropdown.addEventListener('mouseenter', () => {
+            if (!window.matchMedia('(min-width: 992px)').matches) {
+                return;
+            }
+
+            const openDropdown = document.querySelector('.navbar .dropdown.show');
+            if (openDropdown && openDropdown !== dropdown) {
+                return;
+            }
+
+            instance.show();
+            dropdown.dataset.hoverOpen = 'true';
+        });
+
+        dropdown.addEventListener('mouseleave', () => {
+            if (!window.matchMedia('(min-width: 992px)').matches) {
+                return;
+            }
+
+            if (dropdown.dataset.hoverOpen === 'true') {
+                instance.hide();
+                dropdown.dataset.hoverOpen = '';
+            }
+        });
+    });
+
     // Global navigation and footer (single source for all pages)
     const isStatePage = window.location.pathname.includes('/states/');
     const prefix = isStatePage ? '../' : '';
