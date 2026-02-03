@@ -447,6 +447,32 @@ section:nth-child(even) {
     }
 }
 
+/* Dropdown submenus for States groups */
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-left: 0.5rem;
+}
+
+@media (min-width: 992px) {
+    .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+    }
+}
+
+@media (max-width: 991px) {
+    .dropdown-submenu > .dropdown-menu {
+        position: static;
+        margin-left: 0;
+        box-shadow: none;
+        padding-left: 0.5rem;
+    }
+}
+
 .mega-menu {
     background: #ffffff;
 }
