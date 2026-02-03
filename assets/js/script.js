@@ -301,59 +301,29 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const intercomSettings = {
+        window.intercomSettings = {
             api_base: 'https://api-iam.intercom.io',
             app_id: 'rp6qow0g'
         };
 
-        const bodyData = document.body ? document.body.dataset : {};
-        const user = window.creditMonkeyUser || {};
-
-        const userId = user.id || bodyData.intercomUserId;
-        const userName = user.name || bodyData.intercomUserName;
-        const userEmail = user.email || bodyData.intercomUserEmail;
-        const createdAt = user.createdAt || bodyData.intercomUserCreatedAt;
-
-        if (userId) {
-            intercomSettings.user_id = userId;
-        }
-        if (userName) {
-            intercomSettings.name = userName;
-        }
-        if (userEmail) {
-            intercomSettings.email = userEmail;
-        }
-        if (createdAt) {
-            const createdAtValue = Number(createdAt);
-            if (!Number.isNaN(createdAtValue)) {
-                intercomSettings.created_at = createdAtValue;
-            }
-        }
-
-        window.intercomSettings = intercomSettings;
-
         (function() {
-            const w = window;
-            const ic = w.Intercom;
+            var w = window;
+            var ic = w.Intercom;
             if (typeof ic === 'function') {
                 ic('reattach_activator');
                 ic('update', w.intercomSettings);
             } else {
-                const d = document;
-                const i = function() {
-                    i.c(arguments);
-                };
+                var d = document;
+                var i = function() { i.c(arguments); };
                 i.q = [];
-                i.c = function(args) {
-                    i.q.push(args);
-                };
+                i.c = function(args) { i.q.push(args); };
                 w.Intercom = i;
-                const l = function() {
-                    const s = d.createElement('script');
+                var l = function() {
+                    var s = d.createElement('script');
                     s.type = 'text/javascript';
                     s.async = true;
                     s.src = 'https://widget.intercom.io/widget/rp6qow0g';
-                    const x = d.getElementsByTagName('script')[0];
+                    var x = d.getElementsByTagName('script')[0];
                     x.parentNode.insertBefore(s, x);
                 };
                 if (document.readyState === 'complete') {
@@ -374,6 +344,13 @@ document.addEventListener('DOMContentLoaded', function() {
         initCookieConsent();
     } catch (error) {
         console.error('Cookie consent initialization error:', error);
+    }
+
+    // Always initialize Intercom
+    try {
+        initIntercom();
+    } catch (error) {
+        console.error('Intercom initialization error:', error);
     }
 
     function initStickyMobileCta() {
