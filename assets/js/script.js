@@ -437,26 +437,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const servicesMenu = isDesktopMenu ? `
                     <li class="nav-item dropdown mega-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="megaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="megaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Our Services</a>
                         <div class="dropdown-menu mega-menu shadow" aria-labelledby="megaMenu">
                             <div class="mega-inner">
                                 <div class="mega-column">
                                     <span class="mega-title">Credit Repair</span>
-                                    <a class="dropdown-item" href="${prefix}services">Full-Service Repair</a>
-                                    <a class="dropdown-item" href="${prefix}pricing">Plans & Pricing</a>
-                                    <a class="dropdown-item" href="${prefix}how-credit-repair-works">How It Works</a>
+                                    <a class="dropdown-item" href="${prefix}services"><i class="bi bi-shield-check me-2"></i>Full-Service Repair</a>
+                                    <a class="dropdown-item" href="${prefix}pricing"><i class="bi bi-tags me-2"></i>Plans & Pricing</a>
+                                    <a class="dropdown-item" href="${prefix}how-credit-repair-works"><i class="bi bi-diagram-3 me-2"></i>How It Works</a>
                                 </div>
                                 <div class="mega-column">
                                     <span class="mega-title">Resources</span>
-                                    <a class="dropdown-item" href="${prefix}build-personal-credit">Build Personal Credit</a>
-                                    <a class="dropdown-item" href="${prefix}build-business-credit">Build Business Credit</a>
-                                    <a class="dropdown-item" href="${prefix}late-payments">Late Payments Help</a>
+                                    <a class="dropdown-item" href="${prefix}build-personal-credit"><i class="bi bi-person-check me-2"></i>Build Personal Credit</a>
+                                    <a class="dropdown-item" href="${prefix}build-business-credit"><i class="bi bi-briefcase me-2"></i>Build Business Credit</a>
+                                    <a class="dropdown-item" href="${prefix}late-payments"><i class="bi bi-exclamation-triangle me-2"></i>Late Payments Help</a>
                                 </div>
                                 <div class="mega-column">
                                     <span class="mega-title">Coverage</span>
-                                    <a class="dropdown-item" href="${prefix}states-we-fix-credit-in">All 50 States</a>
-                                    <a class="dropdown-item" href="${prefix}about-us">Why Credit Monkey</a>
-                                    <a class="dropdown-item" href="${prefix}contact-us">Talk to an Expert</a>
+                                    <a class="dropdown-item" href="${prefix}states-we-fix-credit-in"><i class="bi bi-geo-alt me-2"></i>All 50 States</a>
+                                    <a class="dropdown-item" href="${prefix}about-us"><i class="bi bi-stars me-2"></i>Why Credit Monkey</a>
+                                    <a class="dropdown-item" href="${prefix}contact-us"><i class="bi bi-headset me-2"></i>Talk to an Expert</a>
                                 </div>
                                 <div class="mega-highlight">
                                     <span class="badge bg-primary-subtle text-primary">Popular</span>
@@ -468,76 +468,76 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </li>
         ` : `
-                    <li class="nav-item"><a class="nav-link" href="${prefix}services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}services">Our Services</a></li>
         `;
 
         const statesMenu = isDesktopMenu ? `
                     <li class="nav-item dropdown mega-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="statesMegaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">States</a>
-                        <div class="dropdown-menu mega-menu shadow" aria-labelledby="statesMegaMenu">
+                        <a class="nav-link dropdown-toggle" href="#" id="statesMegaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">State we work</a>
+                        <div class="dropdown-menu mega-menu states-mega shadow" aria-labelledby="statesMegaMenu">
                             <div class="mega-inner">
                                 <div class="mega-column">
                                     <span class="mega-title">West</span>
-                                    <a class="dropdown-item" href="${prefix}states/alaska">Alaska</a>
-                                    <a class="dropdown-item" href="${prefix}states/arizona">Arizona</a>
-                                    <a class="dropdown-item" href="${prefix}states/california">California</a>
-                                    <a class="dropdown-item" href="${prefix}states/colorado">Colorado</a>
-                                    <a class="dropdown-item" href="${prefix}states/hawaii">Hawaii</a>
-                                    <a class="dropdown-item" href="${prefix}states/idaho">Idaho</a>
-                                    <a class="dropdown-item" href="${prefix}states/montana">Montana</a>
-                                    <a class="dropdown-item" href="${prefix}states/nevada">Nevada</a>
-                                    <a class="dropdown-item" href="${prefix}states/new-mexico">New Mexico</a>
-                                    <a class="dropdown-item" href="${prefix}states/oregon">Oregon</a>
-                                    <a class="dropdown-item" href="${prefix}states/utah">Utah</a>
-                                    <a class="dropdown-item" href="${prefix}states/washington">Washington</a>
-                                    <a class="dropdown-item" href="${prefix}states/wyoming">Wyoming</a>
+                                    <a class="dropdown-item" href="${prefix}states/alaska"><i class="bi bi-geo me-2"></i>Alaska</a>
+                                    <a class="dropdown-item" href="${prefix}states/arizona"><i class="bi bi-geo me-2"></i>Arizona</a>
+                                    <a class="dropdown-item" href="${prefix}states/california"><i class="bi bi-geo me-2"></i>California</a>
+                                    <a class="dropdown-item" href="${prefix}states/colorado"><i class="bi bi-geo me-2"></i>Colorado</a>
+                                    <a class="dropdown-item" href="${prefix}states/hawaii"><i class="bi bi-geo me-2"></i>Hawaii</a>
+                                    <a class="dropdown-item" href="${prefix}states/idaho"><i class="bi bi-geo me-2"></i>Idaho</a>
+                                    <a class="dropdown-item" href="${prefix}states/montana"><i class="bi bi-geo me-2"></i>Montana</a>
+                                    <a class="dropdown-item" href="${prefix}states/nevada"><i class="bi bi-geo me-2"></i>Nevada</a>
+                                    <a class="dropdown-item" href="${prefix}states/new-mexico"><i class="bi bi-geo me-2"></i>New Mexico</a>
+                                    <a class="dropdown-item" href="${prefix}states/oregon"><i class="bi bi-geo me-2"></i>Oregon</a>
+                                    <a class="dropdown-item" href="${prefix}states/utah"><i class="bi bi-geo me-2"></i>Utah</a>
+                                    <a class="dropdown-item" href="${prefix}states/washington"><i class="bi bi-geo me-2"></i>Washington</a>
+                                    <a class="dropdown-item" href="${prefix}states/wyoming"><i class="bi bi-geo me-2"></i>Wyoming</a>
                                 </div>
                                 <div class="mega-column">
                                     <span class="mega-title">Midwest</span>
-                                    <a class="dropdown-item" href="${prefix}states/illinois">Illinois</a>
-                                    <a class="dropdown-item" href="${prefix}states/indiana">Indiana</a>
-                                    <a class="dropdown-item" href="${prefix}states/iowa">Iowa</a>
-                                    <a class="dropdown-item" href="${prefix}states/kansas">Kansas</a>
-                                    <a class="dropdown-item" href="${prefix}states/michigan">Michigan</a>
-                                    <a class="dropdown-item" href="${prefix}states/minnesota">Minnesota</a>
-                                    <a class="dropdown-item" href="${prefix}states/missouri">Missouri</a>
-                                    <a class="dropdown-item" href="${prefix}states/nebraska">Nebraska</a>
-                                    <a class="dropdown-item" href="${prefix}states/north-dakota">North Dakota</a>
-                                    <a class="dropdown-item" href="${prefix}states/ohio">Ohio</a>
-                                    <a class="dropdown-item" href="${prefix}states/south-dakota">South Dakota</a>
-                                    <a class="dropdown-item" href="${prefix}states/wisconsin">Wisconsin</a>
+                                    <a class="dropdown-item" href="${prefix}states/illinois"><i class="bi bi-geo me-2"></i>Illinois</a>
+                                    <a class="dropdown-item" href="${prefix}states/indiana"><i class="bi bi-geo me-2"></i>Indiana</a>
+                                    <a class="dropdown-item" href="${prefix}states/iowa"><i class="bi bi-geo me-2"></i>Iowa</a>
+                                    <a class="dropdown-item" href="${prefix}states/kansas"><i class="bi bi-geo me-2"></i>Kansas</a>
+                                    <a class="dropdown-item" href="${prefix}states/michigan"><i class="bi bi-geo me-2"></i>Michigan</a>
+                                    <a class="dropdown-item" href="${prefix}states/minnesota"><i class="bi bi-geo me-2"></i>Minnesota</a>
+                                    <a class="dropdown-item" href="${prefix}states/missouri"><i class="bi bi-geo me-2"></i>Missouri</a>
+                                    <a class="dropdown-item" href="${prefix}states/nebraska"><i class="bi bi-geo me-2"></i>Nebraska</a>
+                                    <a class="dropdown-item" href="${prefix}states/north-dakota"><i class="bi bi-geo me-2"></i>North Dakota</a>
+                                    <a class="dropdown-item" href="${prefix}states/ohio"><i class="bi bi-geo me-2"></i>Ohio</a>
+                                    <a class="dropdown-item" href="${prefix}states/south-dakota"><i class="bi bi-geo me-2"></i>South Dakota</a>
+                                    <a class="dropdown-item" href="${prefix}states/wisconsin"><i class="bi bi-geo me-2"></i>Wisconsin</a>
                                 </div>
                                 <div class="mega-column">
                                     <span class="mega-title">South</span>
-                                    <a class="dropdown-item" href="${prefix}states/alabama">Alabama</a>
-                                    <a class="dropdown-item" href="${prefix}states/arkansas">Arkansas</a>
-                                    <a class="dropdown-item" href="${prefix}states/delaware">Delaware</a>
-                                    <a class="dropdown-item" href="${prefix}states/district-of-columbia">District of Columbia</a>
-                                    <a class="dropdown-item" href="${prefix}states/florida">Florida</a>
-                                    <a class="dropdown-item" href="${prefix}states/georgia">Georgia</a>
-                                    <a class="dropdown-item" href="${prefix}states/kentucky">Kentucky</a>
-                                    <a class="dropdown-item" href="${prefix}states/louisiana">Louisiana</a>
-                                    <a class="dropdown-item" href="${prefix}states/maryland">Maryland</a>
-                                    <a class="dropdown-item" href="${prefix}states/mississippi">Mississippi</a>
-                                    <a class="dropdown-item" href="${prefix}states/north-carolina">North Carolina</a>
-                                    <a class="dropdown-item" href="${prefix}states/oklahoma">Oklahoma</a>
-                                    <a class="dropdown-item" href="${prefix}states/south-carolina">South Carolina</a>
-                                    <a class="dropdown-item" href="${prefix}states/tennessee">Tennessee</a>
-                                    <a class="dropdown-item" href="${prefix}states/texas">Texas</a>
-                                    <a class="dropdown-item" href="${prefix}states/virginia">Virginia</a>
-                                    <a class="dropdown-item" href="${prefix}states/west-virginia">West Virginia</a>
+                                    <a class="dropdown-item" href="${prefix}states/alabama"><i class="bi bi-geo me-2"></i>Alabama</a>
+                                    <a class="dropdown-item" href="${prefix}states/arkansas"><i class="bi bi-geo me-2"></i>Arkansas</a>
+                                    <a class="dropdown-item" href="${prefix}states/delaware"><i class="bi bi-geo me-2"></i>Delaware</a>
+                                    <a class="dropdown-item" href="${prefix}states/district-of-columbia"><i class="bi bi-geo me-2"></i>District of Columbia</a>
+                                    <a class="dropdown-item" href="${prefix}states/florida"><i class="bi bi-geo me-2"></i>Florida</a>
+                                    <a class="dropdown-item" href="${prefix}states/georgia"><i class="bi bi-geo me-2"></i>Georgia</a>
+                                    <a class="dropdown-item" href="${prefix}states/kentucky"><i class="bi bi-geo me-2"></i>Kentucky</a>
+                                    <a class="dropdown-item" href="${prefix}states/louisiana"><i class="bi bi-geo me-2"></i>Louisiana</a>
+                                    <a class="dropdown-item" href="${prefix}states/maryland"><i class="bi bi-geo me-2"></i>Maryland</a>
+                                    <a class="dropdown-item" href="${prefix}states/mississippi"><i class="bi bi-geo me-2"></i>Mississippi</a>
+                                    <a class="dropdown-item" href="${prefix}states/north-carolina"><i class="bi bi-geo me-2"></i>North Carolina</a>
+                                    <a class="dropdown-item" href="${prefix}states/oklahoma"><i class="bi bi-geo me-2"></i>Oklahoma</a>
+                                    <a class="dropdown-item" href="${prefix}states/south-carolina"><i class="bi bi-geo me-2"></i>South Carolina</a>
+                                    <a class="dropdown-item" href="${prefix}states/tennessee"><i class="bi bi-geo me-2"></i>Tennessee</a>
+                                    <a class="dropdown-item" href="${prefix}states/texas"><i class="bi bi-geo me-2"></i>Texas</a>
+                                    <a class="dropdown-item" href="${prefix}states/virginia"><i class="bi bi-geo me-2"></i>Virginia</a>
+                                    <a class="dropdown-item" href="${prefix}states/west-virginia"><i class="bi bi-geo me-2"></i>West Virginia</a>
                                 </div>
                                 <div class="mega-column">
                                     <span class="mega-title">Northeast</span>
-                                    <a class="dropdown-item" href="${prefix}states/connecticut">Connecticut</a>
-                                    <a class="dropdown-item" href="${prefix}states/maine">Maine</a>
-                                    <a class="dropdown-item" href="${prefix}states/massachusetts">Massachusetts</a>
-                                    <a class="dropdown-item" href="${prefix}states/new-hampshire">New Hampshire</a>
-                                    <a class="dropdown-item" href="${prefix}states/new-jersey">New Jersey</a>
-                                    <a class="dropdown-item" href="${prefix}states/new-york">New York</a>
-                                    <a class="dropdown-item" href="${prefix}states/pennsylvania">Pennsylvania</a>
-                                    <a class="dropdown-item" href="${prefix}states/rhode-island">Rhode Island</a>
-                                    <a class="dropdown-item" href="${prefix}states/vermont">Vermont</a>
+                                    <a class="dropdown-item" href="${prefix}states/connecticut"><i class="bi bi-geo me-2"></i>Connecticut</a>
+                                    <a class="dropdown-item" href="${prefix}states/maine"><i class="bi bi-geo me-2"></i>Maine</a>
+                                    <a class="dropdown-item" href="${prefix}states/massachusetts"><i class="bi bi-geo me-2"></i>Massachusetts</a>
+                                    <a class="dropdown-item" href="${prefix}states/new-hampshire"><i class="bi bi-geo me-2"></i>New Hampshire</a>
+                                    <a class="dropdown-item" href="${prefix}states/new-jersey"><i class="bi bi-geo me-2"></i>New Jersey</a>
+                                    <a class="dropdown-item" href="${prefix}states/new-york"><i class="bi bi-geo me-2"></i>New York</a>
+                                    <a class="dropdown-item" href="${prefix}states/pennsylvania"><i class="bi bi-geo me-2"></i>Pennsylvania</a>
+                                    <a class="dropdown-item" href="${prefix}states/rhode-island"><i class="bi bi-geo me-2"></i>Rhode Island</a>
+                                    <a class="dropdown-item" href="${prefix}states/vermont"><i class="bi bi-geo me-2"></i>Vermont</a>
                                 </div>
                                 <div class="mega-highlight">
                                     <span class="badge bg-primary-subtle text-primary">Coverage</span>
@@ -549,7 +549,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </li>
         ` : `
-                    <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in">States</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in">State we work</a></li>
         `;
 
         navList.innerHTML = `
