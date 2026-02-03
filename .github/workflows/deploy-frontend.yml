@@ -10,8 +10,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  SERVER_HOST: ${{ secrets.STAGING_HOST }}
-  SERVER_USER: ${{ secrets.STAGING_USER }}
+  SERVER_HOST: 108.179.232.14
+  SERVER_USER: dionros
   FRONTEND_PATH: /home4/dionros/public_html
 
 jobs:
@@ -53,16 +53,17 @@ jobs:
 
       - name: Setup SSH
         run: |
+          sudo apt-get update && sudo apt-get install -y sshpass
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ env.SERVER_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy Frontend to Server
+        env:
+          SSHPASS: ${{ secrets.STAGING_PASSWORD }}
         run: |
           echo "🚀 Deploying frontend to creditmonkey.com..."
           
-          rsync -avz --delete \
+          sshpass -e rsync -avz --delete \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='backend/' \
@@ -70,20 +71,22 @@ jobs:
             --exclude='*.py' \
             --exclude='*.sh' \
             --exclude='node_modules' \
-            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+            -e "ssh -o StrictHostKeyChecking=no" \
             ./ ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }}:${{ env.FRONTEND_PATH }}/
           
           echo "✅ Frontend deployed successfully!"
 
       - name: Verify Deployment
+        env:
+          SSHPASS: ${{ secrets.STAGING_PASSWORD }}
         run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+          sshpass -e ssh -o StrictHostKeyChecking=no \
             ${{ env.SERVER_USER }}@${{ env.SERVER_HOST }} \
             "ls -la ${{ env.FRONTEND_PATH }} | head -10"
 
       - name: Cleanup
         if: always()
-        run: rm -f ~/.ssh/deploy_key
+        run: rm -f ~/.ssh/known_hosts
 
   notify:
     name: Deployment Notification
