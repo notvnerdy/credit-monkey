@@ -83,15 +83,20 @@ function initDarkMode() {
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = document.getElementById('themeIcon');
 
-    // Check for saved theme preference or system preference
+    // Check for saved theme preference (default to light)
     const savedTheme = localStorage.getItem('theme');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+    if (savedTheme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
         if (themeIcon) {
             themeIcon.classList.remove('bi-moon-fill');
             themeIcon.classList.add('bi-sun-fill');
+        }
+    } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        if (themeIcon) {
+            themeIcon.classList.remove('bi-sun-fill');
+            themeIcon.classList.add('bi-moon-fill');
         }
     }
 
@@ -115,21 +120,7 @@ function initDarkMode() {
         });
     }
 
-    // Listen for system theme changes
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
-        if (!localStorage.getItem('theme')) {
-            document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-            if (themeIcon) {
-                if (e.matches) {
-                    themeIcon.classList.remove('bi-moon-fill');
-                    themeIcon.classList.add('bi-sun-fill');
-                } else {
-                    themeIcon.classList.remove('bi-sun-fill');
-                    themeIcon.classList.add('bi-moon-fill');
-                }
-            }
-        }
-    });
+    // Do not auto-switch based on system theme to keep light as default
 }
 
 // ========== SCROLL PROGRESS BAR ==========
@@ -442,8 +433,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const navList = document.querySelector('.navbar .navbar-nav');
     if (navList) {
-        navList.innerHTML = `
-                    <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works">How Credit Repair Works</a></li>
+        const isDesktopMenu = window.matchMedia('(min-width: 992px)').matches;
+
+        const servicesMenu = isDesktopMenu ? `
                     <li class="nav-item dropdown mega-dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="megaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
                         <div class="dropdown-menu mega-menu shadow" aria-labelledby="megaMenu">
@@ -475,7 +467,53 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in">States We Fix Credit In</a></li>
+        ` : `
+                    <li class="nav-item"><a class="nav-link" href="${prefix}services">Services</a></li>
+        `;
+
+        const statesMenu = isDesktopMenu ? `
+                    <li class="nav-item dropdown mega-dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="statesMegaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">States</a>
+                        <div class="dropdown-menu mega-menu shadow" aria-labelledby="statesMegaMenu">
+                            <div class="mega-inner">
+                                <div class="mega-column">
+                                    <span class="mega-title">West</span>
+                                    <a class="dropdown-item" href="${prefix}states/california">California</a>
+                                    <a class="dropdown-item" href="${prefix}states/arizona">Arizona</a>
+                                    <a class="dropdown-item" href="${prefix}states/nevada">Nevada</a>
+                                    <a class="dropdown-item" href="${prefix}states/washington">Washington</a>
+                                </div>
+                                <div class="mega-column">
+                                    <span class="mega-title">South</span>
+                                    <a class="dropdown-item" href="${prefix}states/texas">Texas</a>
+                                    <a class="dropdown-item" href="${prefix}states/florida">Florida</a>
+                                    <a class="dropdown-item" href="${prefix}states/georgia">Georgia</a>
+                                    <a class="dropdown-item" href="${prefix}states/north-carolina">North Carolina</a>
+                                </div>
+                                <div class="mega-column">
+                                    <span class="mega-title">Midwest & Northeast</span>
+                                    <a class="dropdown-item" href="${prefix}states/illinois">Illinois</a>
+                                    <a class="dropdown-item" href="${prefix}states/ohio">Ohio</a>
+                                    <a class="dropdown-item" href="${prefix}states/new-york">New York</a>
+                                    <a class="dropdown-item" href="${prefix}states/pennsylvania">Pennsylvania</a>
+                                </div>
+                                <div class="mega-highlight">
+                                    <span class="badge bg-primary-subtle text-primary">Coverage</span>
+                                    <h6>We serve all 50 states</h6>
+                                    <p>See every location we support and find your state page.</p>
+                                    <a class="btn btn-primary btn-sm" href="${prefix}states-we-fix-credit-in">View All States</a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+        ` : `
+                    <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in">States</a></li>
+        `;
+
+        navList.innerHTML = `
+                    <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works">How Credit Repair Works</a></li>
+                    ${servicesMenu}
+                    ${statesMenu}
                     <li class="nav-item">
                         <a class="nav-link" href="https://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-box-arrow-in-right"></i> Login

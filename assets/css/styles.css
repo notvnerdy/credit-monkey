@@ -435,6 +435,12 @@ section:nth-child(even) {
     margin-top: 12px;
 }
 
+@media (min-width: 992px) {
+    .mega-dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+}
+
 .mega-menu {
     background: #ffffff;
 }
@@ -488,6 +494,7 @@ section:nth-child(even) {
 @media (max-width: 991px) {
     .mega-dropdown .dropdown-menu {
         min-width: 100%;
+        display: none !important;
     }
 
     .mega-inner {
