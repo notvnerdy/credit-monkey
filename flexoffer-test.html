@@ -285,9 +285,13 @@
     <script>
         var ADVERTISER_ID = '858300D2-9FD5-4288-94E8-96FB1ECA320F';
         var POSTBACK_BASE = 'https://track.flexlinkspro.com/da.ashx';
-        var API_ENDPOINT = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost:8000/api/flexoffers/postback'
-            : 'https://api.creditmonkey.com/api/flexoffers/postback';
+        var API_ENDPOINTS = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? ['http://localhost:8000/api/flexoffers/postback']
+            : [
+                'https://api.creditmonkey.com/api/flexoffers/postback',
+                'https://api.creditmonkey.com/backend/public/api/flexoffers/postback',
+                window.location.origin + '/backend/public/api/flexoffers/postback'
+            ];
 
         // Capture refid (click ID) from URL parameters
         var urlParams = new URLSearchParams(window.location.search);
@@ -329,23 +333,57 @@
         }
 
         function sendPostbackToApi(payload) {
-            return fetch(API_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(payload)
-            }).then(function(response) {
-                return response.json().catch(function() {
-                    return {};
-                }).then(function(body) {
-                    return {
-                        ok: response.ok,
-                        status: response.status,
-                        body: body
-                    };
+            var errors = [];
+
+            function tryEndpoint(index) {
+                if (index >= API_ENDPOINTS.length) {
+                    return Promise.reject(new Error(errors.join(' | ')));
+                }
+
+                var endpoint = API_ENDPOINTS[index];
+                return fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                }).then(function(response) {
+                    return response.json().catch(function() {
+                        return {};
+                    }).then(function(body) {
+                        var result = {
+                            ok: response.ok,
+                            status: response.status,
+                            body: body,
+                            endpoint: endpoint
+                        };
+
+                        if (result.ok) {
+                            return result;
+                        }
+
+                        var msg = body && body.message ? body.message : 'No response message';
+                        errors.push(endpoint + ' returned HTTP ' + response.status + ' (' + msg + ')');
+                        return tryEndpoint(index + 1);
+                    });
+                }).catch(function(error) {
+                    errors.push(endpoint + ' failed (' + error.message + ')');
+                    return tryEndpoint(index + 1);
                 });
+            }
+
+            return tryEndpoint(0);
+        }
+
+        // Fallback to pixel fire if backend endpoint is unavailable.
+        function firePostbackPixel(url) {
+            return new Promise(function(resolve) {
+                var img = new Image();
+                img.onload = function() { resolve('loaded'); };
+                img.onerror = function() { resolve('fired'); };
+                img.src = url;
+                setTimeout(function() { resolve('timeout'); }, 5000);
             });
         }
 
@@ -400,8 +438,8 @@
                     resultMessage +
                     '<h6 class="fw-bold mt-3">Resolved Postback URL:</h6>' +
                     '<pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + backendPostbackUrl + '</pre>' +
-                    '<h6 class="fw-bold mt-3">Backend Endpoint:</h6>' +
-                    '<pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + API_ENDPOINT + '</pre>' +
+                    '<h6 class="fw-bold mt-3">Backend Endpoint Used:</h6>' +
+                    '<pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + result.endpoint + '</pre>' +
                     '<h6 class="fw-bold mt-3">Product Data (order_items):</h6>' +
                     '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + JSON.stringify(orderItems, null, 2) + '</pre>' +
                     '<div class="alert alert-info mt-3">' +
@@ -413,14 +451,22 @@
 
                 resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }).catch(function(error) {
-                sendBtn.disabled = false;
-                sendBtn.innerHTML = '<i class="bi bi-send me-2"></i> Send S2S Postback';
-                resultDiv.style.display = 'block';
-                resultDiv.innerHTML =
-                    '<div class="alert alert-danger">' +
-                        '<i class="bi bi-exclamation-triangle-fill me-2"></i>' +
-                        '<strong>Request Error:</strong> ' + error.message +
-                    '</div>';
+                firePostbackPixel(postbackUrl).then(function(pixelStatus) {
+                    sendBtn.disabled = false;
+                    sendBtn.innerHTML = '<i class="bi bi-send me-2"></i> Send S2S Postback';
+                    resultDiv.style.display = 'block';
+                    resultDiv.innerHTML =
+                        '<div class="alert alert-warning">' +
+                            '<i class="bi bi-exclamation-triangle-fill me-2"></i>' +
+                            '<strong>Backend API unavailable.</strong> Fallback pixel request fired to FlexOffers (' + pixelStatus + ').' +
+                        '</div>' +
+                        '<div class="alert alert-secondary">' +
+                            '<strong>Why this happened:</strong> ' + error.message +
+                        '</div>' +
+                        '<p class="mb-2"><strong>Fallback sent this URL:</strong></p>' +
+                        '<pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + postbackUrl + '</pre>' +
+                        '<p class="small text-muted mb-0">Note: Pixel fallback sends query parameters only. Product JSON (<code>order_items</code>) requires the backend endpoint to be live.</p>';
+                });
             });
         });
     </script>
