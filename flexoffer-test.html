@@ -119,7 +119,7 @@
                             <h5 class="mb-0"><i class="bi bi-2-circle me-2"></i> Step 2: Send S2S Postback</h5>
                         </div>
                         <div class="card-body">
-                            <p>The form below fires a postback to FlexOffers at <code>track.flexlinkspro.com/da.ashx</code> with your conversion data.</p>
+                            <p>The form below sends a backend server-to-server POST to FlexOffers at <code>track.flexlinkspro.com/da.ashx</code> with your conversion data and optional <code>order_items</code> JSON.</p>
                             <form id="flexofferTestForm">
                                 <div class="row g-3">
                                     <div class="col-12">
@@ -285,15 +285,19 @@
     <script>
         var ADVERTISER_ID = '858300D2-9FD5-4288-94E8-96FB1ECA320F';
         var POSTBACK_BASE = 'https://track.flexlinkspro.com/da.ashx';
+        var API_ENDPOINT = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:8000/api/flexoffers/postback'
+            : 'https://api.creditmonkey.com/api/flexoffers/postback';
 
         // Capture refid (click ID) from URL parameters
         var urlParams = new URLSearchParams(window.location.search);
         var refId = urlParams.get('refid') || '';
-        var storedClickId = sessionStorage.getItem('flexoffer_clickid') || '';
+        var storedClickId = sessionStorage.getItem('flexoffer_clickid') || localStorage.getItem('flexoffer_clickid') || '';
 
         // Use URL param if available, otherwise fall back to stored value
         if (refId) {
             sessionStorage.setItem('flexoffer_clickid', refId);
+            localStorage.setItem('flexoffer_clickid', refId);
             document.getElementById('clickId').value = refId;
         } else if (storedClickId) {
             document.getElementById('clickId').value = storedClickId;
@@ -324,22 +328,28 @@
             return POSTBACK_BASE + '?' + params.toString();
         }
 
-        // Fire postback using image pixel (works cross-domain, no CORS issues)
-        function firePostback(url) {
-            return new Promise(function(resolve, reject) {
-                var img = new Image();
-                img.onload = function() { resolve('loaded'); };
-                img.onerror = function() {
-                    // Image pixel may return non-image response, but the request still fires
-                    resolve('fired');
-                };
-                img.src = url;
-                // Timeout fallback
-                setTimeout(function() { resolve('timeout'); }, 5000);
+        function sendPostbackToApi(payload) {
+            return fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }).then(function(response) {
+                return response.json().catch(function() {
+                    return {};
+                }).then(function(body) {
+                    return {
+                        ok: response.ok,
+                        status: response.status,
+                        body: body
+                    };
+                });
             });
         }
 
-        // Handle form submission - fire S2S postback directly
+        // Handle form submission - send S2S postback through backend API
         document.getElementById('flexofferTestForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -364,22 +374,34 @@
 
             var postbackUrl = buildPostbackUrl(formData);
             var resultDiv = document.getElementById('testResult');
+            var payload = {
+                clickid: formData.clickid,
+                ordernumber: formData.ordernumber,
+                orderamount: formData.orderamount,
+                coupon: formData.coupon,
+                currency: formData.currency,
+                geo: formData.geo,
+                commissionid: formData.commissionid,
+                order_items: orderItems
+            };
 
-            // Fire the postback via image pixel
-            firePostback(postbackUrl).then(function(status) {
+            sendPostbackToApi(payload).then(function(result) {
                 sendBtn.disabled = false;
                 sendBtn.innerHTML = '<i class="bi bi-send me-2"></i> Send S2S Postback';
                 resultDiv.style.display = 'block';
 
                 var curlCmd = "curl -X POST '" + postbackUrl + "' \\\n  -H 'Content-Type: application/json' \\\n  -d '" + JSON.stringify({ order_items: orderItems }) + "'";
+                var backendPostbackUrl = result.body && result.body.postback_url ? result.body.postback_url : postbackUrl;
+                var resultMessage = result.ok
+                    ? '<div class="alert alert-success"><i class="bi bi-check-circle-fill me-2"></i><strong>Postback Sent!</strong> FlexOffers accepted the server-to-server request.</div>'
+                    : '<div class="alert alert-danger"><i class="bi bi-exclamation-triangle-fill me-2"></i><strong>Postback Failed.</strong> API status ' + result.status + '. ' + (result.body && result.body.message ? result.body.message : 'Please check backend logs.') + '</div>';
 
                 resultDiv.innerHTML =
-                    '<div class="alert alert-success">' +
-                        '<i class="bi bi-check-circle-fill me-2"></i>' +
-                        '<strong>Postback Fired!</strong> The tracking pixel request has been sent to FlexOffers.' +
-                    '</div>' +
-                    '<h6 class="fw-bold mt-3">Postback URL (fired via image pixel):</h6>' +
-                    '<pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + postbackUrl + '</pre>' +
+                    resultMessage +
+                    '<h6 class="fw-bold mt-3">Resolved Postback URL:</h6>' +
+                    '<pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + backendPostbackUrl + '</pre>' +
+                    '<h6 class="fw-bold mt-3">Backend Endpoint:</h6>' +
+                    '<pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + API_ENDPOINT + '</pre>' +
                     '<h6 class="fw-bold mt-3">Product Data (order_items):</h6>' +
                     '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + JSON.stringify(orderItems, null, 2) + '</pre>' +
                     '<div class="alert alert-info mt-3">' +
@@ -390,6 +412,15 @@
                     '<button class="btn btn-outline-secondary btn-sm mt-2" onclick="navigator.clipboard.writeText(this.getAttribute(\'data-curl\')).then(function(){ alert(\'Copied!\'); })" data-curl="' + curlCmd.replace(/"/g, '&quot;') + '"><i class="bi bi-clipboard me-1"></i> Copy curl command</button>';
 
                 resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }).catch(function(error) {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = '<i class="bi bi-send me-2"></i> Send S2S Postback';
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML =
+                    '<div class="alert alert-danger">' +
+                        '<i class="bi bi-exclamation-triangle-fill me-2"></i>' +
+                        '<strong>Request Error:</strong> ' + error.message +
+                    '</div>';
             });
         });
     </script>

@@ -934,6 +934,53 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
+    // Capture and persist FlexOffers click ID from the refid query parameter
+    const getFlexOffersClickId = () => {
+        const params = new URLSearchParams(window.location.search);
+        const refId = (params.get('refid') || '').trim();
+
+        if (refId) {
+            sessionStorage.setItem('flexoffer_clickid', refId);
+            localStorage.setItem('flexoffer_clickid', refId);
+            return refId;
+        }
+
+        return (
+            sessionStorage.getItem('flexoffer_clickid') ||
+            localStorage.getItem('flexoffer_clickid') ||
+            ''
+        ).trim();
+    };
+
+    const parsePriceToAmount = (value) => {
+        if (value === null || value === undefined) return null;
+
+        const sanitized = String(value).replace(/[^0-9.]/g, '');
+        if (!sanitized) return null;
+
+        const parsed = Number.parseFloat(sanitized);
+        if (Number.isNaN(parsed) || parsed < 0) return null;
+
+        return parsed.toFixed(2);
+    };
+
+    const appendRefIdToBillingLinks = () => {
+        const clickId = getFlexOffersClickId();
+        if (!clickId) return;
+
+        document.querySelectorAll('a[href*="getcredithelpnow.com/billingselection"]').forEach((link) => {
+            try {
+                const url = new URL(link.href, window.location.origin);
+                if (!url.searchParams.get('refid')) {
+                    url.searchParams.set('refid', clickId);
+                    link.href = url.toString();
+                }
+            } catch (error) {
+                console.error('Unable to append refid to billing link:', error);
+            }
+        });
+    };
+
     // Get UTM parameters from URL for tracking
     const getUTMParams = () => {
         const params = new URLSearchParams(window.location.search);
@@ -954,6 +1001,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const API_ENDPOINT = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost:8000/api/leads'
             : 'https://api.creditmonkey.com/api/leads';
+        const clickId = getFlexOffersClickId();
+        const requestedOrderAmount = parsePriceToAmount(formData.orderamount);
         
         // Get current state from URL if available
         const pathParts = window.location.pathname.split('/');
@@ -972,8 +1021,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 phone: formData.phone || '',
                 state: currentState || formData.state || null,
                 message: formData.message || formData.goals || formData.subject || `${formType} form submission`,
+                source: formType,
                 ...getUTMParams()
             };
+
+            // Include FlexOffers fields so backend can send server-side postback.
+            if (clickId) {
+                leadData.clickid = clickId;
+                leadData.orderamount = requestedOrderAmount || null;
+                leadData.ordernumber = formData.ordernumber || null;
+                leadData.coupon = formData.coupon || null;
+                leadData.currency = (formData.currency || 'USD').toUpperCase();
+                leadData.geo = (formData.geo || 'USA').toUpperCase();
+                leadData.commissionid = formData.commissionid || null;
+
+                if (Array.isArray(formData.order_items) && formData.order_items.length > 0) {
+                    leadData.order_items = formData.order_items;
+                }
+            }
             
             const response = await fetch(API_ENDPOINT, {
                 method: 'POST',
@@ -1010,6 +1075,10 @@ document.addEventListener('DOMContentLoaded', function() {
             throw error;
         }
     };
+
+    // Persist refid and propagate it to checkout links on every page load.
+    getFlexOffersClickId();
+    appendRefIdToBillingLinks();
     
     // Main Consultation Form Handler
     const consultationForm = document.getElementById('consultationForm');
@@ -1202,11 +1271,13 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', function(e) {
             const planName = this.closest('.pricing-card').querySelector('h4').textContent;
             const planPrice = this.closest('.pricing-card').querySelector('.display-4').textContent;
+            const planAmount = parsePriceToAmount(planPrice);
             
             // Track selection
             const selection = {
                 plan: planName,
                 price: planPrice,
+                amount: planAmount,
                 timestamp: new Date().toISOString()
             };
             

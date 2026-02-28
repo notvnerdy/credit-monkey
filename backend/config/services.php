@@ -35,4 +35,13 @@ return [
         ],
     ],
 
+    'flexoffers' => [
+        'advertiser_id' => env('FLEXOFFERS_ADVERTISER_ID', '858300D2-9FD5-4288-94E8-96FB1ECA320F'),
+        'postback_url' => env('FLEXOFFERS_POSTBACK_URL', 'https://track.flexlinkspro.com/da.ashx'),
+        'timeout' => (int) env('FLEXOFFERS_TIMEOUT', 10),
+        'default_order_amount' => env('FLEXOFFERS_DEFAULT_ORDER_AMOUNT'),
+        'default_currency' => env('FLEXOFFERS_DEFAULT_CURRENCY', 'USD'),
+        'default_geo' => env('FLEXOFFERS_DEFAULT_GEO', 'USA'),
+    ],
+
 ];

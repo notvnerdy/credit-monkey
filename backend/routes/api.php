@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LeadController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FlexOffersController;
 use App\Http\Controllers\CreditCaseController;
 use App\Http\Controllers\CaseNoteController;
 use App\Http\Controllers\CaseDocumentController;
 
 Route::post('/leads', [LeadController::class, 'store']);
+Route::post('/flexoffers/postback', [FlexOffersController::class, 'store']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
