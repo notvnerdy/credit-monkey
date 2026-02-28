@@ -101,11 +101,12 @@
                         </div>
                         <div class="card-body">
                             <p>Click the publisher link below to simulate an affiliate click. This sets the FlexOffers tracking cookie so the conversion can be attributed. You will be redirected back to this site.</p>
-                            <div class="d-grid">
-                                <a href="https://track.flexlinkspro.com/g.ashx?foid=24.225585.6647126&trid=1049797.225585&trackingid=19744" class="btn btn-primary btn-lg" id="publisherLink" target="_blank" rel="noopener noreferrer">
-                                    <i class="bi bi-box-arrow-up-right me-2"></i> Click Publisher Tracking Link
+                            <div class="d-grid gap-2">
+                                <a href="https://track.flexlinkspro.com/g.ashx?foid=24.225585.6647126&trid=1049797.225585&trackingid=19744" class="btn btn-primary btn-lg" id="publisherLink">
+                                    <i class="bi bi-link-45deg me-2"></i> Click Publisher Tracking Link (Same Window)
                                 </a>
                             </div>
+                            <p class="text-muted small mt-2 mb-0">This link will navigate you away. After FlexOffers redirects you back to the site, use the header or footer "FlexOffers Test" link to return here and send a test transaction.</p>
                             <div class="alert alert-warning mt-3 mb-0" id="step1Status">
                                 <i class="bi bi-exclamation-triangle me-2"></i>
                                 <strong>Not clicked yet.</strong> You must click the publisher link first before sending a test transaction.
@@ -312,12 +313,8 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-light py-4 mt-5">
-        <div class="container text-center">
-            <p class="mb-0 text-muted">&copy; 2026 Credit Monkey. This is a test page for FlexOffers integration.</p>
-        </div>
-    </footer>
+    <!-- Footer will be injected by script.js -->
+    <footer id="mainFooter"></footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -337,13 +334,9 @@
             document.getElementById('step1Status').innerHTML = '<i class="bi bi-check-circle-fill me-2"></i><strong>Publisher link clicked!</strong> Session tracking is active. You can now send a test transaction.';
         }
 
-        // Mark publisher link as clicked
+        // Mark publisher link as clicked before navigating away
         document.getElementById('publisherLink').addEventListener('click', function() {
             sessionStorage.setItem('flexoffer_publisher_clicked', 'true');
-            setTimeout(function() {
-                document.getElementById('step1Status').className = 'alert alert-success mt-3 mb-0';
-                document.getElementById('step1Status').innerHTML = '<i class="bi bi-check-circle-fill me-2"></i><strong>Publisher link clicked!</strong> Session tracking is active. You can now send a test transaction.';
-            }, 500);
         });
 
         // Handle test transaction form submission
@@ -371,10 +364,8 @@
                 ]
             };
 
-            // Re-initialize and fire FlexOffers conversion tracking (confirmation page pattern)
-            !function(){var e=window.AdvertiserMaxTrack=window.AdvertiserMaxTrack||[];if(e.invoked)window.console&&console.error&&console.error("FlexOffers library was included more than once.");else{e.invoked=!0,e.methods=["init","getClick","track"],e.factory=function(r){return function(){var t=Array.prototype.slice.call(arguments);return t.unshift(r),e.push(t),e}};for(var r=0;r<e.methods.length;r++){var t=e.methods[r];e[t]=e.factory(t)}e.init=function(r){var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://advertisermax.flexoffers.com/vendors/advertisermax/advertisermax.tracking.lib.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n),e.advertiserId=r}}}();
-            AdvertiserMaxTrack.init("858300D2-9FD5-4288-94E8-96FB1ECA320F");
-
+            // Fire FlexOffers conversion tracking
+            // Library is already loaded and initialized from <head> script
             AdvertiserMaxTrack.track(trackingData);
 
             // Show result
