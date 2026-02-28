@@ -933,22 +933,60 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    // Capture and persist FlexOffers click ID from the refid query parameter
-    const getFlexOffersClickId = () => {
-        const params = new URLSearchParams(window.location.search);
-        const refId = (params.get('refid') || '').trim();
+    const BILLING_SELECTION_BASE_URL = 'https://credit3278.getcredithelpnow.com/billingselection';
+    const FLEXOFFERS_CLICK_STORAGE_KEY = 'flexoffer_clickid';
+    const ADVERTISERMAX_CLICK_STORAGE_KEY = 'AdvertiserMax.clickId';
 
-        if (refId) {
-            sessionStorage.setItem('flexoffer_clickid', refId);
-            localStorage.setItem('flexoffer_clickid', refId);
-            return refId;
+    const readRefIdFromSearch = () => {
+        const params = new URLSearchParams(window.location.search);
+
+        for (const [key, value] of params.entries()) {
+            if (key.toLowerCase() === 'refid') {
+                return (value || '').trim();
+            }
         }
 
-        return (
-            sessionStorage.getItem('flexoffer_clickid') ||
-            localStorage.getItem('flexoffer_clickid') ||
+        return '';
+    };
+
+    const persistFlexOffersClickId = (clickId) => {
+        const normalizedClickId = (clickId || '').trim();
+        if (!normalizedClickId) {
+            return '';
+        }
+
+        try {
+            sessionStorage.setItem(FLEXOFFERS_CLICK_STORAGE_KEY, normalizedClickId);
+        } catch (error) {
+            console.error('Unable to persist FlexOffers click ID in sessionStorage:', error);
+        }
+
+        try {
+            localStorage.setItem(FLEXOFFERS_CLICK_STORAGE_KEY, normalizedClickId);
+            // Keep AdvertiserMax storage in sync so AdvertiserMaxTrack.track uses the same click id.
+            localStorage.setItem(ADVERTISERMAX_CLICK_STORAGE_KEY, normalizedClickId);
+        } catch (error) {
+            console.error('Unable to persist FlexOffers click ID in localStorage:', error);
+        }
+
+        return normalizedClickId;
+    };
+
+    // Capture and persist FlexOffers click ID from the refid query parameter.
+    const getFlexOffersClickId = () => {
+        const refId = readRefIdFromSearch();
+        if (refId) {
+            return persistFlexOffersClickId(refId);
+        }
+
+        const storedClickId = (
+            sessionStorage.getItem(FLEXOFFERS_CLICK_STORAGE_KEY) ||
+            localStorage.getItem(FLEXOFFERS_CLICK_STORAGE_KEY) ||
+            localStorage.getItem(ADVERTISERMAX_CLICK_STORAGE_KEY) ||
             ''
         ).trim();
+
+        return storedClickId ? persistFlexOffersClickId(storedClickId) : '';
     };
 
     const parsePriceToAmount = (value) => {
@@ -963,14 +1001,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return parsed.toFixed(2);
     };
 
-    const appendRefIdToBillingLinks = () => {
+    const buildTrackedBillingSelectionUrl = () => {
+        const url = new URL(BILLING_SELECTION_BASE_URL);
         const clickId = getFlexOffersClickId();
-        if (!clickId) return;
+        if (clickId && !url.searchParams.get('refid')) {
+            url.searchParams.set('refid', clickId);
+        }
+        return url.toString();
+    };
 
+    const appendRefIdToBillingLinks = () => {
         document.querySelectorAll('a[href*="getcredithelpnow.com/billingselection"]').forEach((link) => {
             try {
                 const url = new URL(link.href, window.location.origin);
-                if (!url.searchParams.get('refid')) {
+                const clickId = getFlexOffersClickId();
+                if (clickId && !url.searchParams.get('refid')) {
                     url.searchParams.set('refid', clickId);
                     link.href = url.toString();
                 }
@@ -978,6 +1023,84 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Unable to append refid to billing link:', error);
             }
         });
+    };
+
+    const triggerFlexOffersTrack = (eventName, orderAmount = null) => {
+        const clickId = getFlexOffersClickId();
+        if (!clickId) {
+            return false;
+        }
+
+        if (!window.AdvertiserMaxTrack || typeof window.AdvertiserMaxTrack.track !== 'function') {
+            return false;
+        }
+
+        const normalizedAmount = orderAmount !== null && !Number.isNaN(Number(orderAmount))
+            ? Number(orderAmount)
+            : 0;
+
+        try {
+            window.AdvertiserMaxTrack.track({
+                order_number: `CM-${eventName}-${Date.now()}`,
+                order_amount: normalizedAmount,
+                order_name: eventName,
+                order_currency: 'USD',
+                order_geo: 'USA',
+                order_platform: window.location.hostname
+            });
+            return true;
+        } catch (error) {
+            console.error('Unable to trigger FlexOffers tracking event:', error);
+            return false;
+        }
+    };
+
+    const getPricingCardAmountForLink = (link) => {
+        const pricingCard = link.closest('.pricing-card');
+        if (!pricingCard) {
+            return null;
+        }
+
+        const priceElement = pricingCard.querySelector('.display-4');
+        if (!priceElement) {
+            return null;
+        }
+
+        return parsePriceToAmount(priceElement.textContent || '');
+    };
+
+    const bindGetStartedTracking = () => {
+        document.querySelectorAll('a[href*="getcredithelpnow.com/billingselection"]').forEach((link) => {
+            if (link.dataset.flexoffersBound === '1') {
+                return;
+            }
+
+            link.dataset.flexoffersBound = '1';
+            link.addEventListener('click', () => {
+                const priceAmount = getPricingCardAmountForLink(link);
+                triggerFlexOffersTrack('get_started_click', priceAmount);
+            });
+        });
+    };
+
+    const trackSignupPageViewIfPresent = () => {
+        const path = window.location.pathname.toLowerCase();
+        if (!path.includes('signup') && !path.includes('billingselection')) {
+            return;
+        }
+
+        const dedupeKey = 'flexoffers_signup_page_view_tracked';
+        if (sessionStorage.getItem(dedupeKey) === '1') {
+            return;
+        }
+
+        sessionStorage.setItem(dedupeKey, '1');
+        triggerFlexOffersTrack('signup_page_view');
+    };
+
+    const redirectToBillingSelection = (eventName, orderAmount = null) => {
+        triggerFlexOffersTrack(eventName, orderAmount);
+        window.location.href = buildTrackedBillingSelectionUrl();
     };
 
     // Get UTM parameters from URL for tracking
@@ -1106,6 +1229,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Persist refid and propagate it to checkout links on every page load.
     getFlexOffersClickId();
     appendRefIdToBillingLinks();
+    bindGetStartedTracking();
+    trackSignupPageViewIfPresent();
     
     // Main Consultation Form Handler
     const consultationForm = document.getElementById('consultationForm');
@@ -1139,9 +1264,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     );
                     consultationForm.reset();
                     
-                    // Optional: Redirect to thank you page or pricing page
+                    // Redirect users into billing with tracked refid and signup tracking.
                     setTimeout(() => {
-                        window.location.href = 'https://credit3278.getcredithelpnow.com/billingselection';
+                        redirectToBillingSelection('signup_page_redirect');
                     }, 2000);
                 }
             } catch (error) {
@@ -1184,11 +1309,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     );
                     quickConsultForm.reset();
                     
-                    // Close modal and redirect after 1.5 seconds
+                    // Close modal and redirect into billing with tracked refid and signup tracking.
                     setTimeout(() => {
                         const modal = bootstrap.Modal.getInstance(document.getElementById('quickConsultModal'));
                         if (modal) modal.hide();
-                        window.location.href = 'https://credit3278.getcredithelpnow.com/billingselection';
+                        redirectToBillingSelection('signup_page_redirect');
                     }, 1500);
                 }
             } catch (error) {
