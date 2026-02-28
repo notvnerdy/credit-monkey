@@ -113,7 +113,7 @@
                             <h5 class="mb-0"><i class="bi bi-2-circle me-2"></i> Step 2: Send S2S Postback</h5>
                         </div>
                         <div class="card-body">
-                            <p>The form below sends a server-to-server POST request to FlexOffers via your backend API (<code>/api/flexoffers/postback</code>).</p>
+                            <p>The form below fires a postback to FlexOffers at <code>track.flexlinkspro.com/da.ashx</code> with your conversion data.</p>
                             <form id="flexofferTestForm">
                                 <div class="row g-3">
                                     <div class="col-12">
@@ -215,7 +215,7 @@
                                 <strong>Checklist:</strong>
                                 <ul class="mb-0 mt-2">
                                     <li>Publisher link was clicked and <code>refid</code> (click ID) was captured</li>
-                                    <li>S2S postback was sent via backend to <code>track.flexlinkspro.com/da.ashx</code></li>
+                                    <li>S2S postback was sent to <code>track.flexlinkspro.com/da.ashx</code></li>
                                     <li>FlexOffers returned a success response</li>
                                     <li>FlexOffers Diagnosis Tool shows the tracking event</li>
                                 </ul>
