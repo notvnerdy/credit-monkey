@@ -995,12 +995,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Send to backend API
     const submitToService = async (formData, formType) => {
-        // Try multiple lead endpoints in order to survive deployment/config differences.
+        // Single-server deployment: use same-origin API paths only.
         const API_ENDPOINTS = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
             ? ['http://localhost:8000/api/leads']
             : [
-                'https://api.creditmonkey.com/api/leads',
-                'https://api.creditmonkey.com/backend/public/api/leads',
                 window.location.origin + '/api/leads',
                 window.location.origin + '/backend/public/api/leads'
             ];
