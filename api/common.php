@@ -56,8 +56,7 @@ function post_request(string $url, ?string $jsonBody = null): array
         curl_setopt_array($curl, [
             CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_MAXREDIRS => 5,
+            CURLOPT_FOLLOWLOCATION => false,
             CURLOPT_TIMEOUT => 12,
             CURLOPT_HTTPHEADER => $headers,
         ]);
@@ -88,6 +87,7 @@ function post_request(string $url, ?string $jsonBody = null): array
             'header' => implode("\r\n", $headers),
             'content' => $jsonBody ?? '',
             'timeout' => 12,
+            'max_redirects' => 0,
             'ignore_errors' => true,
         ],
     ]);

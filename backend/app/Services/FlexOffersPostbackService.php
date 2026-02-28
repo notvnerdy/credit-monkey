@@ -77,6 +77,7 @@ class FlexOffersPostbackService
         try {
             $timeout = (int) config('services.flexoffers.timeout', 10);
             $http = Http::timeout($timeout > 0 ? $timeout : 10)
+                ->withoutRedirecting()
                 ->withHeaders([
                     'Accept' => '*/*',
                 ]);
@@ -89,28 +90,37 @@ class FlexOffersPostbackService
                 $response = $http->send('POST', $postbackUrl);
             }
 
-            if ($response->successful()) {
+            $responseBody = (string) $response->body();
+            $responseBodyLower = mb_strtolower($responseBody);
+            $containsNoClick = str_contains($responseBodyLower, 'no click id found');
+            $containsServerError = str_contains($responseBodyLower, '/errors/500') || str_contains($responseBodyLower, 'object moved');
+
+            if ($response->successful() && !$containsNoClick && !$containsServerError) {
                 return [
                     'status' => 'sent',
                     'message' => 'FlexOffers postback sent.',
                     'postback_url' => $postbackUrl,
                     'http_status' => $response->status(),
+                    'response_body' => mb_substr($responseBody, 0, 1000),
                     'lead_id' => $leadId,
                 ];
             }
 
-            $responseBody = mb_substr($response->body(), 0, 1000);
             Log::warning('FlexOffers postback returned a non-success status.', [
                 'lead_id' => $leadId,
                 'http_status' => $response->status(),
             ]);
 
+            $message = $containsNoClick
+                ? 'FlexOffers rejected the click ID (No click ID found).'
+                : 'FlexOffers postback returned an error response.';
+
             return [
                 'status' => 'failed',
-                'message' => 'FlexOffers postback returned an error response.',
+                'message' => $message,
                 'postback_url' => $postbackUrl,
                 'http_status' => $response->status(),
-                'response_body' => $responseBody,
+                'response_body' => mb_substr($responseBody, 0, 1000),
                 'lead_id' => $leadId,
             ];
         } catch (Throwable $exception) {

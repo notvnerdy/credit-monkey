@@ -401,6 +401,20 @@
                 geo: document.getElementById('orderGeo').value,
                 commissionid: document.getElementById('orderCommissionId').value
             };
+            var resultDiv = document.getElementById('testResult');
+
+            var clickIdTrimmed = (formData.clickid || '').trim();
+            if (!clickIdTrimmed || clickIdTrimmed.toLowerCase() === 'refid' || clickIdTrimmed.length < 12) {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = '<i class="bi bi-send me-2"></i> Send S2S Postback';
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML =
+                    '<div class="alert alert-danger">' +
+                        '<i class="bi bi-exclamation-triangle-fill me-2"></i>' +
+                        '<strong>Invalid click ID.</strong> Use the real FlexOffers click ID (from <code>refid</code> in URL or Diagnosis Tool), not the literal word <code>refid</code>.' +
+                    '</div>';
+                return;
+            }
 
             var orderItems = [
                 { sku: 'SKU_1', amount: 5, quantity: 1, order_coupon: 'A1', order_discount: [5, 10], order_category: [10, 20], commissionid: 'C101' },
@@ -408,7 +422,6 @@
             ];
 
             var postbackUrl = buildPostbackUrl(formData);
-            var resultDiv = document.getElementById('testResult');
             var payload = {
                 clickid: formData.clickid,
                 ordernumber: formData.ordernumber,
