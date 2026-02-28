@@ -277,10 +277,8 @@
 
     <!-- S2S Postback Test Script -->
     <script>
-        // API endpoint URL
-        var API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost:8000'
-            : 'https://api.creditmonkey.com';
+        var ADVERTISER_ID = '858300D2-9FD5-4288-94E8-96FB1ECA320F';
+        var POSTBACK_BASE = 'https://track.flexlinkspro.com/da.ashx';
 
         // Capture refid (click ID) from URL parameters
         var urlParams = new URLSearchParams(window.location.search);
@@ -306,7 +304,36 @@
             step1Status.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i><strong>No click ID found.</strong> Click the publisher link above first. FlexOffers will redirect you back with a <code>refid</code> parameter. You can also enter a click ID manually.';
         }
 
-        // Handle form submission - send S2S postback via backend
+        // Build the postback URL with query parameters
+        function buildPostbackUrl(data) {
+            var params = new URLSearchParams();
+            params.set('advertiserid', ADVERTISER_ID);
+            params.set('clickid', data.clickid);
+            params.set('orderamount', data.orderamount);
+            params.set('ordernumber', data.ordernumber);
+            if (data.coupon) params.set('coupon', data.coupon);
+            if (data.currency) params.set('currency', data.currency);
+            if (data.geo) params.set('geo', data.geo);
+            if (data.commissionid) params.set('commissionid', data.commissionid);
+            return POSTBACK_BASE + '?' + params.toString();
+        }
+
+        // Fire postback using image pixel (works cross-domain, no CORS issues)
+        function firePostback(url) {
+            return new Promise(function(resolve, reject) {
+                var img = new Image();
+                img.onload = function() { resolve('loaded'); };
+                img.onerror = function() {
+                    // Image pixel may return non-image response, but the request still fires
+                    resolve('fired');
+                };
+                img.src = url;
+                // Timeout fallback
+                setTimeout(function() { resolve('timeout'); }, 5000);
+            });
+        }
+
+        // Handle form submission - fire S2S postback directly
         document.getElementById('flexofferTestForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -314,64 +341,48 @@
             sendBtn.disabled = true;
             sendBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Sending...';
 
-            var postbackData = {
+            var formData = {
                 clickid: document.getElementById('clickId').value,
                 ordernumber: document.getElementById('orderNumber').value,
                 orderamount: parseFloat(document.getElementById('orderAmount').value),
                 coupon: document.getElementById('orderCoupon').value,
                 currency: document.getElementById('orderCurrency').value,
                 geo: document.getElementById('orderGeo').value,
-                commissionid: document.getElementById('orderCommissionId').value,
-                order_items: [
-                    { sku: 'SKU_1', amount: 5, quantity: 1, order_coupon: 'A1', order_discount: [5, 10], order_category: [10, 20], commissionid: 'C101' },
-                    { sku: 'SKU_2', amount: 15, quantity: 3, order_coupon: 'B2', order_discount: [10], commissionid: 'C102' }
-                ]
+                commissionid: document.getElementById('orderCommissionId').value
             };
 
+            var orderItems = [
+                { sku: 'SKU_1', amount: 5, quantity: 1, order_coupon: 'A1', order_discount: [5, 10], order_category: [10, 20], commissionid: 'C101' },
+                { sku: 'SKU_2', amount: 15, quantity: 3, order_coupon: 'B2', order_discount: [10], commissionid: 'C102' }
+            ];
+
+            var postbackUrl = buildPostbackUrl(formData);
             var resultDiv = document.getElementById('testResult');
 
-            fetch(API_BASE + '/api/flexoffers/postback', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(postbackData)
-            })
-            .then(function(response) { return response.json(); })
-            .then(function(data) {
+            // Fire the postback via image pixel
+            firePostback(postbackUrl).then(function(status) {
                 sendBtn.disabled = false;
                 sendBtn.innerHTML = '<i class="bi bi-send me-2"></i> Send S2S Postback';
                 resultDiv.style.display = 'block';
 
-                if (data.success) {
-                    resultDiv.innerHTML =
-                        '<div class="alert alert-success"><i class="bi bi-check-circle-fill me-2"></i><strong>Postback Sent Successfully!</strong> FlexOffers returned status <code>' + data.flexoffers_status + '</code>.</div>' +
-                        '<h6 class="fw-bold mt-3">Postback URL:</h6>' +
-                        '<pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + (data.postback_url || '') + '</pre>' +
-                        '<h6 class="fw-bold mt-3">FlexOffers Response:</h6>' +
-                        '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + (data.flexoffers_response || 'No response body') + '</pre>' +
-                        '<h6 class="fw-bold mt-3">Request Payload:</h6>' +
-                        '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + JSON.stringify(postbackData, null, 2) + '</pre>';
-                } else {
-                    resultDiv.innerHTML =
-                        '<div class="alert alert-danger"><i class="bi bi-x-circle-fill me-2"></i><strong>Postback Failed!</strong> ' + (data.error || 'FlexOffers returned status ' + data.flexoffers_status) + '</div>' +
-                        (data.postback_url ? '<h6 class="fw-bold mt-3">Postback URL:</h6><pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + data.postback_url + '</pre>' : '') +
-                        (data.flexoffers_response ? '<h6 class="fw-bold mt-3">FlexOffers Response:</h6><pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + data.flexoffers_response + '</pre>' : '') +
-                        '<h6 class="fw-bold mt-3">Request Payload:</h6>' +
-                        '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + JSON.stringify(postbackData, null, 2) + '</pre>';
-                }
+                var curlCmd = "curl -X POST '" + postbackUrl + "' \\\n  -H 'Content-Type: application/json' \\\n  -d '" + JSON.stringify({ order_items: orderItems }) + "'";
 
-                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            })
-            .catch(function(err) {
-                sendBtn.disabled = false;
-                sendBtn.innerHTML = '<i class="bi bi-send me-2"></i> Send S2S Postback';
-                resultDiv.style.display = 'block';
                 resultDiv.innerHTML =
-                    '<div class="alert alert-danger"><i class="bi bi-x-circle-fill me-2"></i><strong>Network Error!</strong> Could not reach the backend API at <code>' + API_BASE + '/api/flexoffers/postback</code>. Make sure the backend is running.</div>' +
-                    '<h6 class="fw-bold mt-3">Request Payload:</h6>' +
-                    '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + JSON.stringify(postbackData, null, 2) + '</pre>';
+                    '<div class="alert alert-success">' +
+                        '<i class="bi bi-check-circle-fill me-2"></i>' +
+                        '<strong>Postback Fired!</strong> The tracking pixel request has been sent to FlexOffers.' +
+                    '</div>' +
+                    '<h6 class="fw-bold mt-3">Postback URL (fired via image pixel):</h6>' +
+                    '<pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + postbackUrl + '</pre>' +
+                    '<h6 class="fw-bold mt-3">Product Data (order_items):</h6>' +
+                    '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + JSON.stringify(orderItems, null, 2) + '</pre>' +
+                    '<div class="alert alert-info mt-3">' +
+                        '<i class="bi bi-info-circle me-2"></i>' +
+                        '<strong>To send with product data,</strong> use this curl command:' +
+                    '</div>' +
+                    '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + curlCmd + '</pre>' +
+                    '<button class="btn btn-outline-secondary btn-sm mt-2" onclick="navigator.clipboard.writeText(this.getAttribute(\'data-curl\')).then(function(){ alert(\'Copied!\'); })" data-curl="' + curlCmd.replace(/"/g, '&quot;') + '"><i class="bi bi-clipboard me-1"></i> Copy curl command</button>';
+
                 resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
         });
