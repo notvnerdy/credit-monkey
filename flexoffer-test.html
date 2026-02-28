@@ -333,47 +333,44 @@
         }
 
         function sendPostbackToApi(payload) {
-            var errors = [];
+            return (async function() {
+                var errors = [];
 
-            function tryEndpoint(index) {
-                if (index >= API_ENDPOINTS.length) {
-                    return Promise.reject(new Error(errors.join(' | ')));
-                }
+                for (var index = 0; index < API_ENDPOINTS.length; index++) {
+                    var endpoint = API_ENDPOINTS[index];
 
-                var endpoint = API_ENDPOINTS[index];
-                return fetch(endpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
-                }).then(function(response) {
-                    return response.json().catch(function() {
-                        return {};
-                    }).then(function(body) {
-                        var result = {
-                            ok: response.ok,
-                            status: response.status,
-                            body: body,
-                            endpoint: endpoint
-                        };
+                    try {
+                        var response = await fetch(endpoint, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify(payload)
+                        });
 
-                        if (result.ok) {
-                            return result;
+                        var body = await response.json().catch(function() {
+                            return {};
+                        });
+
+                        if (response.ok) {
+                            return {
+                                ok: true,
+                                status: response.status,
+                                body: body,
+                                endpoint: endpoint
+                            };
                         }
 
                         var msg = body && body.message ? body.message : 'No response message';
                         errors.push(endpoint + ' returned HTTP ' + response.status + ' (' + msg + ')');
-                        return tryEndpoint(index + 1);
-                    });
-                }).catch(function(error) {
-                    errors.push(endpoint + ' failed (' + error.message + ')');
-                    return tryEndpoint(index + 1);
-                });
-            }
+                    } catch (error) {
+                        errors.push(endpoint + ' failed (' + error.message + ')');
+                    }
+                }
 
-            return tryEndpoint(0);
+                throw new Error(errors.join(' | '));
+            })();
         }
 
         // Fallback to pixel fire if backend endpoint is unavailable.
