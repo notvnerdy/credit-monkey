@@ -995,12 +995,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Send to backend API
     const submitToService = async (formData, formType) => {
-        // Backend API endpoint
-        // For local testing: http://localhost:8000/api/leads
-        // For production: https://api.creditmonkey.com/api/leads
-        const API_ENDPOINT = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-            ? 'http://localhost:8000/api/leads'
-            : 'https://api.creditmonkey.com/api/leads';
+        // Try multiple lead endpoints in order to survive deployment/config differences.
+        const API_ENDPOINTS = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? ['http://localhost:8000/api/leads']
+            : [
+                'https://api.creditmonkey.com/api/leads',
+                'https://api.creditmonkey.com/backend/public/api/leads',
+                window.location.origin + '/api/leads',
+                window.location.origin + '/backend/public/api/leads'
+            ];
+        const uniqueEndpoints = Array.from(new Set(API_ENDPOINTS));
         const clickId = getFlexOffersClickId();
         const requestedOrderAmount = parsePriceToAmount(formData.orderamount);
         
@@ -1040,26 +1044,53 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
             
-            const response = await fetch(API_ENDPOINT, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(leadData)
-            });
-            
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+            const endpointErrors = [];
+            let result = null;
+            let usedEndpoint = null;
+
+            for (let i = 0; i < uniqueEndpoints.length; i++) {
+                const endpoint = uniqueEndpoints[i];
+
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(leadData)
+                    });
+
+                    const responseBody = await response.json().catch(() => ({}));
+
+                    if (response.ok) {
+                        result = responseBody;
+                        usedEndpoint = endpoint;
+                        break;
+                    }
+
+                    const message = responseBody && responseBody.message
+                        ? responseBody.message
+                        : 'No response message';
+                    endpointErrors.push(`${endpoint} returned HTTP ${response.status} (${message})`);
+                } catch (requestError) {
+                    endpointErrors.push(`${endpoint} failed (${requestError.message})`);
+                }
             }
-            
-            const result = await response.json();
+
+            if (!result) {
+                const errorSummary = endpointErrors.length > 0
+                    ? endpointErrors.join(' | ')
+                    : 'No lead API endpoints were reachable.';
+                throw new Error(errorSummary);
+            }
+
+            console.log('Lead submitted using endpoint:', usedEndpoint);
             
             // Also save locally as backup
             saveFormData(formData, formType);
             
-            return { success: true, data: result };
+            return { success: true, data: result, endpoint: usedEndpoint };
             
         } catch (error) {
             console.error('Form submission error:', error);
