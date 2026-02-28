@@ -30,18 +30,6 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="assets/css/styles.css?v=202602030001">
-
-    <!-- FlexOffers Session Tracking Script (Entry Page) -->
-    <script>
-        !function(){
-          var e=window.AdvertiserMaxTrack=window.AdvertiserMaxTrack||[];
-          if(e.invoked)window.console&&console.error&&console.error("FlexOffers library was included more than once.");
-          else{e.invoked=!0,e.methods=["init","getClick","track"],e.factory=function(r){return function(){var t=Array.prototype.slice.call(arguments);
-            return t.unshift(r),e.push(t),e}};for(var r=0;r<e.methods.length;r++){var t=e.methods[r];e[t]=e.factory(t)}e.init=function(r)
-            {var t=document.createElement("script");t.type="text/javascript",t.async=!0,t.src="https://advertisermax.flexoffers.com/vendors/advertisermax/advertisermax.tracking.lib.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n),e.advertiserId=r}}}();
-          AdvertiserMaxTrack.init("858300D2-9FD5-4288-94E8-96FB1ECA320F");
-          AdvertiserMaxTrack.getClick();
-    </script>
 </head>
 <body>
 
@@ -81,16 +69,16 @@
         <div class="container">
             <div class="row align-items-center g-5">
                 <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
-                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 fs-6"><i class="bi bi-tools"></i> Testing Page</span>
-                    <h1 class="display-4 fw-bold mb-4">FlexOffers Integration Test</h1>
-                    <p class="lead text-muted">Follow the steps below to test the FlexOffers tracking integration.</p>
-                    <p class="text-muted"><strong>Advertiser Tracking ID:</strong> <code>858300D2-9FD5-4288-94E8-96FB1ECA320F</code></p>
+                    <span class="badge bg-warning text-dark mb-3 px-3 py-2 fs-6"><i class="bi bi-tools"></i> Server-to-Server Integration</span>
+                    <h1 class="display-4 fw-bold mb-4">FlexOffers S2S Postback Test</h1>
+                    <p class="lead text-muted">Follow the steps below to test the FlexOffers server-to-server postback integration.</p>
+                    <p class="text-muted"><strong>Advertiser ID:</strong> <code>858300D2-9FD5-4288-94E8-96FB1ECA320F</code></p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Step 1: Click Publisher Link -->
+    <!-- Step 1: Click Publisher Link to get Click ID -->
     <section class="py-5 bg-light">
         <div class="container">
             <div class="row justify-content-center">
@@ -100,16 +88,13 @@
                             <h5 class="mb-0"><i class="bi bi-1-circle me-2"></i> Step 1: Click the Publisher Link</h5>
                         </div>
                         <div class="card-body">
-                            <p>Click the publisher link below to simulate an affiliate click. This sets the FlexOffers tracking cookie so the conversion can be attributed. You will be redirected back to this site.</p>
+                            <p>Click the publisher link below. FlexOffers will redirect you back to this site with a <code>refid</code> parameter containing the click ID. This click ID is required for the S2S postback.</p>
                             <div class="d-grid gap-2">
                                 <a href="https://track.flexlinkspro.com/g.ashx?foid=24.225585.6647126&trid=1049797.225585&trackingid=19744" class="btn btn-primary btn-lg" id="publisherLink">
-                                    <i class="bi bi-link-45deg me-2"></i> Click Publisher Tracking Link (Same Window)
+                                    <i class="bi bi-link-45deg me-2"></i> Click Publisher Tracking Link
                                 </a>
                             </div>
-                            <p class="text-muted small mt-2 mb-0">This link will navigate you away. After FlexOffers redirects you back to the site, use the header or footer "FlexOffers Test" link to return here and send a test transaction.</p>
-                            <div class="alert alert-warning mt-3 mb-0" id="step1Status">
-                                <i class="bi bi-exclamation-triangle me-2"></i>
-                                <strong>Not clicked yet.</strong> You must click the publisher link first before sending a test transaction.
+                            <div class="alert mt-3 mb-0" id="step1Status">
                             </div>
                         </div>
                     </div>
@@ -118,52 +103,35 @@
         </div>
     </section>
 
-    <!-- Step 2: Session Capture -->
+    <!-- Step 2: Send S2S Postback -->
     <section class="py-5">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="card border-0 shadow-sm mb-4" data-aos="fade-up">
-                        <div class="card-header bg-info text-white">
-                            <h5 class="mb-0"><i class="bi bi-2-circle me-2"></i> Step 2: Session Tracking (Automatic)</h5>
-                        </div>
-                        <div class="card-body">
-                            <p>The FlexOffers session tracking script is loaded in the <code>&lt;head&gt;</code> of this page (and all entry pages on the site). It automatically captures the affiliate click session.</p>
-                            <div class="alert alert-info mb-0">
-                                <i class="bi bi-check-circle me-2"></i>
-                                <strong>Active:</strong> <code>AdvertiserMaxTrack.init("858300D2-9FD5-4288-94E8-96FB1ECA320F")</code> and <code>AdvertiserMaxTrack.getClick()</code> have been called.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Step 3: Send Test Transaction -->
-    <section class="py-5 bg-light">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card border-0 shadow-sm" data-aos="fade-up">
                         <div class="card-header bg-success text-white">
-                            <h5 class="mb-0"><i class="bi bi-3-circle me-2"></i> Step 3: Send Test Transaction</h5>
+                            <h5 class="mb-0"><i class="bi bi-2-circle me-2"></i> Step 2: Send S2S Postback</h5>
                         </div>
                         <div class="card-body">
-                            <p>Fill in the fields below and click <strong>"Send Test Transaction"</strong> to fire the FlexOffers conversion tracking call. Product type is set to <code>test</code>.</p>
+                            <p>The form below sends a server-to-server POST request to FlexOffers via your backend API (<code>/api/flexoffers/postback</code>).</p>
                             <form id="flexofferTestForm">
                                 <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label fw-semibold">Click ID (refid) *</label>
+                                        <input type="text" class="form-control" id="clickId" required placeholder="Auto-captured from URL after Step 1">
+                                        <small class="text-muted">This is automatically captured from the <code>refid</code> URL parameter after FlexOffers redirects you back.</small>
+                                    </div>
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Order Number *</label>
                                         <input type="text" class="form-control" id="orderNumber" value="TEST-001" required>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Order Amount *</label>
-                                        <input type="number" class="form-control" id="orderAmount" value="99.00" step="0.01" required>
+                                        <input type="number" class="form-control" id="orderAmount" value="25.50" step="0.01" required>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label fw-semibold">Coupon <span class="text-muted">(optional)</span></label>
-                                        <input type="text" class="form-control" id="orderCoupon" value="TESTCOUPON" placeholder="e.g. SAVE10">
+                                        <label class="form-label fw-semibold">Coupon <span class="text-muted">(optional, max 300 chars)</span></label>
+                                        <input type="text" class="form-control" id="orderCoupon" value="SALE20OFF" placeholder="e.g. SALE20OFF">
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Currency <span class="text-muted">(ISO 4217)</span></label>
@@ -175,18 +143,17 @@
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Commission ID <span class="text-muted">(optional)</span></label>
-                                        <input type="text" class="form-control" id="orderCommissionId" placeholder="e.g. C101">
+                                        <input type="text" class="form-control" id="orderCommissionId" value="Test101" placeholder="e.g. Test101">
                                     </div>
                                 </div>
 
                                 <hr class="my-4">
-                                <h6 class="fw-bold mb-3"><i class="bi bi-box-seam me-2"></i> Product Data (Type: test)</h6>
+                                <h6 class="fw-bold mb-3"><i class="bi bi-box-seam me-2"></i> Product Data (sent in POST body as JSON)</h6>
                                 <div class="table-responsive">
                                     <table class="table table-sm table-bordered">
                                         <thead class="table-light">
                                             <tr>
                                                 <th>SKU</th>
-                                                <th>Type</th>
                                                 <th>Amount</th>
                                                 <th>Qty</th>
                                                 <th>Commission ID</th>
@@ -197,51 +164,34 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td><code>SKU1</code></td>
-                                                <td><span class="badge bg-warning text-dark">test</span></td>
-                                                <td>20</td>
-                                                <td>2</td>
+                                                <td><code>SKU_1</code></td>
+                                                <td>5</td>
+                                                <td>1</td>
                                                 <td>C101</td>
-                                                <td>COU3</td>
-                                                <td>[6]</td>
-                                                <td>[2, 3]</td>
+                                                <td>A1</td>
+                                                <td>[5, 10]</td>
+                                                <td>[10, 20]</td>
                                             </tr>
                                             <tr>
-                                                <td><code>SKU2</code></td>
-                                                <td><span class="badge bg-warning text-dark">test</span></td>
-                                                <td>12</td>
+                                                <td><code>SKU_2</code></td>
+                                                <td>15</td>
                                                 <td>3</td>
                                                 <td>C102</td>
-                                                <td>COU2</td>
-                                                <td>[6, 10]</td>
-                                                <td>[3]</td>
-                                            </tr>
-                                            <tr>
-                                                <td><code>SKU3</code></td>
-                                                <td><span class="badge bg-warning text-dark">test</span></td>
-                                                <td>10</td>
-                                                <td>1</td>
+                                                <td>B2</td>
+                                                <td>[10]</td>
                                                 <td>-</td>
-                                                <td>COU1</td>
-                                                <td>-</td>
-                                                <td>[10, 11]</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
 
                                 <button type="submit" class="btn btn-success btn-lg w-100 mt-3" id="sendTestBtn">
-                                    <i class="bi bi-send me-2"></i> Send Test Transaction
+                                    <i class="bi bi-send me-2"></i> Send S2S Postback
                                 </button>
                             </form>
 
-                            <div id="testResult" class="mt-4" style="display:none;">
-                                <div class="alert alert-success">
-                                    <i class="bi bi-check-circle-fill me-2"></i>
-                                    <strong>Transaction Sent!</strong> The <code>AdvertiserMaxTrack.track()</code> call has been fired. Check the FlexOffers Tracking Diagnosis Tool to verify.
-                                </div>
-                                <pre id="trackingPayload" class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;"></pre>
-                            </div>
+                            <!-- Result -->
+                            <div id="testResult" class="mt-4" style="display:none;"></div>
                         </div>
                     </div>
                 </div>
@@ -249,24 +199,24 @@
         </div>
     </section>
 
-    <!-- Step 4: Verify -->
-    <section class="py-5">
+    <!-- Step 3: Verify -->
+    <section class="py-5 bg-light">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card border-0 shadow-sm" data-aos="fade-up">
                         <div class="card-header bg-dark text-white">
-                            <h5 class="mb-0"><i class="bi bi-4-circle me-2"></i> Step 4: Verify on FlexOffers</h5>
+                            <h5 class="mb-0"><i class="bi bi-3-circle me-2"></i> Step 3: Verify on FlexOffers</h5>
                         </div>
                         <div class="card-body">
-                            <p>After sending the test transaction, return to the <strong>FlexOffers Tracking Diagnosis Tool</strong> to confirm the tracking events were received.</p>
+                            <p>After sending the postback, return to the <strong>FlexOffers Tracking Diagnosis Tool</strong> to confirm the tracking event was received.</p>
                             <div class="alert alert-secondary mb-0">
                                 <i class="bi bi-info-circle me-2"></i>
                                 <strong>Checklist:</strong>
                                 <ul class="mb-0 mt-2">
-                                    <li>Publisher link was clicked (Step 1)</li>
-                                    <li>Session was captured via <code>getClick()</code> (Step 2 - automatic)</li>
-                                    <li>Test transaction was sent with product type <code>test</code> (Step 3)</li>
+                                    <li>Publisher link was clicked and <code>refid</code> (click ID) was captured</li>
+                                    <li>S2S postback was sent via backend to <code>track.flexlinkspro.com/da.ashx</code></li>
+                                    <li>FlexOffers returned a success response</li>
                                     <li>FlexOffers Diagnosis Tool shows the tracking event</li>
                                 </ul>
                             </div>
@@ -278,15 +228,16 @@
     </section>
 
     <!-- Parameter Reference -->
-    <section class="py-5 bg-light">
+    <section class="py-5">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="card border-0 shadow-sm" data-aos="fade-up">
                         <div class="card-header bg-secondary text-white">
-                            <h5 class="mb-0"><i class="bi bi-book me-2"></i> Parameter Reference</h5>
+                            <h5 class="mb-0"><i class="bi bi-book me-2"></i> S2S Postback Reference</h5>
                         </div>
                         <div class="card-body">
+                            <p class="mb-3"><strong>Postback URL:</strong><br><code>https://track.flexlinkspro.com/da.ashx?advertiserid=...&clickid=...&orderamount=...&ordernumber=...</code></p>
                             <table class="table table-striped mb-0">
                                 <thead>
                                     <tr>
@@ -296,14 +247,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td><code>order_amount</code></td><td>Sale amount</td><td>Yes</td></tr>
-                                    <tr><td><code>order_number</code></td><td>Order ID</td><td>Yes</td></tr>
-                                    <tr><td><code>order_coupon</code></td><td>Coupon code</td><td>No</td></tr>
-                                    <tr><td><code>order_currency</code></td><td>ISO 4217 currency code (e.g. USD, EUR, GBP)</td><td>No</td></tr>
-                                    <tr><td><code>order_geo</code></td><td>ISO 3166 country code (e.g. USA, DEU, GBR)</td><td>No</td></tr>
-                                    <tr><td><code>order_commissionid</code></td><td>Advanced commission ID</td><td>No</td></tr>
-                                    <tr><td><code>order_items</code></td><td>Array of product data (SKU, amount, quantity, type, etc.)</td><td>No</td></tr>
-                                    <tr><td><code>type</code></td><td>Product type — must be <code>test</code> for FlexOffers testing</td><td>Yes (for test)</td></tr>
+                                    <tr><td><code>advertiserid</code></td><td>Unique FlexOffers account ID</td><td>Yes</td></tr>
+                                    <tr><td><code>clickid</code></td><td>FlexOffers unique click identifier (from <code>refid</code>)</td><td>Yes</td></tr>
+                                    <tr><td><code>orderamount</code></td><td>Total sale amount (before taxes/shipping)</td><td>Yes</td></tr>
+                                    <tr><td><code>ordernumber</code></td><td>Order number or unique sale ID</td><td>Yes</td></tr>
+                                    <tr><td><code>coupon</code></td><td>Coupon code (max 300 chars)</td><td>No</td></tr>
+                                    <tr><td><code>currency</code></td><td>ISO 4217 currency code</td><td>No</td></tr>
+                                    <tr><td><code>geo</code></td><td>ISO 3166 country code</td><td>No</td></tr>
+                                    <tr><td><code>commissionid</code></td><td>Advanced commission ID</td><td>No</td></tr>
+                                    <tr><td><code>order_items</code></td><td>Product data array (sent in POST body as JSON)</td><td>No</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -323,57 +275,105 @@
     <!-- Custom JS -->
     <script src="assets/js/script.js?v=202602030001"></script>
 
-    <!-- Test Flow Script -->
+    <!-- S2S Postback Test Script -->
     <script>
-        // Track whether publisher link was clicked
-        var publisherClicked = sessionStorage.getItem('flexoffer_publisher_clicked') === 'true';
+        // API endpoint URL
+        var API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:8000'
+            : 'https://api.creditmonkey.com';
 
-        // Update Step 1 status on page load
-        if (publisherClicked) {
-            document.getElementById('step1Status').className = 'alert alert-success mt-3 mb-0';
-            document.getElementById('step1Status').innerHTML = '<i class="bi bi-check-circle-fill me-2"></i><strong>Publisher link clicked!</strong> Session tracking is active. You can now send a test transaction.';
+        // Capture refid (click ID) from URL parameters
+        var urlParams = new URLSearchParams(window.location.search);
+        var refId = urlParams.get('refid') || '';
+        var storedClickId = sessionStorage.getItem('flexoffer_clickid') || '';
+
+        // Use URL param if available, otherwise fall back to stored value
+        if (refId) {
+            sessionStorage.setItem('flexoffer_clickid', refId);
+            document.getElementById('clickId').value = refId;
+        } else if (storedClickId) {
+            document.getElementById('clickId').value = storedClickId;
         }
 
-        // Mark publisher link as clicked before navigating away
-        document.getElementById('publisherLink').addEventListener('click', function() {
-            sessionStorage.setItem('flexoffer_publisher_clicked', 'true');
-        });
+        // Update Step 1 status
+        var step1Status = document.getElementById('step1Status');
+        var currentClickId = refId || storedClickId;
+        if (currentClickId) {
+            step1Status.className = 'alert alert-success mt-3 mb-0';
+            step1Status.innerHTML = '<i class="bi bi-check-circle-fill me-2"></i><strong>Click ID captured!</strong> <code>' + currentClickId + '</code>';
+        } else {
+            step1Status.className = 'alert alert-warning mt-3 mb-0';
+            step1Status.innerHTML = '<i class="bi bi-exclamation-triangle me-2"></i><strong>No click ID found.</strong> Click the publisher link above first. FlexOffers will redirect you back with a <code>refid</code> parameter. You can also enter a click ID manually.';
+        }
 
-        // Handle test transaction form submission
+        // Handle form submission - send S2S postback via backend
         document.getElementById('flexofferTestForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            var orderNumber = document.getElementById('orderNumber').value;
-            var orderAmount = parseFloat(document.getElementById('orderAmount').value);
-            var coupon = document.getElementById('orderCoupon').value;
-            var currency = document.getElementById('orderCurrency').value;
-            var geo = document.getElementById('orderGeo').value;
-            var commissionId = document.getElementById('orderCommissionId').value;
+            var sendBtn = document.getElementById('sendTestBtn');
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Sending...';
 
-            var trackingData = {
-                order_number: orderNumber,
-                order_amount: orderAmount,
-                order_coupon: coupon,
-                order_currency: currency,
-                order_geo: geo,
-                order_commissionid: commissionId,
+            var postbackData = {
+                clickid: document.getElementById('clickId').value,
+                ordernumber: document.getElementById('orderNumber').value,
+                orderamount: parseFloat(document.getElementById('orderAmount').value),
+                coupon: document.getElementById('orderCoupon').value,
+                currency: document.getElementById('orderCurrency').value,
+                geo: document.getElementById('orderGeo').value,
+                commissionid: document.getElementById('orderCommissionId').value,
                 order_items: [
-                    { sku: 'SKU1', type: 'test', amount: 20, commissionid: 'C101', quantity: 2, order_coupon: 'COU3', order_discount: [6], order_category: [2, 3] },
-                    { sku: 'SKU2', type: 'test', amount: 12, commissionid: 'C102', quantity: 3, order_coupon: 'COU2', order_discount: [6, 10], order_category: [3] },
-                    { sku: 'SKU3', type: 'test', amount: 10, quantity: 1, order_coupon: 'COU1', order_category: [10, 11] }
+                    { sku: 'SKU_1', amount: 5, quantity: 1, order_coupon: 'A1', order_discount: [5, 10], order_category: [10, 20], commissionid: 'C101' },
+                    { sku: 'SKU_2', amount: 15, quantity: 3, order_coupon: 'B2', order_discount: [10], commissionid: 'C102' }
                 ]
             };
 
-            // Fire FlexOffers conversion tracking
-            // Library is already loaded and initialized from <head> script
-            AdvertiserMaxTrack.track(trackingData);
+            var resultDiv = document.getElementById('testResult');
 
-            // Show result
-            document.getElementById('testResult').style.display = 'block';
-            document.getElementById('trackingPayload').textContent = JSON.stringify(trackingData, null, 2);
+            fetch(API_BASE + '/api/flexoffers/postback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(postbackData)
+            })
+            .then(function(response) { return response.json(); })
+            .then(function(data) {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = '<i class="bi bi-send me-2"></i> Send S2S Postback';
+                resultDiv.style.display = 'block';
 
-            // Scroll to result
-            document.getElementById('testResult').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (data.success) {
+                    resultDiv.innerHTML =
+                        '<div class="alert alert-success"><i class="bi bi-check-circle-fill me-2"></i><strong>Postback Sent Successfully!</strong> FlexOffers returned status <code>' + data.flexoffers_status + '</code>.</div>' +
+                        '<h6 class="fw-bold mt-3">Postback URL:</h6>' +
+                        '<pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + (data.postback_url || '') + '</pre>' +
+                        '<h6 class="fw-bold mt-3">FlexOffers Response:</h6>' +
+                        '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + (data.flexoffers_response || 'No response body') + '</pre>' +
+                        '<h6 class="fw-bold mt-3">Request Payload:</h6>' +
+                        '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + JSON.stringify(postbackData, null, 2) + '</pre>';
+                } else {
+                    resultDiv.innerHTML =
+                        '<div class="alert alert-danger"><i class="bi bi-x-circle-fill me-2"></i><strong>Postback Failed!</strong> ' + (data.error || 'FlexOffers returned status ' + data.flexoffers_status) + '</div>' +
+                        (data.postback_url ? '<h6 class="fw-bold mt-3">Postback URL:</h6><pre class="bg-light p-3 rounded text-break" style="font-size:0.85rem; word-wrap:break-word; white-space:pre-wrap;">' + data.postback_url + '</pre>' : '') +
+                        (data.flexoffers_response ? '<h6 class="fw-bold mt-3">FlexOffers Response:</h6><pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + data.flexoffers_response + '</pre>' : '') +
+                        '<h6 class="fw-bold mt-3">Request Payload:</h6>' +
+                        '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + JSON.stringify(postbackData, null, 2) + '</pre>';
+                }
+
+                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            })
+            .catch(function(err) {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = '<i class="bi bi-send me-2"></i> Send S2S Postback';
+                resultDiv.style.display = 'block';
+                resultDiv.innerHTML =
+                    '<div class="alert alert-danger"><i class="bi bi-x-circle-fill me-2"></i><strong>Network Error!</strong> Could not reach the backend API at <code>' + API_BASE + '/api/flexoffers/postback</code>. Make sure the backend is running.</div>' +
+                    '<h6 class="fw-bold mt-3">Request Payload:</h6>' +
+                    '<pre class="bg-dark text-light p-3 rounded" style="font-size:0.85rem; overflow-x:auto;">' + JSON.stringify(postbackData, null, 2) + '</pre>';
+                resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
         });
     </script>
 </body>

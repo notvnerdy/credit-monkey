@@ -6,9 +6,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CreditCaseController;
 use App\Http\Controllers\CaseNoteController;
 use App\Http\Controllers\CaseDocumentController;
+use App\Http\Controllers\FlexOffersController;
 
 Route::post('/leads', [LeadController::class, 'store']);
 Route::post('/auth/login', [AuthController::class, 'login']);
+Route::post('/flexoffers/postback', [FlexOffersController::class, 'postback']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/me', [AuthController::class, 'me']);
