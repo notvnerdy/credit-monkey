@@ -90,9 +90,15 @@
                         <div class="card-body">
                             <p>Click the publisher link below. FlexOffers will redirect you back to this site with a <code>refid</code> parameter containing the click ID. This click ID is required for the S2S postback.</p>
                             <div class="d-grid gap-2">
-                                <a href="https://track.flexlinkspro.com/g.ashx?foid=24.225585.6647126&trid=1049797.225585&trackingid=19744" class="btn btn-primary btn-lg" id="publisherLink">
-                                    <i class="bi bi-link-45deg me-2"></i> Click Publisher Tracking Link
+                                <a href="https://track.flexlinkspro.com/g.ashx?foid=24.225585.6647126&trid=1049797.225585&trackingid=19744" class="btn btn-primary btn-lg" id="publisherLink" target="_blank">
+                                    <i class="bi bi-link-45deg me-2"></i> Click Publisher Tracking Link (opens new tab)
                                 </a>
+                            </div>
+                            <div class="alert alert-info mt-3">
+                                <i class="bi bi-lightbulb me-2"></i>
+                                <strong>Important:</strong> For the publisher link to redirect back with a click ID, your <strong>Default URL</strong> must be configured in the FlexOffers advertiser dashboard to point to:<br>
+                                <code>https://www.creditmonkey.com/flexoffer-test</code><br>
+                                FlexOffers will append <code>?refid=CLICKID</code> automatically.
                             </div>
                             <div class="alert mt-3 mb-0" id="step1Status">
                             </div>
@@ -118,8 +124,8 @@
                                 <div class="row g-3">
                                     <div class="col-12">
                                         <label class="form-label fw-semibold">Click ID (refid) *</label>
-                                        <input type="text" class="form-control" id="clickId" required placeholder="Auto-captured from URL after Step 1">
-                                        <small class="text-muted">This is automatically captured from the <code>refid</code> URL parameter after FlexOffers redirects you back.</small>
+                                        <input type="text" class="form-control" id="clickId" required placeholder="Enter click ID from FlexOffers or auto-captured from refid param">
+                                        <small class="text-muted">Auto-captured from the <code>refid</code> URL parameter, or paste a click ID from the <strong>FlexOffers Tracking Diagnosis Tool</strong>. Example format: <code>142873070F0F30068429691312640</code></small>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Order Number *</label>
