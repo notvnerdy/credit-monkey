@@ -288,6 +288,7 @@
         var API_ENDPOINTS = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
             ? ['http://localhost:8000/api/flexoffers/postback']
             : [
+                window.location.origin + '/api/flexoffers-postback.php',
                 window.location.origin + '/api/flexoffers/postback',
                 window.location.origin + '/backend/public/api/flexoffers/postback'
             ];

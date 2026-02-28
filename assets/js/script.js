@@ -999,6 +999,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const API_ENDPOINTS = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
             ? ['http://localhost:8000/api/leads']
             : [
+                window.location.origin + '/api/leads.php',
                 window.location.origin + '/api/leads',
                 window.location.origin + '/backend/public/api/leads'
             ];

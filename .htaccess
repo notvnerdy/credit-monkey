@@ -5,6 +5,10 @@ RewriteEngine On
 # Set the base for relative links
 RewriteBase /
 
+# Single-server API routes (avoid dependency on separate API host/subdomain)
+RewriteRule ^api/leads/?$ api/leads.php [L,QSA,NC]
+RewriteRule ^api/flexoffers/postback/?$ api/flexoffers-postback.php [L,QSA,NC]
+
 # Remove .html extension from URLs (show clean URLs to users)
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.html -f
@@ -87,7 +91,7 @@ AddType application/json .json
     Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
 
     # Content Security Policy - allow trusted sources
-    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://calendly.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://formspree.io https://api.creditmonkey.com; frame-src https://calendly.com; base-uri 'self'; form-action 'self' https://formspree.io;"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://unpkg.com https://calendly.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://formspree.io; frame-src https://calendly.com; base-uri 'self'; form-action 'self' https://formspree.io;"
 
     # Strict Transport Security (HSTS) - enforce HTTPS for 1 year
     Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
@@ -147,4 +151,3 @@ FileETag MTime Size
 <Files "manifest.json">
     Header set Cache-Control "max-age=86400"
 </Files>
-
