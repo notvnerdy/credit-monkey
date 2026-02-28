@@ -73,6 +73,7 @@ class FlexOffersPostbackService
         if (!empty($payload['order_items']) && is_array($payload['order_items'])) {
             $body['order_items'] = $payload['order_items'];
         }
+        $hasOrderItems = $body !== [];
 
         try {
             $timeout = (int) config('services.flexoffers.timeout', 10);
@@ -82,45 +83,113 @@ class FlexOffersPostbackService
                     'Accept' => '*/*',
                 ]);
 
-            if ($body !== []) {
-                $response = $http
-                    ->withBody((string) json_encode($body), 'application/json')
-                    ->send('POST', $postbackUrl);
-            } else {
-                $response = $http->send('POST', $postbackUrl);
-            }
+            // Primary conversion fire: GET is the most reliable for da.ashx.
+            $getResponse = $http->send('GET', $postbackUrl);
+            $getBody = (string) $getResponse->body();
+            $getBodyLower = mb_strtolower($getBody);
+            $getContainsNoClick = str_contains($getBodyLower, 'no click id found');
+            $getContainsServerError = str_contains($getBodyLower, '/errors/500') || str_contains($getBodyLower, 'object moved');
+            $getSuccessful = $getResponse->successful() && !$getContainsNoClick && !$getContainsServerError;
 
-            $responseBody = (string) $response->body();
-            $responseBodyLower = mb_strtolower($responseBody);
-            $containsNoClick = str_contains($responseBodyLower, 'no click id found');
-            $containsServerError = str_contains($responseBodyLower, '/errors/500') || str_contains($responseBodyLower, 'object moved');
-
-            if ($response->successful() && !$containsNoClick && !$containsServerError) {
+            if ($getContainsNoClick) {
                 return [
-                    'status' => 'sent',
-                    'message' => 'FlexOffers postback sent.',
+                    'status' => 'failed',
+                    'message' => 'FlexOffers rejected the click ID (No click ID found).',
                     'postback_url' => $postbackUrl,
-                    'http_status' => $response->status(),
-                    'response_body' => mb_substr($responseBody, 0, 1000),
+                    'http_status' => $getResponse->status(),
+                    'response_body' => mb_substr($getBody, 0, 1000),
                     'lead_id' => $leadId,
                 ];
             }
 
-            Log::warning('FlexOffers postback returned a non-success status.', [
-                'lead_id' => $leadId,
-                'http_status' => $response->status(),
-            ]);
+            if ($getSuccessful && !$hasOrderItems) {
+                return [
+                    'status' => 'sent',
+                    'message' => 'FlexOffers postback sent.',
+                    'postback_url' => $postbackUrl,
+                    'http_status' => $getResponse->status(),
+                    'response_body' => mb_substr($getBody, 0, 1000),
+                    'lead_id' => $leadId,
+                ];
+            }
 
-            $message = $containsNoClick
-                ? 'FlexOffers rejected the click ID (No click ID found).'
-                : 'FlexOffers postback returned an error response.';
+            if ($getSuccessful && $hasOrderItems) {
+                // Best-effort order_items POST; conversion already sent via GET.
+                $postItemsResponse = $http
+                    ->withBody((string) json_encode($body), 'application/json')
+                    ->send('POST', $postbackUrl);
+
+                $postItemsBody = (string) $postItemsResponse->body();
+                $postItemsBodyLower = mb_strtolower($postItemsBody);
+                $postItemsContainsServerError = str_contains($postItemsBodyLower, '/errors/500') || str_contains($postItemsBodyLower, 'object moved');
+                $postItemsSuccessful = $postItemsResponse->successful() && !$postItemsContainsServerError;
+
+                $result = [
+                    'status' => 'sent',
+                    'message' => 'FlexOffers conversion sent via GET.',
+                    'postback_url' => $postbackUrl,
+                    'http_status' => $getResponse->status(),
+                    'response_body' => mb_substr($getBody, 0, 1000),
+                    'lead_id' => $leadId,
+                    'order_items_status' => $postItemsSuccessful ? 'sent' : 'failed',
+                ];
+
+                if (!$postItemsSuccessful) {
+                    $result['order_items_warning'] = 'Order items POST failed but conversion GET succeeded.';
+                    $result['order_items_http_status'] = $postItemsResponse->status();
+                    $result['order_items_response_body'] = mb_substr($postItemsBody, 0, 1000);
+                }
+
+                return $result;
+            }
+
+            // If GET failed for non-click-id reasons, try POST as fallback.
+            $fallbackBody = $hasOrderItems ? (string) json_encode($body) : '{}';
+            $postFallbackResponse = $http
+                ->withBody($fallbackBody, 'application/json')
+                ->send('POST', $postbackUrl);
+            $postFallbackBody = (string) $postFallbackResponse->body();
+            $postFallbackBodyLower = mb_strtolower($postFallbackBody);
+            $postFallbackContainsNoClick = str_contains($postFallbackBodyLower, 'no click id found');
+            $postFallbackContainsServerError = str_contains($postFallbackBodyLower, '/errors/500') || str_contains($postFallbackBodyLower, 'object moved');
+            $postFallbackSuccessful = $postFallbackResponse->successful() && !$postFallbackContainsNoClick && !$postFallbackContainsServerError;
+
+            if ($postFallbackContainsNoClick) {
+                return [
+                    'status' => 'failed',
+                    'message' => 'FlexOffers rejected the click ID (No click ID found).',
+                    'postback_url' => $postbackUrl,
+                    'http_status' => $postFallbackResponse->status(),
+                    'response_body' => mb_substr($postFallbackBody, 0, 1000),
+                    'lead_id' => $leadId,
+                ];
+            }
+
+            if ($postFallbackSuccessful) {
+                return [
+                    'status' => 'sent',
+                    'message' => 'FlexOffers postback sent.',
+                    'postback_url' => $postbackUrl,
+                    'http_status' => $postFallbackResponse->status(),
+                    'response_body' => mb_substr($postFallbackBody, 0, 1000),
+                    'lead_id' => $leadId,
+                ];
+            }
+
+            Log::warning('FlexOffers postback failed for both GET and POST.', [
+                'lead_id' => $leadId,
+                'get_http_status' => $getResponse->status(),
+                'post_http_status' => $postFallbackResponse->status(),
+            ]);
 
             return [
                 'status' => 'failed',
-                'message' => $message,
+                'message' => 'FlexOffers postback returned an error response.',
                 'postback_url' => $postbackUrl,
-                'http_status' => $response->status(),
-                'response_body' => mb_substr($responseBody, 0, 1000),
+                'http_status' => $getResponse->status(),
+                'response_body' => mb_substr($getBody, 0, 1000),
+                'post_http_status' => $postFallbackResponse->status(),
+                'post_response_body' => mb_substr($postFallbackBody, 0, 1000),
                 'lead_id' => $leadId,
             ];
         } catch (Throwable $exception) {

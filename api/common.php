@@ -40,8 +40,13 @@ function read_json_payload(): array
 /**
  * @return array{status:int,body:string,error:?string}
  */
-function post_request(string $url, ?string $jsonBody = null): array
+function send_http_request(string $url, string $method = 'POST', ?string $jsonBody = null): array
 {
+    $normalizedMethod = strtoupper(trim($method));
+    if ($normalizedMethod !== 'GET' && $normalizedMethod !== 'POST') {
+        $normalizedMethod = 'POST';
+    }
+
     if (function_exists('curl_init')) {
         $curl = curl_init($url);
         if ($curl === false) {
@@ -54,14 +59,19 @@ function post_request(string $url, ?string $jsonBody = null): array
         }
 
         curl_setopt_array($curl, [
-            CURLOPT_POST => true,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => false,
             CURLOPT_TIMEOUT => 12,
             CURLOPT_HTTPHEADER => $headers,
         ]);
 
-        if ($jsonBody !== null) {
+        if ($normalizedMethod === 'GET') {
+            curl_setopt($curl, CURLOPT_HTTPGET, true);
+        } else {
+            curl_setopt($curl, CURLOPT_POST, true);
+        }
+
+        if ($normalizedMethod === 'POST' && $jsonBody !== null) {
             curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonBody);
         }
 
@@ -83,9 +93,9 @@ function post_request(string $url, ?string $jsonBody = null): array
 
     $context = stream_context_create([
         'http' => [
-            'method' => 'POST',
+            'method' => $normalizedMethod,
             'header' => implode("\r\n", $headers),
-            'content' => $jsonBody ?? '',
+            'content' => $normalizedMethod === 'POST' ? ($jsonBody ?? '') : '',
             'timeout' => 12,
             'max_redirects' => 0,
             'ignore_errors' => true,
