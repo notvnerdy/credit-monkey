@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Credit Monkey Backend Deployment Script
-# Deploys Laravel backend to api.creditmonkey.com
+# Deploys Laravel backend to creditmonkey.com
 
 set -e
 
@@ -114,11 +114,11 @@ echo -e "${GREEN}================================${NC}"
 echo -e "${GREEN}✓ Backend Deployment Complete!${NC}"
 echo -e "${GREEN}================================${NC}"
 echo ""
-echo "API Endpoint: https://api.creditmonkey.com/api/leads"
-echo "Admin Panel: https://api.creditmonkey.com/admin"
+echo "API Endpoint: https://creditmonkey.com/api/leads"
+echo "Admin Panel: https://creditmonkey.com/admin"
 echo ""
 echo "Next steps:"
-echo "1. Point api.creditmonkey.com subdomain to $BACKEND_PATH/public"
+echo "1. Point creditmonkey.com subdomain to $BACKEND_PATH/public"
 echo "2. Update frontend API endpoint in assets/js/script.js"
 echo "3. Test the API endpoint"
 echo ""

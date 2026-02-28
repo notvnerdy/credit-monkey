@@ -89,29 +89,17 @@ If you want backend in a separate directory:
 
 2. **Update frontend API endpoint in `assets/js/script.js`:**
    ```javascript
-   const API_ENDPOINT = window.location.hostname === 'localhost' 
-       ? 'http://localhost:8000/api/leads'
-       : 'https://creditmonkey.com/backend-api/leads'; // or subdomain
+   const API_ENDPOINT = 'https://creditmonkey.com/api/leads';
    ```
 
-3. **Set up subdomain or proxy:**
-   - Create subdomain: `api.creditmonkey.com` → `/home4/dionros/cm-backend/public`
-   - OR nginx/Apache rewrite: `/backend-api/*` → `/cm-backend/public/api/*`
+3. **Use same-server routing only:**
+   - Route `/api/*` to the backend/public API handlers on the same domain.
 
-## 🧪 Local Testing
+## Production Verification
 
-### 1. Start Laravel Server
+### 1. Test API Directly
 ```bash
-cd backend
-php artisan serve --port=8000
-```
-
-### 2. Open Test Page
-Open `api-test.html` in browser or visit: `http://localhost:8000/api-test.html`
-
-### 3. Test API Directly
-```bash
-curl -X POST http://localhost:8000/api/leads \
+curl -X POST https://creditmonkey.com/api/leads \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
   -d '{
@@ -125,7 +113,7 @@ curl -X POST http://localhost:8000/api/leads \
   }'
 ```
 
-### 4. Check Database
+### 3. Check Database
 ```bash
 cd backend
 php artisan tinker

@@ -17,7 +17,7 @@
 
 ### 🔧 Backend Branch
 - **Branch Name:** `backend`
-- **Deploys To:** https://api.creditmonkey.com  
+- **Deploys To:** https://creditmonkey.com  
 - **Path:** `/home4/dionros/public_html/api.creditmonkey`
 - **Workflow:** `.github/workflows/deploy-backend.yml`
 - **Trigger:** Push to `backend` branch
@@ -96,7 +96,7 @@ git add .
 git commit -m "Backend API updates"
 git push origin backend
 ```
-✅ Deploys to: https://api.creditmonkey.com
+✅ Deploys to: https://creditmonkey.com
 
 ### Deploy Both
 ```bash
@@ -132,9 +132,7 @@ git push origin backend
 
 **Frontend API Endpoint:** `assets/js/script.js`
 ```javascript
-const API_ENDPOINT = window.location.hostname === 'localhost' 
-    ? 'http://localhost:8000/api/leads'
-    : 'https://api.creditmonkey.com/api/leads';
+const API_ENDPOINT = 'https://creditmonkey.com/api/leads';
 ```
 
 **Backend API Route:** `backend/routes/api.php`
@@ -163,7 +161,7 @@ Make sure these secrets are configured in GitHub repository settings:
 
 ### Check Deployment Logs
 - **Frontend:** GitHub Actions → "Deploy Frontend to creditmonkey.com"
-- **Backend:** GitHub Actions → "Deploy Backend to api.creditmonkey.com"
+- **Backend:** GitHub Actions → "Deploy Backend to creditmonkey.com"
 
 ### Test After Deployment
 
@@ -174,7 +172,7 @@ curl https://creditmonkey.com
 
 **Backend API:**
 ```bash
-curl -X POST https://api.creditmonkey.com/api/leads \
+curl -X POST https://creditmonkey.com/api/leads \
   -H "Content-Type: application/json" \
   -d '{"name":"Test","email":"test@test.com","phone":"555-1234","message":"Test"}'
 ```

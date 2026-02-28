@@ -77,16 +77,12 @@ https://creditmonkey.com/backend/public/api/leads
    php artisan serve --port=8000
    ```
 
-2. **Open Test Page:**
-   - File: [api-test.html](api-test.html)
-   - URL: `http://localhost:8000` or open file directly
-   
-3. **Submit Test Lead:**
-   - Fill out form
-   - Click "Submit Test Lead"
-   - Check response in results section
+2. **Submit a lead from the website form:**
+   - Open the local site
+   - Fill out any lead/contact form
+   - Submit and verify success response
 
-4. **Verify in Database:**
+3. **Verify in Database:**
    ```bash
    cd backend
    php artisan tinker
@@ -131,7 +127,6 @@ credit-monkey/
 │   ├── .env (Local SQLite config)
 │   └── .env.production (Production MySQL config)
 ├── contact-us.html (Updated form)
-├── api-test.html (Testing page)
 ├── BACKEND_API_INTEGRATION.md (Full documentation)
 └── .github/workflows/
     └── deploy-staging.yml (Updated with backend deployment)

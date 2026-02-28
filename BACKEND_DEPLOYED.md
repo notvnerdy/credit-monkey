@@ -41,7 +41,7 @@ All tables created successfully:
 
 ### 7. ✅ Frontend Updated
 - API endpoint updated in [`assets/js/script.js`](assets/js/script.js)
-- Points to: `https://api.creditmonkey.com/api/leads`
+- Points to: `https://creditmonkey.com/api/leads`
 
 ---
 
@@ -49,7 +49,7 @@ All tables created successfully:
 
 ### Configure Subdomain in cPanel/Hostgator
 
-The subdomain `api.creditmonkey.com` needs to be configured to point to the correct directory:
+The subdomain `creditmonkey.com` needs to be configured to point to the correct directory:
 
 1. **Login to cPanel** (Hostgator)
    - URL: https://gator4207.hostgator.com:2083/
@@ -66,7 +66,7 @@ The subdomain `api.creditmonkey.com` needs to be configured to point to the corr
 
 4. **SSL Certificate:**
    - Go to "SSL/TLS Status" in cPanel
-   - Enable AutoSSL for `api.creditmonkey.com`
+   - Enable AutoSSL for `creditmonkey.com`
    - Or install Let's Encrypt certificate
 
 ---
@@ -75,7 +75,7 @@ The subdomain `api.creditmonkey.com` needs to be configured to point to the corr
 
 ### Base URL
 ```
-https://api.creditmonkey.com
+https://creditmonkey.com
 ```
 
 ### Lead Submission
@@ -111,7 +111,7 @@ Accept: application/json
 
 ### Admin Panel
 ```
-https://api.creditmonkey.com/admin
+https://creditmonkey.com/admin
 ```
 
 ### Default Credentials
@@ -125,7 +125,7 @@ https://api.creditmonkey.com/admin
 
 ### Test Command
 ```bash
-curl -X POST https://api.creditmonkey.com/api/leads \
+curl -X POST https://creditmonkey.com/api/leads \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
   -d '{
@@ -216,7 +216,7 @@ php artisan view:clear
 ## Next Steps
 
 1. ✅ Configure subdomain in cPanel (Point to `/public` directory)
-2. ✅ Enable SSL for api.creditmonkey.com
+2. ✅ Enable SSL for creditmonkey.com
 3. ✅ Test API endpoint
 4. ✅ Update admin password
 5. ✅ Deploy frontend with updated API endpoint
@@ -267,7 +267,7 @@ php artisan view:clear
 APP_NAME="Credit Monkey Backend"
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=https://api.creditmonkey.com
+APP_URL=https://creditmonkey.com
 
 DB_CONNECTION=mysql
 DB_HOST=localhost

@@ -751,7 +751,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="https://secureclientaccess.com/" class="text-dark text-decoration-none" target="_blank" rel="noopener noreferrer">Client Login</a></li>
                         <li class="mb-2"><a href="${prefix}contact-us" class="text-dark text-decoration-none">Contact Us</a></li>
-                        <li class="mb-2"><a href="${prefix}flexoffer-test" class="text-dark text-decoration-none">FlexOffers Test</a></li>
                     </ul>
                 </div>
             </div>
@@ -995,14 +994,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Send to backend API
     const submitToService = async (formData, formType) => {
-        // Single-server deployment: use same-origin API paths only.
-        const API_ENDPOINTS = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-            ? ['http://localhost:8000/api/leads']
-            : [
-                window.location.origin + '/api/leads.php',
-                window.location.origin + '/api/leads',
-                window.location.origin + '/backend/public/api/leads'
-            ];
+        // Production-only single-server API paths.
+        const API_ENDPOINTS = [
+            window.location.origin + '/api/leads.php',
+            window.location.origin + '/api/leads',
+            window.location.origin + '/backend/public/api/leads'
+        ];
         const uniqueEndpoints = Array.from(new Set(API_ENDPOINTS));
         const clickId = getFlexOffersClickId();
         const requestedOrderAmount = parsePriceToAmount(formData.orderamount);

@@ -65,7 +65,7 @@ If you have your own backend server:
 // In assets/js/script.js, replace submitToService function:
 
 const submitToService = async (formData, formType) => {
-    const BACKEND_ENDPOINT = 'https://api.creditmonkey.com/submit-form';
+    const BACKEND_ENDPOINT = 'https://creditmonkey.com/submit-form';
     
     try {
         const response = await fetch(BACKEND_ENDPOINT, {

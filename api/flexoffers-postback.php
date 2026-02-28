@@ -31,7 +31,7 @@ $clickIdLower = strtolower($clickId);
 if ($clickIdLower === 'refid' || strlen($clickId) < 12) {
     send_json(422, [
         'status' => 'failed',
-        'message' => 'Invalid clickid. Use the real FlexOffers click ID from the refid URL parameter or Diagnosis Tool.',
+        'message' => 'Invalid clickid. Use the real FlexOffers click ID from the refid URL parameter.',
     ]);
 }
 
