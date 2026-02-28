@@ -751,6 +751,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="https://secureclientaccess.com/" class="text-dark text-decoration-none" target="_blank" rel="noopener noreferrer">Client Login</a></li>
                         <li class="mb-2"><a href="${prefix}contact-us" class="text-dark text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="${prefix}flexoffer-test" class="text-dark text-decoration-none">FlexOffers Test</a></li>
                     </ul>
                 </div>
             </div>
