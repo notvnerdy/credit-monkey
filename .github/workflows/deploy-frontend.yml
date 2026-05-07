@@ -11,8 +11,8 @@ concurrency:
 
 env:
   SERVER_HOST: 108.179.232.14
-  SERVER_USER: dionros
-  FRONTEND_PATH: /home4/dionros/public_html
+  SERVER_USER: j311oyi3n1xs
+  FRONTEND_PATH: /home4/j311oyi3n1xs/public_html
 
 jobs:
   code-quality:
