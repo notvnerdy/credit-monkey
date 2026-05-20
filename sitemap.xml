@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://creditmonkey.com/</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
     <loc>https://creditmonkey.com/about-us</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -25,6 +19,48 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://creditmonkey.com/comparisons/best-credit-repair-companies-los-angeles</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/comparisons/best-credit-repair-services-california</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/comparisons/credit-monkey-vs-credit-saint</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/comparisons/credit-monkey-vs-lexington-law</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/comparisons/credit-repair-company-pricing-guide</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/comparisons/diy-credit-repair-vs-credit-repair-company</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/comparisons</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
     <loc>https://creditmonkey.com/contact-us</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -41,6 +77,12 @@
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/late-payments</loc>
@@ -121,7 +163,19 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://creditmonkey.com/resources/auto-loan-credit-repair</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
     <loc>https://creditmonkey.com/resources/bankruptcy-credit-repair</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/resources/charge-off-removal</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
@@ -133,7 +187,37 @@
     <priority>0.78</priority>
   </url>
   <url>
+    <loc>https://creditmonkey.com/resources/credit-repair-after-divorce</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/resources/credit-repair-backlink-outreach-templates</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
     <loc>https://creditmonkey.com/resources/credit-score-improvement</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/resources/debt-validation-help</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/resources/google-business-profile-credit-repair-checklist</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/resources/hard-inquiry-removal</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.78</priority>
@@ -151,327 +235,393 @@
     <priority>0.78</priority>
   </url>
   <url>
+    <loc>https://creditmonkey.com/resources/local-citation-audit-checklist</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/resources/medical-collections-removal</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/resources/mortgage-credit-repair</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/resources/repossession-removal</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.78</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/resources</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
     <loc>https://creditmonkey.com/services</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://creditmonkey.com/states-we-fix-credit-in</loc>
-    <lastmod>2026-05-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.82</priority>
-  </url>
-  <url>
     <loc>https://creditmonkey.com/states/alabama</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/alaska</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/arizona</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/arkansas</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/california</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.88</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/colorado</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/connecticut</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/delaware</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/district-of-columbia</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/florida</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/georgia</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/hawaii</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/idaho</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/illinois</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/indiana</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/iowa</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/kansas</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/kentucky</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/louisiana</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/maine</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/maryland</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/massachusetts</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/michigan</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/minnesota</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/mississippi</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/missouri</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/montana</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/nebraska</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/nevada</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/new-hampshire</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/new-jersey</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/new-mexico</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/new-york</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/north-carolina</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/north-dakota</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/ohio</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/oklahoma</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/oregon</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/pennsylvania</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/rhode-island</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/south-carolina</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/south-dakota</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/tennessee</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/texas</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/utah</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/vermont</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/virginia</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/washington</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/west-virginia</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/wisconsin</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/states/wyoming</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.68</priority>
+    <priority>0.72</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/states-we-fix-credit-in</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://creditmonkey.com/terms-of-use</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/tools/can-this-item-be-disputed</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/tools/credit-repair-checklist</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/tools/credit-utilization-calculator</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/tools/dispute-document-checklist</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/tools/dispute-timeline-calculator</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/tools</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
   </url>
 </urlset>

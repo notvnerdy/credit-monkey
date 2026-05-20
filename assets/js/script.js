@@ -520,8 +520,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Global navigation and footer (single source for all pages)
     const pathSegments = window.location.pathname.split('/').filter(Boolean);
-    const isNestedPage = pathSegments.length > 1;
-    const prefix = isNestedPage ? '../' : '';
+    const isDirectoryStylePath = window.location.pathname.endsWith('/') && pathSegments.length > 0;
+    const prefixDepth = isDirectoryStylePath ? pathSegments.length : Math.max(pathSegments.length - 1, 0);
+    const prefix = '../'.repeat(prefixDepth);
 
     const navList = document.querySelector('.navbar .navbar-nav');
     if (navList) {
@@ -540,11 +541,14 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>
                                 <div class="mega-column">
                                     <span class="mega-title">Resources</span>
+                                    <a class="dropdown-item" href="${prefix}resources"><i class="bi bi-journal-text me-2"></i>Resource Library</a>
+                                    <a class="dropdown-item" href="${prefix}comparisons"><i class="bi bi-columns-gap me-2"></i>Compare Companies</a>
+                                    <a class="dropdown-item" href="${prefix}tools"><i class="bi bi-calculator me-2"></i>Credit Repair Tools</a>
                                     <a class="dropdown-item" href="${prefix}build-personal-credit"><i class="bi bi-person-check me-2"></i>Build Personal Credit</a>
                                     <a class="dropdown-item" href="${prefix}build-business-credit"><i class="bi bi-briefcase me-2"></i>Build Business Credit</a>
-                                    <a class="dropdown-item" href="${prefix}late-payments"><i class="bi bi-exclamation-triangle me-2"></i>Late Payments Help</a>
                                     <a class="dropdown-item" href="${prefix}resources/collections-removal"><i class="bi bi-file-check me-2"></i>Collections Removal</a>
-                                    <a class="dropdown-item" href="${prefix}resources/credit-score-improvement"><i class="bi bi-graph-up-arrow me-2"></i>Credit Score Improvement</a>
+                                    <a class="dropdown-item" href="${prefix}resources/charge-off-removal"><i class="bi bi-clipboard2-x me-2"></i>Charge-Off Removal</a>
+                                    <a class="dropdown-item" href="${prefix}resources/medical-collections-removal"><i class="bi bi-hospital me-2"></i>Medical Collections</a>
                                 </div>
                                 <div class="mega-column">
                                     <span class="mega-title">Coverage</span>
@@ -660,6 +664,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works">How Credit Repair Works</a></li>
                     ${servicesMenu}
                     ${statesMenu}
+                    <li class="nav-item"><a class="nav-link" href="${prefix}resources">Resources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}comparisons">Compare</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}tools">Tools</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-box-arrow-in-right"></i> Login
@@ -721,6 +728,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li class="mb-2"><a href="${prefix}build-personal-credit" class="text-dark text-decoration-none">Build Personal Credit</a></li>
                         <li class="mb-2"><a href="${prefix}build-business-credit" class="text-dark text-decoration-none">Build Business Credit</a></li>
                         <li class="mb-2"><a href="${prefix}how-credit-repair-works" class="text-dark text-decoration-none">How Credit Repair Works</a></li>
+                        <li class="mb-2"><a href="${prefix}resources" class="text-dark text-decoration-none">Credit Repair Resources</a></li>
+                        <li class="mb-2"><a href="${prefix}comparisons" class="text-dark text-decoration-none">Credit Repair Comparisons</a></li>
+                        <li class="mb-2"><a href="${prefix}tools" class="text-dark text-decoration-none">Credit Repair Tools</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-2">
@@ -771,6 +781,26 @@ document.addEventListener('DOMContentLoaded', function() {
                         <li class="mb-2"><a href="${prefix}resources/late-payment-removal" class="text-dark text-decoration-none">Late Payment Removal</a></li>
                         <li class="mb-2"><a href="${prefix}resources/bankruptcy-credit-repair" class="text-dark text-decoration-none">Bankruptcy Credit Repair</a></li>
                         <li class="mb-2"><a href="${prefix}resources/identity-theft-credit-repair" class="text-dark text-decoration-none">Identity Theft Credit Repair</a></li>
+                        <li class="mb-2"><a href="${prefix}resources/charge-off-removal" class="text-dark text-decoration-none">Charge-Off Removal</a></li>
+                        <li class="mb-2"><a href="${prefix}resources/repossession-removal" class="text-dark text-decoration-none">Repossession Removal</a></li>
+                        <li class="mb-2"><a href="${prefix}resources/hard-inquiry-removal" class="text-dark text-decoration-none">Hard Inquiry Removal</a></li>
+                        <li class="mb-2"><a href="${prefix}resources/medical-collections-removal" class="text-dark text-decoration-none">Medical Collections Removal</a></li>
+                        <li class="mb-2"><a href="${prefix}resources/debt-validation-help" class="text-dark text-decoration-none">Debt Validation Help</a></li>
+                        <li class="mb-2"><a href="${prefix}resources/mortgage-credit-repair" class="text-dark text-decoration-none">Mortgage Credit Repair</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h3 class="h6 fw-bold mb-3">Compare and Tools</h3>
+                    <ul class="list-unstyled footer-link-columns">
+                        <li class="mb-2"><a href="${prefix}comparisons/best-credit-repair-services-california" class="text-dark text-decoration-none">Best Credit Repair Services California</a></li>
+                        <li class="mb-2"><a href="${prefix}comparisons/best-credit-repair-companies-los-angeles" class="text-dark text-decoration-none">Best Credit Repair Companies Los Angeles</a></li>
+                        <li class="mb-2"><a href="${prefix}comparisons/credit-monkey-vs-lexington-law" class="text-dark text-decoration-none">Credit Monkey vs Lexington Law</a></li>
+                        <li class="mb-2"><a href="${prefix}comparisons/credit-repair-company-pricing-guide" class="text-dark text-decoration-none">Credit Repair Pricing Guide</a></li>
+                        <li class="mb-2"><a href="${prefix}comparisons/diy-credit-repair-vs-credit-repair-company" class="text-dark text-decoration-none">DIY vs Credit Repair Company</a></li>
+                        <li class="mb-2"><a href="${prefix}tools/credit-utilization-calculator" class="text-dark text-decoration-none">Credit Utilization Calculator</a></li>
+                        <li class="mb-2"><a href="${prefix}tools/dispute-timeline-calculator" class="text-dark text-decoration-none">Dispute Timeline Calculator</a></li>
+                        <li class="mb-2"><a href="${prefix}tools/credit-repair-checklist" class="text-dark text-decoration-none">Credit Repair Checklist</a></li>
+                        <li class="mb-2"><a href="${prefix}tools/can-this-item-be-disputed" class="text-dark text-decoration-none">Can This Item Be Disputed?</a></li>
                     </ul>
                 </div>
             </div>
@@ -782,6 +812,83 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
         </div>
         `;
+
+    const formatDate = (date) => date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+
+    const utilizationButton = document.querySelector('[data-calc="utilization"]');
+    if (utilizationButton) {
+        utilizationButton.addEventListener('click', () => {
+            const balance = Number(document.getElementById('balance')?.value || 0);
+            const limit = Number(document.getElementById('limit')?.value || 0);
+            const result = document.getElementById('utilizationResult');
+            if (!result) return;
+            if (balance < 0 || limit <= 0) {
+                result.textContent = 'Enter a valid balance and a credit limit greater than zero.';
+                return;
+            }
+            const ratio = (balance / limit) * 100;
+            let guidance = 'Many scoring models favor lower revolving utilization, especially when balances are kept well below limits.';
+            if (ratio <= 9) {
+                guidance = 'This is a strong utilization range for many profiles. Keep monitoring every card and report date.';
+            } else if (ratio <= 29) {
+                guidance = 'This is generally more favorable than high utilization, but lowering balances may still help score planning.';
+            } else if (ratio <= 49) {
+                guidance = 'This utilization may be holding scores back. Prioritize paydown planning before major applications.';
+            } else {
+                guidance = 'High utilization can be a major score drag. A staged paydown plan may improve credit readiness.';
+            }
+            result.innerHTML = `<strong>Estimated utilization: ${ratio.toFixed(1)}%</strong><br>${guidance}`;
+        });
+    }
+
+    const timelineButton = document.querySelector('[data-calc="timeline"]');
+    if (timelineButton) {
+        timelineButton.addEventListener('click', () => {
+            const input = document.getElementById('startDate');
+            const result = document.getElementById('timelineResult');
+            if (!input || !result) return;
+            const start = input.value ? new Date(`${input.value}T12:00:00`) : new Date();
+            if (Number.isNaN(start.getTime())) {
+                result.textContent = 'Choose a valid dispute mailing or submission date.';
+                return;
+            }
+            const addDays = (days) => {
+                const date = new Date(start);
+                date.setDate(date.getDate() + days);
+                return formatDate(date);
+            };
+            result.innerHTML = `
+                <strong>Planning milestones from ${formatDate(start)}</strong>
+                <ul class="mb-0 mt-2">
+                    <li>30 days: ${addDays(30)} - common investigation response checkpoint.</li>
+                    <li>45 days: ${addDays(45)} - extended response window to track when extra documentation is involved.</li>
+                    <li>60 days: ${addDays(60)} - organize results and prepare follow-up documentation.</li>
+                    <li>90 days: ${addDays(90)} - review updated reports and next-step strategy.</li>
+                </ul>
+            `;
+        });
+    }
+
+    const decisionButton = document.querySelector('[data-calc="decision"]');
+    if (decisionButton) {
+        decisionButton.addEventListener('click', () => {
+            const issueType = document.getElementById('issueType')?.value;
+            const result = document.getElementById('decisionResult');
+            if (!result) return;
+            const guidance = {
+                wrong: 'Review statements, bureau data, account history, and creditor records. Inaccurate balances, dates, payment status, or account type can support a dispute.',
+                duplicate: 'Compare account numbers, creditor names, dates opened, balances, and collection ownership. Duplicates may deserve investigation when the same debt appears more than once.',
+                identity: 'Treat possible identity theft as urgent. Gather ID documents, police or FTC identity theft reports when applicable, and review all three bureaus.',
+                old: 'Check the reported date of first delinquency, account type, and applicable reporting period. Outdated negative items may deserve review.',
+                accurate: 'Accurate negative items usually cannot be removed through a dispute simply because they hurt the score. Focus on goodwill options, paydown strategy, and adding positive payment history.'
+            };
+            result.textContent = guidance[issueType] || 'Select an issue type to review next steps.';
+        });
+    }
     
     // Navbar scroll effect
     const navbar = document.querySelector('.navbar');

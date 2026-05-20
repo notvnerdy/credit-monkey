@@ -2601,6 +2601,46 @@ img.loaded {
 .local-hero, .resource-hero { padding-top: 9rem; }
 .seo-panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 2rem; box-shadow: 0 12px 32px rgba(15, 42, 79, 0.08); }
 .seo-panel ul li { color: #475569; }
+.seo-tool {
+    background: #f8fafc;
+    border: 1px solid #dbe4ef;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+.tool-result {
+    min-height: 64px;
+    background: #ffffff;
+    border: 1px solid #dbe4ef;
+    border-left: 4px solid var(--primary-color);
+    border-radius: 8px;
+    color: #0f172a;
+    padding: 1rem;
+}
+.tool-result ul {
+    padding-left: 1.25rem;
+}
+.comparison-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border: 1px solid #dbe4ef;
+    border-radius: 8px;
+}
+.comparison-table th,
+.comparison-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #dbe4ef;
+    vertical-align: top;
+}
+.comparison-table th {
+    background: #0f2a4f;
+    color: #ffffff;
+    font-weight: 700;
+}
+.comparison-table tr:last-child td {
+    border-bottom: 0;
+}
 .small-chip { display: inline-block; padding: .45rem .75rem; font-size: .9rem; }
 .seo-static-footer a:hover { color: var(--primary-color) !important; }
 .footer-link-columns {
@@ -2625,5 +2665,12 @@ img.loaded {
 @media (max-width: 575px) {
     .footer-link-columns {
         columns: 1;
+    }
+    .seo-tool {
+        padding: 1rem;
+    }
+    .comparison-table th,
+    .comparison-table td {
+        padding: .8rem;
     }
 }
