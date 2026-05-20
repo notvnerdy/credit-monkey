@@ -1,4 +1,7 @@
 # robots.txt for Credit Monkey Credit Repair Services
+# https://creditmonkey.com
+
+# ── General crawlers ──────────────────────────────────────────
 User-agent: *
 Allow: /
 Disallow: /admin.html
@@ -6,5 +9,86 @@ Disallow: /admin/
 Disallow: /backend/
 Disallow: /api/
 Disallow: /private/
+Disallow: /output/
+Disallow: /*.bak$
+Disallow: /deploy.sh
+Disallow: /deploy-simple.sh
+Disallow: /deploy-backend.sh
+Disallow: /update_nav.py
+Disallow: /update_links.py
+Disallow: /update_state_pages.py
+Disallow: /generate_state_pages.py
+Disallow: /generate_state_pages_full.py
 
+# ── Google-specific ───────────────────────────────────────────
+User-agent: Googlebot
+Allow: /
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.webp$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.svg$
+Disallow: /admin.html
+Disallow: /admin/
+Disallow: /backend/
+Disallow: /api/
+Disallow: /output/
+
+User-agent: Googlebot-Image
+Allow: /assets/images/
+
+# ── Bing ─────────────────────────────────────────────────────
+User-agent: Bingbot
+Allow: /
+Disallow: /admin.html
+Disallow: /admin/
+Disallow: /backend/
+Disallow: /api/
+Disallow: /output/
+
+# ── AI crawlers — allow indexing for AI search visibility ─────
+User-agent: GPTBot
+Allow: /
+Disallow: /admin.html
+Disallow: /admin/
+Disallow: /backend/
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+# ── Block aggressive/irrelevant scrapers ─────────────────────
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+# ── Sitemaps ──────────────────────────────────────────────────
 Sitemap: https://creditmonkey.com/sitemap.xml
+Sitemap: https://creditmonkey.com/sitemap-blog.xml

@@ -1,5 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- ── Blog Hub & Articles ──────────────────────────────────── -->
+  <url>
+    <loc>https://creditmonkey.com/blog</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/blog/how-to-improve-credit-score-fast</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/blog/remove-collections-from-credit-report</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/blog/how-credit-repair-works-legally</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ── General Pages ─────────────────────────────────────────── -->
   <url>
     <loc>https://creditmonkey.com/about-us</loc>
     <lastmod>2026-05-20</lastmod>

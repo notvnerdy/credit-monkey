@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Blog Hub -->
+  <url>
+    <loc>https://creditmonkey.com/blog</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.88</priority>
+  </url>
+
+  <!-- Flagship Article: How to Improve Credit Score Fast -->
+  <url>
+    <loc>https://creditmonkey.com/blog/how-to-improve-credit-score-fast</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://creditmonkey.com/assets/images/credit-score-improvement-guide.webp</image:loc>
+      <image:title>How to Improve Your Credit Score Fast — Complete 2026 Guide</image:title>
+      <image:caption>Step-by-step guide to improving your credit score fast with proven strategies from Credit Monkey experts</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Flagship Article: Remove Collections From Credit Report -->
+  <url>
+    <loc>https://creditmonkey.com/blog/remove-collections-from-credit-report</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://creditmonkey.com/assets/images/remove-collections-credit-report.webp</image:loc>
+      <image:title>How to Remove Collections From Your Credit Report — Legal Methods 2026</image:title>
+      <image:caption>Legal methods for removing collection accounts from your credit report including FCRA disputes, pay-for-delete, and goodwill letters</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Flagship Article: How Credit Repair Works Legally -->
+  <url>
+    <loc>https://creditmonkey.com/blog/how-credit-repair-works-legally</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://creditmonkey.com/assets/images/how-credit-repair-works-legally.webp</image:loc>
+      <image:title>How Credit Repair Works Legally — FCRA &amp; CROA Explained</image:title>
+      <image:caption>Complete legal guide to how credit repair works under FCRA and CROA with your consumer rights explained</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Future Blog Articles (placeholder — add as published) -->
+  <!--
+  <url>
+    <loc>https://creditmonkey.com/blog/how-long-does-credit-repair-take</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/blog/how-to-dispute-hard-inquiries</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/blog/credit-repair-after-bankruptcy</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/blog/credit-utilization-ratio-explained</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/blog/goodwill-letter-template-late-payment</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/blog/debt-validation-letter-template</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.82</priority>
+  </url>
+  <url>
+    <loc>https://creditmonkey.com/blog/credit-repair-california-guide</loc>
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  -->
+
+</urlset>
