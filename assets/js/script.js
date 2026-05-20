@@ -235,10 +235,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 banner.innerHTML = `
                     <div class="cookie-content">
                         <p>
-                            <strong>🍪 We use cookies</strong><br>
-                            We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. 
-                            By clicking "Accept", you consent to our use of cookies. 
-                            <a href="/privacy-policy" target="_blank">Learn more about Credit Monkey privacy</a>
+                            <strong>Cookie preferences</strong><br>
+                            We use cookies to improve site performance, understand traffic, and personalize content.
+                            <a href="/privacy-policy" target="_blank">Privacy details</a>
                         </p>
                         <div class="cookie-buttons">
                             <button class="btn-accept">Accept All</button>
@@ -523,14 +522,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const isDirectoryStylePath = window.location.pathname.endsWith('/') && pathSegments.length > 0;
     const prefixDepth = isDirectoryStylePath ? pathSegments.length : Math.max(pathSegments.length - 1, 0);
     const prefix = '../'.repeat(prefixDepth);
+    const navbarElement = document.querySelector('.navbar');
+    if (navbarElement) {
+        navbarElement.classList.remove('navbar-expand-lg');
+        navbarElement.classList.remove('navbar-expand-xl');
+        navbarElement.classList.add('navbar-expand-xxl');
+    }
 
     const navList = document.querySelector('.navbar .navbar-nav');
     if (navList) {
-        const isDesktopMenu = window.matchMedia('(min-width: 992px)').matches;
+        const isDesktopMenu = window.matchMedia('(min-width: 1400px)').matches;
 
         const servicesMenu = isDesktopMenu ? `
                     <li class="nav-item dropdown mega-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="megaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Our Services</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="megaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Services</a>
                         <div class="dropdown-menu mega-menu shadow" aria-labelledby="megaMenu">
                             <div class="mega-inner">
                                 <div class="mega-column">
@@ -540,7 +545,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <a class="dropdown-item" href="${prefix}how-credit-repair-works"><i class="bi bi-diagram-3 me-2"></i>How It Works</a>
                                 </div>
                                 <div class="mega-column">
-                                    <span class="mega-title">Resources</span>
+                                    <span class="mega-title">Guides</span>
                                     <a class="dropdown-item" href="${prefix}resources"><i class="bi bi-journal-text me-2"></i>Resource Library</a>
                                     <a class="dropdown-item" href="${prefix}comparisons"><i class="bi bi-columns-gap me-2"></i>Compare Companies</a>
                                     <a class="dropdown-item" href="${prefix}tools"><i class="bi bi-calculator me-2"></i>Credit Repair Tools</a>
@@ -568,12 +573,12 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </li>
         ` : `
-                    <li class="nav-item"><a class="nav-link" href="${prefix}services">Our Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}services">Services</a></li>
         `;
 
         const statesMenu = isDesktopMenu ? `
                     <li class="nav-item dropdown mega-dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="statesMegaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">States we Work</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="statesMegaMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Locations</a>
                         <div class="dropdown-menu mega-menu states-mega shadow" aria-labelledby="statesMegaMenu">
                             <div class="mega-inner states-mega-inner">
                                 <div class="mega-column states-region-column">
@@ -657,26 +662,26 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </li>
         ` : `
-                    <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in">States we Work</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}states-we-fix-credit-in">Locations</a></li>
         `;
 
         navList.innerHTML = `
-                    <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works">How Credit Repair Works</a></li>
+                    <li class="nav-item"><a class="nav-link" href="${prefix}how-credit-repair-works">How It Works</a></li>
                     ${servicesMenu}
                     ${statesMenu}
                     <li class="nav-item"><a class="nav-link" href="${prefix}resources">Resources</a></li>
                     <li class="nav-item"><a class="nav-link" href="${prefix}comparisons">Compare</a></li>
                     <li class="nav-item"><a class="nav-link" href="${prefix}tools">Tools</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="https://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
-                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        <a class="nav-link nav-login" href="https://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-box-arrow-in-right"></i><span>Login</span>
                         </a>
                     </li>
                     <li class="nav-item ms-lg-2">
-                        <a href="https://calendly.com/creditmonkey/credit-repair-consultation" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary px-3">Free Consultation</a>
+                        <a href="https://calendly.com/creditmonkey/credit-repair-consultation" target="_blank" rel="noopener noreferrer" class="btn btn-outline-primary nav-cta">Free Consult</a>
                     </li>
                     <li class="nav-item ms-lg-2">
-                        <a href="https://credit3278.getcredithelpnow.com/billingselection" class="btn btn-primary px-4" target="_blank" rel="noopener noreferrer">Get Started</a>
+                        <a href="https://credit3278.getcredithelpnow.com/billingselection" class="btn btn-primary nav-cta nav-cta-primary" target="_blank" rel="noopener noreferrer">Get Started</a>
                     </li>
         `;
     }
