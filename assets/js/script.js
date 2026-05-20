@@ -238,20 +238,17 @@ document.addEventListener('DOMContentLoaded', function() {
                             <strong>🍪 We use cookies</strong><br>
                             We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. 
                             By clicking "Accept", you consent to our use of cookies. 
-                            <a href="/privacy-policy" target="_blank">Learn more</a>
+                            <a href="/privacy-policy" target="_blank">Learn more about Credit Monkey privacy</a>
                         </p>
                         <div class="cookie-buttons">
-                            <button class="btn-accept" aria-label="Accept cookies">Accept All</button>
-                            <button class="btn-decline" aria-label="Decline cookies">Decline</button>
+                            <button class="btn-accept">Accept All</button>
+                            <button class="btn-decline">Decline</button>
                         </div>
                     </div>
                 `;
                 document.body.appendChild(banner);
             }
 
-            // Load Intercom immediately
-            initIntercom();
-            
             // Show banner after a short delay
             setTimeout(() => {
                 banner.classList.add('show');
@@ -337,13 +334,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('Cookie consent initialization error:', error);
     }
 
-    // Always initialize Intercom
-    try {
-        initIntercom();
-    } catch (error) {
-        console.error('Intercom initialization error:', error);
-    }
-
     function initStickyMobileCta() {
         if (document.getElementById('mobileStickyCta')) {
             return;
@@ -353,8 +343,8 @@ document.addEventListener('DOMContentLoaded', function() {
         cta.id = 'mobileStickyCta';
         cta.className = 'mobile-sticky-cta';
         cta.innerHTML = `
-            <a href="tel:+18883873875" class="cta-call" aria-label="Call Credit Monkey now">Call Now</a>
-            <a href="https://credit3278.getcredithelpnow.com/billingselection" class="cta-primary" target="_blank" rel="noopener noreferrer" aria-label="Get started with Credit Monkey">Get Started</a>
+            <a href="tel:+18883873875" class="cta-call">Call Now</a>
+            <a href="https://credit3278.getcredithelpnow.com/billingselection" class="cta-primary" target="_blank" rel="noopener noreferrer">Get Started</a>
         `;
 
         document.body.appendChild(cta);
@@ -529,8 +519,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Global navigation and footer (single source for all pages)
-    const isStatePage = window.location.pathname.includes('/states/');
-    const prefix = isStatePage ? '../' : '';
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    const isNestedPage = pathSegments.length > 1;
+    const prefix = isNestedPage ? '../' : '';
 
     const navList = document.querySelector('.navbar .navbar-nav');
     if (navList) {
@@ -552,10 +543,14 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <a class="dropdown-item" href="${prefix}build-personal-credit"><i class="bi bi-person-check me-2"></i>Build Personal Credit</a>
                                     <a class="dropdown-item" href="${prefix}build-business-credit"><i class="bi bi-briefcase me-2"></i>Build Business Credit</a>
                                     <a class="dropdown-item" href="${prefix}late-payments"><i class="bi bi-exclamation-triangle me-2"></i>Late Payments Help</a>
+                                    <a class="dropdown-item" href="${prefix}resources/collections-removal"><i class="bi bi-file-check me-2"></i>Collections Removal</a>
+                                    <a class="dropdown-item" href="${prefix}resources/credit-score-improvement"><i class="bi bi-graph-up-arrow me-2"></i>Credit Score Improvement</a>
                                 </div>
                                 <div class="mega-column">
                                     <span class="mega-title">Coverage</span>
                                     <a class="dropdown-item" href="${prefix}states-we-fix-credit-in"><i class="bi bi-geo-alt me-2"></i>All 50 States</a>
+                                    <a class="dropdown-item" href="${prefix}locations/los-angeles"><i class="bi bi-pin-map me-2"></i>Los Angeles Credit Repair</a>
+                                    <a class="dropdown-item" href="${prefix}states/california"><i class="bi bi-map me-2"></i>California Credit Repair</a>
                                     <a class="dropdown-item" href="${prefix}about-us"><i class="bi bi-stars me-2"></i>Why Credit Monkey</a>
                                     <a class="dropdown-item" href="${prefix}contact-us"><i class="bi bi-headset me-2"></i>Talk to an Expert</a>
                                 </div>
@@ -707,9 +702,9 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="row g-4">
                 <div class="col-lg-4">
-                    <h5 class="fw-bold mb-3">About Credit Monkey</h5>
+                    <h2 class="h5 fw-bold mb-3">About Credit Monkey</h2>
                     <p class="text-secondary">Professional credit repair service helping individuals across all 50 states improve their credit health through accurate reporting, expert guidance, and transparent processes.</p>
-                    <h6 class="fw-bold mb-3 mt-4">Newsletter Signup</h6>
+                    <h3 class="h6 fw-bold mb-3 mt-4">Newsletter Signup</h3>
                     <form id="newsletterForm" class="mb-3">
                         <div class="input-group">
                             <input type="email" class="form-control" placeholder="Enter your email" required id="newsletterEmail">
@@ -719,7 +714,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </form>
                 </div>
                 <div class="col-lg-2">
-                    <h6 class="fw-bold mb-3">Services</h6>
+                    <h3 class="h6 fw-bold mb-3">Services</h3>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="${prefix}services" class="text-dark text-decoration-none">Services</a></li>
                         <li class="mb-2"><a href="${prefix}pricing" class="text-dark text-decoration-none">Pricing</a></li>
@@ -729,7 +724,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </ul>
                 </div>
                 <div class="col-lg-2">
-                    <h6 class="fw-bold mb-3">Company</h6>
+                    <h3 class="h6 fw-bold mb-3">Company</h3>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="${prefix}about-us" class="text-dark text-decoration-none">About Us</a></li>
                         <li class="mb-2"><a href="${prefix}contact-us" class="text-dark text-decoration-none">Contact Us</a></li>
@@ -738,7 +733,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     </ul>
                 </div>
                 <div class="col-lg-2">
-                    <h6 class="fw-bold mb-3">Legal</h6>
+                    <h3 class="h6 fw-bold mb-3">Legal</h3>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="${prefix}privacy-policy" class="text-dark text-decoration-none">Privacy Policy</a></li>
                         <li class="mb-2"><a href="${prefix}terms-of-use" class="text-dark text-decoration-none">Terms of Use</a></li>
@@ -747,10 +742,35 @@ document.addEventListener('DOMContentLoaded', function() {
                     </ul>
                 </div>
                 <div class="col-lg-2">
-                    <h6 class="fw-bold mb-3">Support</h6>
+                    <h3 class="h6 fw-bold mb-3">Support</h3>
                     <ul class="list-unstyled">
                         <li class="mb-2"><a href="https://secureclientaccess.com/" class="text-dark text-decoration-none" target="_blank" rel="noopener noreferrer">Client Login</a></li>
                         <li class="mb-2"><a href="${prefix}contact-us" class="text-dark text-decoration-none">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h3 class="h6 fw-bold mb-3">California Credit Repair</h3>
+                    <ul class="list-unstyled footer-link-columns">
+                        <li class="mb-2"><a href="${prefix}states/california" class="text-dark text-decoration-none">Credit Repair California</a></li>
+                        <li class="mb-2"><a href="${prefix}locations/los-angeles" class="text-dark text-decoration-none">Credit Repair Los Angeles</a></li>
+                        <li class="mb-2"><a href="${prefix}locations/san-diego" class="text-dark text-decoration-none">Credit Repair San Diego</a></li>
+                        <li class="mb-2"><a href="${prefix}locations/sacramento" class="text-dark text-decoration-none">Credit Repair Sacramento</a></li>
+                        <li class="mb-2"><a href="${prefix}locations/san-francisco" class="text-dark text-decoration-none">Credit Repair San Francisco</a></li>
+                        <li class="mb-2"><a href="${prefix}locations/san-jose" class="text-dark text-decoration-none">Credit Repair San Jose</a></li>
+                        <li class="mb-2"><a href="${prefix}locations/oakland" class="text-dark text-decoration-none">Credit Repair Oakland</a></li>
+                        <li class="mb-2"><a href="${prefix}locations/fresno" class="text-dark text-decoration-none">Credit Repair Fresno</a></li>
+                        <li class="mb-2"><a href="${prefix}locations/long-beach" class="text-dark text-decoration-none">Credit Repair Long Beach</a></li>
+                        <li class="mb-2"><a href="${prefix}locations/riverside" class="text-dark text-decoration-none">Credit Repair Riverside</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h3 class="h6 fw-bold mb-3">Credit Repair Resources</h3>
+                    <ul class="list-unstyled footer-link-columns">
+                        <li class="mb-2"><a href="${prefix}resources/credit-score-improvement" class="text-dark text-decoration-none">Credit Score Improvement</a></li>
+                        <li class="mb-2"><a href="${prefix}resources/collections-removal" class="text-dark text-decoration-none">Collections Removal</a></li>
+                        <li class="mb-2"><a href="${prefix}resources/late-payment-removal" class="text-dark text-decoration-none">Late Payment Removal</a></li>
+                        <li class="mb-2"><a href="${prefix}resources/bankruptcy-credit-repair" class="text-dark text-decoration-none">Bankruptcy Credit Repair</a></li>
+                        <li class="mb-2"><a href="${prefix}resources/identity-theft-credit-repair" class="text-dark text-decoration-none">Identity Theft Credit Repair</a></li>
                     </ul>
                 </div>
             </div>
@@ -936,6 +956,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const BILLING_SELECTION_BASE_URL = 'https://credit3278.getcredithelpnow.com/billingselection';
     const FLEXOFFERS_CLICK_STORAGE_KEY = 'flexoffer_clickid';
     const ADVERTISERMAX_CLICK_STORAGE_KEY = 'AdvertiserMax.clickId';
+    const FLEXOFFERS_ADVERTISER_ID = '858300D2-9FD5-4288-94E8-96FB1ECA320F';
 
     const readRefIdFromSearch = () => {
         const params = new URLSearchParams(window.location.search);
@@ -1025,11 +1046,48 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
+    const loadFlexOffersTracking = () => {
+        if (window.AdvertiserMaxTrack && window.AdvertiserMaxTrack.invoked) {
+            return;
+        }
+
+        const queue = window.AdvertiserMaxTrack = window.AdvertiserMaxTrack || [];
+        if (!queue.invoked) {
+            queue.invoked = true;
+            queue.methods = ['init', 'getClick', 'track'];
+            queue.factory = function(method) {
+                return function() {
+                    const args = Array.prototype.slice.call(arguments);
+                    args.unshift(method);
+                    queue.push(args);
+                    return queue;
+                };
+            };
+            for (let i = 0; i < queue.methods.length; i += 1) {
+                queue[queue.methods[i]] = queue.factory(queue.methods[i]);
+            }
+            queue.init = function(advertiserId) {
+                const script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.async = true;
+                script.src = 'https://advertisermax.flexoffers.com/vendors/advertisermax/advertisermax.tracking.lib.js';
+                const firstScript = document.getElementsByTagName('script')[0];
+                firstScript.parentNode.insertBefore(script, firstScript);
+                queue.advertiserId = advertiserId;
+            };
+        }
+
+        queue.init(FLEXOFFERS_ADVERTISER_ID);
+        queue.getClick();
+    };
+
     const triggerFlexOffersTrack = (eventName, orderAmount = null) => {
         const clickId = getFlexOffersClickId();
         if (!clickId) {
             return false;
         }
+
+        loadFlexOffersTracking();
 
         if (!window.AdvertiserMaxTrack || typeof window.AdvertiserMaxTrack.track !== 'function') {
             return false;

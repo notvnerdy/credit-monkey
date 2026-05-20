@@ -2,7 +2,7 @@
 
 :root {
     --primary-color: #0f2a4f;
-    --secondary-color: #14b8a6;
+    --secondary-color: #0f766e;
     --dark-color: #0b1220;
     --light-bg: #f5f7fb;
     --bg-color: #ffffff;
@@ -2594,4 +2594,36 @@ img.loaded {
 
 .exit-intent-open {
     overflow: hidden;
+}
+
+/* SEO implementation additions - 2026052001 */
+.seo-eyebrow { letter-spacing: .08em; color: var(--primary-color); }
+.local-hero, .resource-hero { padding-top: 9rem; }
+.seo-panel { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 2rem; box-shadow: 0 12px 32px rgba(15, 42, 79, 0.08); }
+.seo-panel ul li { color: #475569; }
+.small-chip { display: inline-block; padding: .45rem .75rem; font-size: .9rem; }
+.seo-static-footer a:hover { color: var(--primary-color) !important; }
+.footer-link-columns {
+    columns: 2;
+    column-gap: 1.5rem;
+}
+.text-secondary,
+.text-muted {
+    color: #475569 !important;
+}
+.badge.text-success,
+.text-success {
+    color: #146c43 !important;
+}
+.ribbon,
+.btn-accept,
+.mobile-sticky-cta .cta-primary {
+    background: #0f766e !important;
+    color: #ffffff !important;
+}
+@media (max-width: 991px) { .local-hero, .resource-hero { padding-top: 7rem; } .seo-panel { padding: 1.25rem; } }
+@media (max-width: 575px) {
+    .footer-link-columns {
+        columns: 1;
+    }
 }
