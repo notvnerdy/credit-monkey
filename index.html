@@ -1122,23 +1122,76 @@
     </section>
 
     <!-- Schedule Consultation - Calendly Section -->
-    <section id="schedule" class="py-6" style="background: linear-gradient(135deg, #f0f4ff 0%, #f8fffe 100%);">
-        <div class="container">
-            <div class="row mb-5" data-aos="fade-up">
-                <div class="col-lg-8 mx-auto text-center">
-                    <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 mb-3">FREE CONSULTATION</span>
-                    <h2 class="display-5 fw-bold mb-3">Book Your Free Consultation</h2>
-                    <p class="lead text-muted">Pick a time that works for you — our credit experts are ready to build your personalized plan.</p>
+    <section id="schedule" class="py-6 position-relative overflow-hidden">
+        <div style="position:absolute;inset:0;background:linear-gradient(135deg,#0a1f3d 0%,#0f2a4f 55%,#163a6a 100%);z-index:0;"></div>
+        <div style="position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:26px 26px;z-index:1;"></div>
+
+        <div class="container position-relative" style="z-index:2;">
+            <div class="row align-items-center g-5">
+
+                <!-- Left: pitch + trust signals -->
+                <div class="col-lg-5 text-white" data-aos="fade-right">
+                    <span class="badge px-3 py-2 mb-4 d-inline-block fw-semibold" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;letter-spacing:.06em;">FREE CONSULTATION</span>
+                    <h2 class="display-5 fw-bold mb-3 lh-sm">Book a Free Call with a Credit Expert</h2>
+                    <p class="mb-5" style="opacity:.8;font-size:1.05rem;">No pressure, no commitment — just an honest conversation about your credit and a clear path forward.</p>
+
+                    <div class="d-flex flex-column gap-3 mb-5">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:42px;height:42px;background:rgba(255,255,255,0.1);">
+                                <i class="bi bi-clock fs-5"></i>
+                            </div>
+                            <div>
+                                <p class="fw-semibold mb-0">15-Minute Call</p>
+                                <p class="small mb-0" style="opacity:.65;">Quick, focused, zero fluff</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:42px;height:42px;background:rgba(255,255,255,0.1);">
+                                <i class="bi bi-person-check fs-5"></i>
+                            </div>
+                            <div>
+                                <p class="fw-semibold mb-0">Real Credit Expert</p>
+                                <p class="small mb-0" style="opacity:.65;">Not a bot or a sales script</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:42px;height:42px;background:rgba(255,255,255,0.1);">
+                                <i class="bi bi-shield-check fs-5"></i>
+                            </div>
+                            <div>
+                                <p class="fw-semibold mb-0">Zero Obligation</p>
+                                <p class="small mb-0" style="opacity:.65;">Completely free, no card needed</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-3 d-flex align-items-center justify-content-center flex-shrink-0" style="width:42px;height:42px;background:rgba(255,255,255,0.1);">
+                                <i class="bi bi-people fs-5"></i>
+                            </div>
+                            <div>
+                                <p class="fw-semibold mb-0">15,000+ Clients Helped</p>
+                                <p class="small mb-0" style="opacity:.65;">Proven results across the US</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mini testimonial -->
+                    <div class="rounded-3 p-4" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);">
+                        <div class="text-warning mb-2 small">
+                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                        </div>
+                        <p class="mb-2 small lh-base" style="opacity:.9;">"The free call alone was worth it — they mapped out exactly what was hurting my score and had a plan ready."</p>
+                        <p class="small fw-semibold mb-0" style="opacity:.6;">— James R., Dallas TX</p>
+                    </div>
                 </div>
-            </div>
-            <div class="row justify-content-center" data-aos="fade-up">
-                <div class="col-xl-9 col-lg-11">
-                    <div class="card border-0 shadow p-3 rounded-4 overflow-hidden">
-                        <div class="calendly-inline-widget" data-url="https://calendly.com/creditmonkey/credit-repair-consultation?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;"></div>
+
+                <!-- Right: Calendly widget -->
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                        <div class="calendly-inline-widget" data-url="https://calendly.com/creditmonkey/credit-repair-consultation?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:680px;"></div>
                         <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
                     </div>
-                    <p class="text-center text-secondary small mt-3"><i class="bi bi-shield-check text-success me-1"></i>All consultations are free, with no obligation to sign up.</p>
                 </div>
+
             </div>
         </div>
     </section>
