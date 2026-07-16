@@ -5,40 +5,40 @@ import glob
 
 # New navigation HTML with phone number and improved design
 new_nav_items = '''                    <li class="nav-item"><a class="nav-link" href="#how-it-works">How It Works</a></li>
-                    <li class="nav-item"><a class="nav-link" href="how-credit-repair-works.html">How Credit Repair Works</a></li>
-                    <li class="nav-item"><a class="nav-link" href="states-we-fix-credit-in.html">States We Fix Credit In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="how-credit-repair-works">How Credit Repair Works</a></li>
+                    <li class="nav-item"><a class="nav-link" href="states-we-fix-credit-in">States We Fix Credit In</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://secureclientaccess.com/" target="_blank">
+                        <a class="nav-link" href="https://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-box-arrow-in-right"></i> Login
                         </a>
                     </li>
                     <li class="nav-item ms-lg-3">
-                        <a href="tel:8001231234" class="nav-link text-primary fw-bold d-flex align-items-center">
+                        <a href="tel:+18777017307" class="nav-link text-primary fw-bold d-flex align-items-center">
                             <i class="bi bi-telephone-fill me-2"></i>
-                            <span>Call NOW! <span class="d-none d-lg-inline">800-123-1234</span></span>
+                            <span>Call NOW! <span class="d-none d-lg-inline">877-701-7307</span></span>
                         </a>
                     </li>
                     <li class="nav-item ms-lg-2">
-                        <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#quickConsultModal">Get Started</button>
+                        <a href="https://credit3278.getcredithelpnow.com/billingselection" class="btn btn-primary px-4" target="_blank" rel="noopener noreferrer">Get Started</a>
                     </li>'''
 
 # For state pages (with relative paths)
-new_nav_items_states = '''                    <li class="nav-item"><a class="nav-link" href="../index.html#how-it-works">How It Works</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../how-credit-repair-works.html">How Credit Repair Works</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../states-we-fix-credit-in.html">States We Fix Credit In</a></li>
+new_nav_items_states = '''                    <li class="nav-item"><a class="nav-link" href="../#how-it-works">How It Works</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../how-credit-repair-works">How Credit Repair Works</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../states-we-fix-credit-in">States We Fix Credit In</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="http://secureclientaccess.com/" target="_blank">
+                        <a class="nav-link" href="https://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-box-arrow-in-right"></i> Login
                         </a>
                     </li>
                     <li class="nav-item ms-lg-3">
-                        <a href="tel:8001231234" class="nav-link text-primary fw-bold d-flex align-items-center">
+                        <a href="tel:+18777017307" class="nav-link text-primary fw-bold d-flex align-items-center">
                             <i class="bi bi-telephone-fill me-2"></i>
-                            <span>Call NOW! <span class="d-none d-lg-inline">800-123-1234</span></span>
+                            <span>Call NOW! <span class="d-none d-lg-inline">877-701-7307</span></span>
                         </a>
                     </li>
                     <li class="nav-item ms-lg-2">
-                        <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#quickConsultModal">Get Started</button>
+                        <a href="https://credit3278.getcredithelpnow.com/billingselection" class="btn btn-primary px-4" target="_blank" rel="noopener noreferrer">Get Started</a>
                     </li>'''
 
 # Pattern to match the nav items section (from first nav-item to last /li before /ul)

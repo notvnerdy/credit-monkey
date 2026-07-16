@@ -71,7 +71,7 @@ jobs:
         run: |
           echo "🔨 Building and optimizing assets..."
           mkdir -p build
-          cp -r *.html assets states robots.txt CNAME build/ 2>/dev/null || true
+          cp -r *.html *.xml *.js *.json *.txt .htaccess CNAME assets blog comparisons locations resources states tools build/ 2>/dev/null || true
           cp -r backend build/ 2>/dev/null || true
           echo "✅ Build completed"
 

@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cta.id = 'mobileStickyCta';
         cta.className = 'mobile-sticky-cta';
         cta.innerHTML = `
-            <a href="tel:+18883873875" class="cta-call">Call Now</a>
+            <a href="tel:+18777017307" class="cta-call">Call Now</a>
             <a href="https://credit3278.getcredithelpnow.com/billingselection" class="cta-primary" target="_blank" rel="noopener noreferrer">Get Started</a>
         `;
 
@@ -1691,4 +1691,31 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('input[type="number"]').forEach(input => {
         input.setAttribute('inputmode', 'numeric');
     });
+
+    // County Cities Modal injection handler
+    const countyModal = document.getElementById('countyCitiesModal');
+    if (countyModal) {
+        countyModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const county = button.getAttribute('data-county');
+            const state = button.getAttribute('data-state') || '';
+            const citiesStr = button.getAttribute('data-cities') || '';
+            
+            const modalTitle = countyModal.querySelector('#countyCitiesModalLabel');
+            const modalCounty = countyModal.querySelector('#modalCountyName');
+            const modalCities = countyModal.querySelector('#modalCitiesList');
+            
+            if (modalTitle) modalTitle.textContent = `${county} Credit Repair Services`;
+            if (modalCounty) modalCounty.textContent = `${county} County${state ? ', ' + state : ''}`;
+            
+            if (modalCities) {
+                if (citiesStr.trim()) {
+                    const cities = citiesStr.split(', ');
+                    modalCities.innerHTML = cities.map(city => `<span class="badge bg-light text-dark border p-2">${city}</span>`).join('');
+                } else {
+                    modalCities.innerHTML = `<span class="text-muted italic">All cities in ${county} County served</span>`;
+                }
+            }
+        });
+    }
 });
