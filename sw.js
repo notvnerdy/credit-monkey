@@ -1,5 +1,5 @@
-// Credit Monkey Service Worker v1.0.0
-const CACHE_NAME = 'credit-monkey-v1';
+// Credit Monkey Service Worker v2.0.0
+const CACHE_NAME = 'credit-monkey-v2-20260717';
 const OFFLINE_URL = '/offline.html';
 
 // Assets to cache immediately on install
@@ -8,8 +8,8 @@ const PRECACHE_ASSETS = [
   '/index.html',
   '/contact-us.html',
   '/pricing.html',
-  '/assets/css/styles.css',
-  '/assets/js/script.js',
+  '/assets/css/styles.css?v=2026071701',
+  '/assets/js/script.js?v=2026071701',
   '/assets/images/logo.png',
   '/offline.html'
 ];
@@ -75,6 +75,29 @@ self.addEventListener('fetch', (event) => {
               return cachedResponse || caches.match(OFFLINE_URL);
             });
         })
+    );
+    return;
+  }
+
+  // Styles and scripts are network-first so new HTML never renders against
+  // an outdated cached asset after a deployment.
+  const requestUrl = new URL(event.request.url);
+  const isVersionedSiteAsset = requestUrl.pathname === '/assets/css/styles.css'
+    || requestUrl.pathname === '/assets/js/script.js';
+
+  if (isVersionedSiteAsset) {
+    event.respondWith(
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse.ok) {
+            const responseClone = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseClone);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request))
     );
     return;
   }
