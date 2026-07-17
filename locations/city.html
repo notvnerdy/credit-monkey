@@ -48,6 +48,72 @@
         // Inject stylesheet with dynamic prefix
         document.write('<link rel="stylesheet" href="' + prefix + 'assets/css/styles.css?v=2026071701">');
     </script>
+    <style>
+        /* Dark Mode overrides for state-chips & badges */
+        [data-theme="dark"] .state-chip,
+        [data-theme="dark"] .state-chip-link .state-chip {
+            background: var(--card-bg) !important;
+            color: var(--text-color) !important;
+            border-color: var(--border-color) !important;
+            box-shadow: 0 4px 6px var(--shadow-color) !important;
+        }
+        [data-theme="dark"] .state-chip:hover {
+            background: var(--secondary-color) !important;
+            border-color: var(--secondary-color) !important;
+            color: #ffffff !important;
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(15, 118, 110, 0.4) !important;
+        }
+
+        /* Dark mode compatibility for seo-panel */
+        [data-theme="dark"] .seo-panel {
+            background: var(--card-bg) !important;
+            border-color: var(--border-color) !important;
+            box-shadow: 0 12px 32px var(--shadow-color) !important;
+            color: var(--text-color) !important;
+        }
+        [data-theme="dark"] .seo-panel ul li {
+            color: var(--text-muted) !important;
+        }
+
+        /* Hover animations for seo-panel */
+        .seo-panel {
+            transition: all 0.3s ease-in-out;
+        }
+        .seo-panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 40px rgba(15, 42, 79, 0.12) !important;
+        }
+        [data-theme="dark"] .seo-panel:hover {
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4) !important;
+        }
+
+        /* Premium Text Gradients */
+        .gradient-text {
+            background: linear-gradient(135deg, #0f2a4f 0%, #0f766e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        [data-theme="dark"] .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        /* State chips custom small styling */
+        .state-chip.small-chip {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            border-radius: 6px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+    </style>
 </head>
 <body>
     <!-- Scroll Progress Bar -->
@@ -115,7 +181,7 @@
                 <div class="row align-items-center g-5">
                     <div class="col-lg-7" data-aos="fade-right">
                         <p class="text-uppercase fw-semibold mb-3 seo-eyebrow"><span class="dynamic-state">State</span> Credit Repair Services</p>
-                        <h1 class="display-4 fw-bold mb-4">Credit Repair Services in <span class="dynamic-city">City</span>, <span class="dynamic-state">State</span></h1>
+                        <h1 class="display-4 fw-bold mb-4">Credit Repair Services in <span class="dynamic-city gradient-text">City</span>, <span class="dynamic-state">State</span></h1>
                         <p class="lead text-secondary mb-4">Credit Monkey helps <span class="dynamic-city">City</span> consumers review credit report errors, challenge inaccurate items, track score progress, and build a stronger plan for family credit rebuilding, rental approvals, and auto financing.</p>
                         <div class="d-flex flex-wrap gap-3 mb-4">
                             <a href="https://calendly.com/creditmonkey/credit-repair-consultation" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg px-4">Free Consultation</a>
@@ -144,7 +210,7 @@
                         <p class="text-secondary">The process is remote and document-driven, so clients in <span class="dynamic-city">City</span> and nearby communities in <span class="dynamic-county">County</span> can work with Credit Monkey without visiting an office. You get clear status updates, access to a secure client portal, and a compliance-minded strategy tied to your credit goals.</p>
                     </div>
                     <div class="col-lg-5" data-aos="fade-up" data-aos-delay="100">
-                        <div class="seo-panel bg-light p-4 rounded shadow-sm">
+                        <div class="seo-panel">
                             <h3 class="h5 fw-bold mb-3">What We Review</h3>
                             <ul class="list-unstyled mb-0">
                                 <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Collections and charge-offs</li>
@@ -344,7 +410,7 @@
                     </div>
                     
                     <div class="col-lg-6" data-aos="fade-left">
-                        <div class="seo-panel bg-light p-4 rounded shadow-sm">
+                        <div class="seo-panel">
                             <h3 class="h5 fw-bold mb-3">Nearby Service Areas</h3>
                             <p class="text-secondary mb-3">Credit Monkey also supports clients in neighboring cities throughout <span class="dynamic-county">County</span>:</p>
                             <div class="d-flex flex-wrap gap-2" id="nearby-cities">

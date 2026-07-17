@@ -48,6 +48,99 @@
         // Inject stylesheet with dynamic prefix
         document.write('<link rel="stylesheet" href="' + prefix + 'assets/css/styles.css?v=2026071701">');
     </script>
+    <style>
+        /* Base Style for how-step-card on Desktop */
+        .how-step-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(15, 42, 79, 0.04);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            height: 100%;
+        }
+        .how-step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(15, 42, 79, 0.08);
+            border-color: var(--secondary-color);
+        }
+        .how-step-card .step-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(15, 118, 110, 0.1);
+            color: var(--secondary-color);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            transition: all 0.3s ease;
+        }
+        .how-step-card:hover .step-icon {
+            background: var(--secondary-color);
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+        .how-step-card .step-number {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            background: #f1f5f9;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+        [data-theme="dark"] .how-step-card {
+            background: var(--card-bg) !important;
+            border-color: var(--border-color) !important;
+            box-shadow: 0 4px 12px var(--shadow-color) !important;
+        }
+        [data-theme="dark"] .how-step-card .step-number {
+            background: #334155;
+            color: #cbd5e1;
+        }
+
+        /* Dark Mode overrides for state-chips & badges */
+        [data-theme="dark"] .state-chip,
+        [data-theme="dark"] .state-chip-link .state-chip {
+            background: var(--card-bg) !important;
+            color: var(--text-color) !important;
+            border-color: var(--border-color) !important;
+            box-shadow: 0 4px 6px var(--shadow-color) !important;
+        }
+        [data-theme="dark"] .state-chip:hover {
+            background: var(--secondary-color) !important;
+            border-color: var(--secondary-color) !important;
+            color: #ffffff !important;
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(15, 118, 110, 0.4) !important;
+        }
+
+        /* Premium Text Gradients */
+        .gradient-text {
+            background: linear-gradient(135deg, #0f2a4f 0%, #0f766e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+        [data-theme="dark"] .gradient-text {
+            background: linear-gradient(135deg, #38bdf8 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
     <!-- Scroll Progress Bar -->
@@ -110,7 +203,7 @@
                 <div class="row align-items-center g-5">
                     <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
                         <p class="text-uppercase fw-semibold mb-3 seo-eyebrow" style="letter-spacing: 0.08em;"><span class="dynamic-state">State</span> Credit Repair Services</p>
-                        <h1 class="display-4 fw-bold mb-4">Fix Your Credit in <span class="dynamic-county">County</span></h1>
+                        <h1 class="display-4 fw-bold mb-4">Fix Your Credit in <span class="dynamic-county gradient-text">County</span></h1>
                         <p class="lead text-secondary mb-4">Professional credit repair services available in all <span class="dynamic-city-count">0</span> cities across <span class="dynamic-county">County</span>, <span class="dynamic-state">State</span>. Select your city below to get started.</p>
                         <div class="d-flex flex-wrap gap-3 justify-content-center">
                             <button class="btn btn-primary btn-lg px-4" data-bs-toggle="modal" data-bs-target="#quickConsultModal">Get Started Now</button>
