@@ -16,15 +16,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     
     <script>
-        // Determine path prefix dynamically
-        let prefix = "../";
+        // Determine path prefix dynamically (absolute '/' on server to avoid replaceState resolution errors, relative '../' locally)
+        let prefix = "/";
         let isLocal = window.location.protocol === 'file:';
         
-        if (!isLocal) {
-            const pathParts = window.location.pathname.split('/').filter(Boolean);
-            const locationsIndex = pathParts.indexOf('locations');
-            if (locationsIndex !== -1 && pathParts.length > locationsIndex + 2) {
-                prefix = "../../";
+        if (isLocal) {
+            prefix = "../";
+        } else {
+            // Restore clean URL in address bar immediately (runs before DOMContentLoaded to prevent race conditions with script.js)
+            const urlParams = new URLSearchParams(window.location.search);
+            const stateSlug = urlParams.get('state');
+            const citySlug = urlParams.get('city');
+            if (stateSlug && citySlug && window.history.replaceState) {
+                try {
+                    const cleanUrl = '/locations/' + stateSlug + '/' + citySlug;
+                    window.history.replaceState({}, '', cleanUrl);
+                } catch (e) {
+                    console.warn("Could not replace state in head", e);
+                }
             }
         }
         
@@ -436,16 +445,7 @@
             stateSlug = slugify(stateSlug);
             citySlug = slugify(citySlug);
             
-            // Restore clean URL in address bar if query parameters are present
-            if (window.history.replaceState && window.location.search && window.location.protocol !== 'file:') {
-                try {
-                    const cleanUrl = prefix + 'locations/' + stateSlug + '/' + citySlug;
-                    window.history.replaceState({}, '', cleanUrl);
-                } catch (e) {
-                    console.warn("Could not replace state", e);
-                }
-            }
-            
+
             try {
                 const response = await fetch(prefix + 'assets/data/cities_by_county.json');
                 const citiesByCounty = await response.json();
