@@ -436,6 +436,16 @@
             stateSlug = slugify(stateSlug);
             citySlug = slugify(citySlug);
             
+            // Restore clean URL in address bar if query parameters are present
+            if (window.history.replaceState && window.location.search && window.location.protocol !== 'file:') {
+                try {
+                    const cleanUrl = prefix + 'locations/' + stateSlug + '/' + citySlug;
+                    window.history.replaceState({}, '', cleanUrl);
+                } catch (e) {
+                    console.warn("Could not replace state", e);
+                }
+            }
+            
             try {
                 const response = await fetch(prefix + 'assets/data/cities_by_county.json');
                 const citiesByCounty = await response.json();

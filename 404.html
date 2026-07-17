@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        // SPA Router for GitHub Pages clean URLs
+        (function() {
+            const pathParts = window.location.pathname.split('/').filter(Boolean);
+            if (pathParts[0] === 'states' && pathParts.length === 3) {
+                const state = pathParts[1];
+                const county = pathParts[2];
+                window.location.replace('/states/county.html?state=' + state + '&county=' + county);
+            } else if (pathParts[0] === 'locations' && pathParts.length === 3) {
+                const state = pathParts[1];
+                const city = pathParts[2];
+                window.location.replace('/locations/city.html?state=' + state + '&city=' + city);
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Page not found on Credit Monkey Credit Repair Services. Use the navigation links to find credit repair services, pricing, and support.">
