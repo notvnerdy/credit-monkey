@@ -523,7 +523,7 @@
                 });
                 document.querySelectorAll(".dynamic-href").forEach(el => {
                     const hrefAttr = el.getAttribute("data-href");
-                    if (hrefAttr) el.setAttribute("href", prefix + hrefAttr);
+                    if (hrefAttr !== null) el.setAttribute("href", prefix + hrefAttr);
                 });
                 
                 // Initialize Animations
