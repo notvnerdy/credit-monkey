@@ -1692,30 +1692,24 @@ document.addEventListener('DOMContentLoaded', function() {
         input.setAttribute('inputmode', 'numeric');
     });
 
-    // County Cities Modal injection handler
-    const countyModal = document.getElementById('countyCitiesModal');
-    if (countyModal) {
-        countyModal.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const county = button.getAttribute('data-county');
-            const state = button.getAttribute('data-state') || '';
-            const citiesStr = button.getAttribute('data-cities') || '';
-            
-            const modalTitle = countyModal.querySelector('#countyCitiesModalLabel');
-            const modalCounty = countyModal.querySelector('#modalCountyName');
-            const modalCities = countyModal.querySelector('#modalCitiesList');
-            
-            if (modalTitle) modalTitle.textContent = `${county} Credit Repair Services`;
-            if (modalCounty) modalCounty.textContent = `${county} County${state ? ', ' + state : ''}`;
-            
-            if (modalCities) {
-                if (citiesStr.trim()) {
-                    const cities = citiesStr.split(', ');
-                    modalCities.innerHTML = cities.map(city => `<span class="badge bg-light text-dark border p-2">${city}</span>`).join('');
-                } else {
-                    modalCities.innerHTML = `<span class="text-muted italic">All cities in ${county} County served</span>`;
-                }
-            }
-        });
+    // Helper to slugify
+    function slugify(text) {
+        return text.toString().toLowerCase().trim()
+            .replace(/\s+/g, '-')
+            .replace(/[^\w\-]+/g, '')
+            .replace(/\-\-+/g, '-')
+            .replace(/^-+/, '')
+            .replace(/-+$/, '');
     }
+
+    // Handle county link click locally (for file:// protocol compatibility)
+    document.addEventListener('click', function (e) {
+        const countyLink = e.target.closest('.county-link');
+        if (countyLink && window.location.protocol === 'file:') {
+            e.preventDefault();
+            const state = slugify(countyLink.getAttribute('data-state') || '');
+            const county = slugify(countyLink.getAttribute('data-county') || '');
+            window.location.href = `county.html?state=${state}&county=${county}`;
+        }
+    });
 });

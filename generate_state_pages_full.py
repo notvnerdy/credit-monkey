@@ -213,12 +213,11 @@ def create_state_page(state_name, counties):
             <div class="state-grid" data-aos="fade-up" data-aos-delay="100">
 '''
     
-    # Add ALL counties with staggered animations and city lists
+    # Add ALL counties with staggered animations and links
     for idx, county in enumerate(counties):
         delay = (idx % 10) * 10 + 50  # Stagger animations
-        county_cities = cities_by_county.get(state_name, {}).get(county, [])
-        cities_str = ", ".join(county_cities).replace('"', '&quot;')
-        html_content += f'                <button class="state-chip county-btn w-100" data-bs-toggle="modal" data-bs-target="#countyCitiesModal" data-county="{county}" data-state="{state_name}" data-cities="{cities_str}" data-aos="zoom-in" data-aos-delay="{delay}">{county} County</button>\n'
+        county_slug = county.lower().replace(" ", "-") + "-county"
+        html_content += f'                <a class="state-chip county-link w-100 text-center text-decoration-none" href="{state_url}/{county_slug}" data-county="{county}" data-state="{state_name}" data-aos="zoom-in" data-aos-delay="{delay}">{county} County</a>\n'
     
     html_content += f'''            </div>
         </div>
@@ -380,30 +379,6 @@ def create_state_page(state_name, counties):
         </div>
     </section>
 
-    <!-- County Cities Modal -->
-    <div class="modal fade" id="countyCitiesModal" tabindex="-1" aria-labelledby="countyCitiesModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content text-start">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title fw-bold" id="countyCitiesModalLabel">Cities Served</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <p class="text-secondary mb-3">We provide professional credit repair services throughout <span id="modalCountyName" class="fw-bold text-dark"></span>, covering local areas including:</p>
-                    <div id="modalCitiesList" class="d-flex flex-wrap gap-2 mb-4" style="max-height: 250px; overflow-y: auto;">
-                        <!-- Cities will be injected here as clean badges -->
-                    </div>
-                    <div class="card bg-light border-0">
-                        <div class="card-body text-center p-4">
-                            <h6 class="fw-bold mb-2">Ready to Fix Your Credit?</h6>
-                            <p class="text-secondary small mb-3">Start your 100% remote credit restoration plan with Credit Monkey today.</p>
-                            <a href="https://credit3278.getcredithelpnow.com/billingselection" class="btn btn-primary px-5" target="_blank" rel="noopener noreferrer">Get Started Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Quick Consultation Modal -->
     <div class="modal fade" id="quickConsultModal" tabindex="-1">

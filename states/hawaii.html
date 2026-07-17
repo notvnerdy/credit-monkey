@@ -34,19 +34,15 @@
                     <li class="nav-item"><a class="nav-link" href="../#how-it-works">How It Works</a></li>
                     <li class="nav-item"><a class="nav-link" href="../how-credit-repair-works">How Credit Repair Works</a></li>
                     <li class="nav-item"><a class="nav-link" href="../states-we-fix-credit-in">States We Fix Credit In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../#reviews">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../#contact">Contact</a></li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://secureclientaccess.com/" target="_blank" rel="noopener noreferrer">
                             <i class="bi bi-box-arrow-in-right"></i> Login
                         </a>
                     </li>
-                    <li class="nav-item ms-lg-3">
-                        <a href="tel:+18777017307" class="nav-link text-primary fw-bold d-flex align-items-center">
-                            <i class="bi bi-telephone-fill me-2"></i>
-                            <span>Call NOW! <span class="d-none d-lg-inline">877-701-7307</span></span>
-                        </a>
-                    </li>
                     <li class="nav-item ms-lg-2">
-                        <a href="https://credit3278.getcredithelpnow.com/billingselection" class="btn btn-primary px-4" target="_blank" rel="noopener noreferrer">Get Started</a>
+                        <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#quickConsultModal">Get Started</button>
                     </li>
                 </ul>
             </div>
@@ -95,11 +91,11 @@
                 </div>
             </div>
             <div class="state-grid" data-aos="fade-up" data-aos-delay="100">
-                <button class="state-chip county-btn w-100" data-bs-toggle="modal" data-bs-target="#countyCitiesModal" data-county="Hawaii" data-state="Hawaii" data-cities="Captain Cook, Hakalau, Hawaii National Park, Hawi, Hilo, Holualoa, Honaunau, Honokaa, Honomu, Kailua Kona, Kamuela, Kapaau, Keaau, Kealakekua, Keauhou, Kurtistown, Laupahoehoe, Mountain View, Naalehu, Ninole, Ocean View, Ookala, Paauilo, Pahala, Pahoa, Papaaloa, Papaikou, Pepeekeo, Volcano, Waikoloa" data-aos="zoom-in" data-aos-delay="50">Hawaii County</button>
-                <button class="state-chip county-btn w-100" data-bs-toggle="modal" data-bs-target="#countyCitiesModal" data-county="Honolulu" data-state="Hawaii" data-cities="Aiea, Camp H M Smith, Ewa Beach, Fort Shafter, Haleiwa, Hauula, Hickam Afb, Honolulu, Kaaawa, Kahuku, Kailua, Kaneohe, Kapolei, Kunia, Laie, M C B H Kaneohe Bay, Mililani, Pearl City, Pearl Harbor, Schofield Barracks, Tripler Army Medical Center, Wahiawa, Waialua, Waianae, Waimanalo, Waipahu, Wake Island, Wheeler Army Airfield" data-aos="zoom-in" data-aos-delay="60">Honolulu County</button>
-                <button class="state-chip county-btn w-100" data-bs-toggle="modal" data-bs-target="#countyCitiesModal" data-county="Kalawao" data-state="Hawaii" data-cities="Kalawao" data-aos="zoom-in" data-aos-delay="70">Kalawao County</button>
-                <button class="state-chip county-btn w-100" data-bs-toggle="modal" data-bs-target="#countyCitiesModal" data-county="Kauai" data-state="Hawaii" data-cities="Anahola, Eleele, Hanalei, Hanamaulu, Hanapepe, Kalaheo, Kapaa, Kaumakani, Kealia, Kekaha, Kilauea, Koloa, Lawai, Lihue, Makaweli, Princeville, Waimea" data-aos="zoom-in" data-aos-delay="80">Kauai County</button>
-                <button class="state-chip county-btn w-100" data-bs-toggle="modal" data-bs-target="#countyCitiesModal" data-county="Maui" data-state="Hawaii" data-cities="Haiku, Hana, Hoolehua, Kahului, Kalaupapa, Kaunakakai, Kihei, Kualapuu, Kula, Lahaina, Lanai City, Makawao, Maunaloa, Paia, Pukalani, Puunene, Wailuku" data-aos="zoom-in" data-aos-delay="90">Maui County</button>
+                <a class="state-chip county-link w-100 text-center text-decoration-none" href="hawaii/hawaii-county" data-county="Hawaii" data-state="Hawaii" data-aos="zoom-in" data-aos-delay="50">Hawaii County</a>
+                <a class="state-chip county-link w-100 text-center text-decoration-none" href="hawaii/honolulu-county" data-county="Honolulu" data-state="Hawaii" data-aos="zoom-in" data-aos-delay="60">Honolulu County</a>
+                <a class="state-chip county-link w-100 text-center text-decoration-none" href="hawaii/kalawao-county" data-county="Kalawao" data-state="Hawaii" data-aos="zoom-in" data-aos-delay="70">Kalawao County</a>
+                <a class="state-chip county-link w-100 text-center text-decoration-none" href="hawaii/kauai-county" data-county="Kauai" data-state="Hawaii" data-aos="zoom-in" data-aos-delay="80">Kauai County</a>
+                <a class="state-chip county-link w-100 text-center text-decoration-none" href="hawaii/maui-county" data-county="Maui" data-state="Hawaii" data-aos="zoom-in" data-aos-delay="90">Maui County</a>
             </div>
         </div>
     </section>
@@ -260,30 +256,6 @@
         </div>
     </section>
 
-    <!-- County Cities Modal -->
-    <div class="modal fade" id="countyCitiesModal" tabindex="-1" aria-labelledby="countyCitiesModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content text-start">
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title fw-bold" id="countyCitiesModalLabel">Cities Served</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <p class="text-secondary mb-3">We provide professional credit repair services throughout <span id="modalCountyName" class="fw-bold text-dark"></span>, covering local areas including:</p>
-                    <div id="modalCitiesList" class="d-flex flex-wrap gap-2 mb-4" style="max-height: 250px; overflow-y: auto;">
-                        <!-- Cities will be injected here as clean badges -->
-                    </div>
-                    <div class="card bg-light border-0">
-                        <div class="card-body text-center p-4">
-                            <h6 class="fw-bold mb-2">Ready to Fix Your Credit?</h6>
-                            <p class="text-secondary small mb-3">Start your 100% remote credit restoration plan with Credit Monkey today.</p>
-                            <a href="https://credit3278.getcredithelpnow.com/billingselection" class="btn btn-primary px-5" target="_blank" rel="noopener noreferrer">Get Started Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Quick Consultation Modal -->
     <div class="modal fade" id="quickConsultModal" tabindex="-1">
