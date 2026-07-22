@@ -1,7 +1,7 @@
 # robots.txt for Credit Monkey Credit Repair Services
 # https://creditmonkey.com
 
-# ── General crawlers ──────────────────────────────────────────
+# General crawlers
 User-agent: *
 Allow: /
 Disallow: /admin.html
@@ -20,7 +20,7 @@ Disallow: /update_state_pages.py
 Disallow: /generate_state_pages.py
 Disallow: /generate_state_pages_full.py
 
-# ── Google-specific ───────────────────────────────────────────
+# Google-specific
 User-agent: Googlebot
 Allow: /
 Allow: /*.css$
@@ -38,7 +38,7 @@ Disallow: /output/
 User-agent: Googlebot-Image
 Allow: /assets/images/
 
-# ── Bing ─────────────────────────────────────────────────────
+# Bing
 User-agent: Bingbot
 Allow: /
 Disallow: /admin.html
@@ -47,7 +47,7 @@ Disallow: /backend/
 Disallow: /api/
 Disallow: /output/
 
-# ── AI crawlers — allow indexing for AI search visibility ─────
+# AI crawlers - allow indexing for AI search visibility
 User-agent: GPTBot
 Allow: /
 Disallow: /admin.html
@@ -73,12 +73,12 @@ Allow: /
 User-agent: cohere-ai
 Allow: /
 
-# ── Block aggressive/irrelevant scrapers ─────────────────────
+# Block aggressive/irrelevant scrapers
 User-agent: AhrefsBot
-Crawl-delay: 10
+Crawl-delay: 5
 
 User-agent: SemrushBot
-Crawl-delay: 10
+Crawl-delay: 5
 
 User-agent: MJ12bot
 Disallow: /
@@ -89,6 +89,6 @@ Disallow: /
 User-agent: BLEXBot
 Disallow: /
 
-# ── Sitemaps ──────────────────────────────────────────────────
+# Sitemaps
 Sitemap: https://creditmonkey.com/sitemap.xml
 Sitemap: https://creditmonkey.com/sitemap-blog.xml

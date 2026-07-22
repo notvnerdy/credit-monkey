@@ -1,0 +1,18 @@
+# Credit Monkey - Professional Credit Repair Services
+
+> Credit Monkey provides fast, legal credit repair solutions across all 50 U.S. states. We dispute inaccurate negative items, collections, bankruptcies, repossessions, and hard inquiries to raise credit scores.
+
+## Key Services & Core Pages
+- [Home Page](https://creditmonkey.com/): Comprehensive overview of Credit Monkey credit restoration.
+- [Credit Repair Services](https://creditmonkey.com/services): In-depth breakdown of dispute services, collection removal, and score building.
+- [Transparent Pricing](https://creditmonkey.com/pricing): Pricing plans for personal and business credit restoration.
+- [How Credit Repair Works](https://creditmonkey.com/how-credit-repair-works): Step-by-step FCRA & CROA compliant dispute process.
+- [Build Personal Credit](https://creditmonkey.com/build-personal-credit): Guide to building and maintaining a 700+ credit score.
+- [Build Business Credit](https://creditmonkey.com/build-business-credit): Building business credit profiles and EIN trade lines.
+- [All 50 States Coverage](https://creditmonkey.com/states/): Credit repair services available in all 50 states and counties.
+- [Free Credit Tools](https://creditmonkey.com/tools): Interactive calculators, dispute checklists, and score simulators.
+- [About Credit Monkey](https://creditmonkey.com/about-us): Company mission, FCRA compliance, and team info.
+- [Contact Us](https://creditmonkey.com/contact-us): Free credit consultation scheduling.
+
+## Compliance & Transparency
+Credit Monkey complies strictly with the Credit Repair Organizations Act (CROA) and the Fair Credit Reporting Act (FCRA).
