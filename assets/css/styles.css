@@ -2764,3 +2764,80 @@ img.loaded {
         padding: .8rem;
     }
 }
+
+/* ============================================
+   WCAG 2.1 AA HIGH CONTRAST & ACCESSIBILITY OVERRIDES
+   ============================================ */
+.text-muted, .text-secondary {
+    color: #334155 !important; /* Minimum 7:1 contrast on white */
+}
+
+.bg-light .text-secondary,
+.bg-light .text-muted {
+    color: #1e293b !important;
+}
+
+.btn-outline-primary {
+    color: #0d47a1 !important;
+    border-color: #0d47a1 !important;
+    font-weight: 600;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    color: #ffffff !important;
+    background-color: #0d47a1 !important;
+}
+
+.btn-primary {
+    background-color: #0f2a4f !important;
+    border-color: #0f2a4f !important;
+    color: #ffffff !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #0b1f3b !important;
+    border-color: #0b1f3b !important;
+    color: #ffffff !important;
+}
+
+.nav-link {
+    color: #0f172a !important;
+    font-weight: 500;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: #0d47a1 !important;
+}
+
+.badge.bg-primary {
+    background-color: #0d47a1 !important;
+    color: #ffffff !important;
+}
+
+.badge.bg-secondary,
+.badge.bg-warning,
+.badge.bg-info {
+    color: #0f172a !important;
+    font-weight: 600;
+}
+
+/* Form accessibility focus states */
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border-color: #0d47a1 !important;
+    box-shadow: 0 0 0 0.25rem rgba(13, 71, 161, 0.25) !important;
+}
+
+/* Performance: Content Visibility */
+.py-6, section {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 500px;
+}
+hero-section, header, nav {
+    content-visibility: visible !important;
+}
+

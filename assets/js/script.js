@@ -123,16 +123,24 @@ function initDarkMode() {
     // Do not auto-switch based on system theme to keep light as default
 }
 
-// ========== SCROLL PROGRESS BAR ==========
 function initScrollProgress() {
     const scrollProgress = document.getElementById('scrollProgress');
     if (!scrollProgress) return;
 
+    let ticking = false;
     window.addEventListener('scroll', function() {
-        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (window.scrollY / windowHeight) * 100;
-        scrollProgress.style.width = scrolled + '%';
-    });
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                if (windowHeight > 0) {
+                    const scrolled = (window.scrollY / windowHeight) * 100;
+                    scrollProgress.style.width = scrolled + '%';
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
 }
 
 // ========== LAZY LOAD IMAGES ==========
@@ -200,24 +208,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize lazy loading
     initLazyLoad();
 
-    // Track Web Vitals
-    trackWebVitals();
-    // Reduce animations on mobile devices
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    // Defer non-critical JS tasks to unblock initial rendering & reduce TBT
+    const scheduleTask = window.requestIdleCallback || function(cb) { setTimeout(cb, 150); };
     
-    // Initialize AOS with error handling
-    try {
-        if (window.AOS) {
-            AOS.init({
-                duration: isMobile ? 400 : 800,
-                once: true,
-                offset: isMobile ? 50 : 100,
-                disable: false
-            });
+    scheduleTask(function() {
+        // Track Web Vitals
+        trackWebVitals();
+        
+        // Reduce animations on mobile devices
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        // Initialize AOS with error handling
+        try {
+            if (window.AOS) {
+                AOS.init({
+                    duration: isMobile ? 400 : 800,
+                    once: true,
+                    offset: isMobile ? 50 : 100,
+                    disable: false
+                });
+            }
+        } catch (error) {
+            console.error('AOS initialization error:', error);
         }
-    } catch (error) {
-        console.error('AOS initialization error:', error);
-    }
+    });
     
     // Cookie Consent Banner
     function initCookieConsent() {
