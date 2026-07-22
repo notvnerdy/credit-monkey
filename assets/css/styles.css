@@ -550,10 +550,10 @@ section:nth-child(even) {
 /* Mega menu */
 .mega-dropdown .dropdown-menu {
     border: none;
-    padding: 1.1rem;
+    padding: 1.25rem;
     border-radius: 12px;
-    min-width: 760px;
-    width: min(900px, calc(100vw - 48px));
+    min-width: 860px;
+    width: min(940px, calc(100vw - 32px));
     margin-top: 10px;
     left: 50% !important;
     right: auto !important;
@@ -561,6 +561,16 @@ section:nth-child(even) {
     box-shadow: 0 22px 60px rgba(15, 23, 42, 0.16) !important;
 }
 
+.mega-menu {
+    background: #ffffff;
+}
+
+.mega-inner {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr 1.45fr 1.1fr;
+    gap: 18px;
+    align-items: start;
+}
 
 /* Dropdown submenus for States groups */
 .dropdown-submenu {
@@ -621,17 +631,6 @@ section:nth-child(even) {
     .dropdown-submenu .dropdown-menu.show {
         display: block;
     }
-}
-
-.mega-menu {
-    background: #ffffff;
-}
-
-.mega-inner {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) 1.05fr;
-    gap: 16px;
-    align-items: start;
 }
 
 .mega-menu.states-mega {
