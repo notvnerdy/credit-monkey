@@ -138,6 +138,8 @@ def create_state_page(state_name, counties):
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../assets/css/styles.css?v=2026052004">
+    <!-- Ahrefs Analytics -->
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="JFNXT4H7oGFXERk+25AXyw" async></script>
 </head>
 <body>
     <!-- Navbar -->

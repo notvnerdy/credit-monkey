@@ -137,6 +137,8 @@ def generate_head_section(state_slug, state_data):
       }}
     }}
     </script>
+    <!-- Ahrefs Analytics -->
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="JFNXT4H7oGFXERk+25AXyw" async></script>
 </head>'''
     return head_template
 
@@ -162,7 +164,9 @@ def update_state_file(state_slug):
         new_head = generate_head_section(state_slug, state_data)
         
         # Pattern to match entire <head> section
-        head_pattern = r'<head>.*?</head>'
+        head_pattern = r'<head>.*?    <!-- Ahrefs Analytics -->
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="JFNXT4H7oGFXERk+25AXyw" async></script>
+</head>'
         
         if not re.search(head_pattern, content, re.DOTALL):
             print(f"⚠️  Could not find <head> section in {file_path}")
@@ -173,8 +177,12 @@ def update_state_file(state_slug):
         
         # Add skip-to-content link if not present
         if 'skip-link' not in updated_content:
-            body_pattern = r'(</head>\s*<body>)'
-            skip_link = r'</head>\n<body>\n    <!-- Skip to Content Link for Accessibility -->\n    <a href="#main-content" class="skip-link visually-hidden-focusable">Skip to main content</a>\n    '
+            body_pattern = r'(    <!-- Ahrefs Analytics -->
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="JFNXT4H7oGFXERk+25AXyw" async></script>
+</head>\s*<body>)'
+            skip_link = r'    <!-- Ahrefs Analytics -->
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="JFNXT4H7oGFXERk+25AXyw" async></script>
+</head>\n<body>\n    <!-- Skip to Content Link for Accessibility -->\n    <a href="#main-content" class="skip-link visually-hidden-focusable">Skip to main content</a>\n    '
             updated_content = re.sub(body_pattern, skip_link, updated_content)
         
         # Update navbar accessibility if needed
