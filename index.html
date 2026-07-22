@@ -67,143 +67,309 @@
 <!-- Custom CSS -->
 <link href="assets/css/styles.css?v=2026071701" rel="stylesheet"/>
 <!-- JSON-LD Structured Data — Consolidated @graph -->
-<script type="application/ld+json">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
-      "@graph": [
+      "@type": "Organization",
+      "@id": "https://creditmonkey.com/#organization",
+      "name": "Credit Monkey Credit Repair Services",
+      "url": "https://creditmonkey.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://creditmonkey.com/assets/images/logo.webp",
+        "width": 206,
+        "height": 45
+      },
+      "image": "https://creditmonkey.com/assets/images/cv-hero.webp",
+      "description": "Professional credit repair services helping consumers fix inaccurate credit reports, remove collections, dispute hard inquiries, and improve credit scores across California and all 50 states.",
+      "telephone": "+1-877-701-7307",
+      "email": "info@creditmonkey.com",
+      "priceRange": "$99\u2013$199/month",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "US",
+        "addressRegion": "CA"
+      },
+      "areaServed": [
         {
+          "@type": "Country",
+          "name": "United States"
+        },
+        {
+          "@type": "State",
+          "name": "California"
+        },
+        {
+          "@type": "City",
+          "name": "Los Angeles"
+        },
+        {
+          "@type": "City",
+          "name": "San Diego"
+        },
+        {
+          "@type": "City",
+          "name": "Sacramento"
+        },
+        {
+          "@type": "City",
+          "name": "San Francisco"
+        },
+        {
+          "@type": "City",
+          "name": "Fresno"
+        },
+        {
+          "@type": "City",
+          "name": "Oakland"
+        },
+        {
+          "@type": "City",
+          "name": "San Jose"
+        },
+        {
+          "@type": "City",
+          "name": "Long Beach"
+        },
+        {
+          "@type": "City",
+          "name": "Anaheim"
+        },
+        {
+          "@type": "City",
+          "name": "Riverside"
+        }
+      ],
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "1250",
+        "bestRating": "5",
+        "worstRating": "1",
+        "itemReviewed": {
           "@type": "Organization",
-          "@id": "https://creditmonkey.com/#organization",
           "name": "Credit Monkey Credit Repair Services",
-          "url": "https://creditmonkey.com",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://creditmonkey.com/assets/images/logo.webp",
-            "width": 206,
-            "height": 45
-          },
-          "image": "https://creditmonkey.com/assets/images/cv-hero.webp",
-          "description": "Professional credit repair services helping consumers fix inaccurate credit reports, remove collections, dispute hard inquiries, and improve credit scores across California and all 50 states.",
-          "telephone": "+1-877-701-7307",
-          "email": "info@creditmonkey.com",
-          "priceRange": "$99–$199/month",
-          "address": {
-            "@type": "PostalAddress",
-            "addressCountry": "US",
-            "addressRegion": "CA"
-          },
-          "areaServed": [
-            {"@type": "Country", "name": "United States"},
-            {"@type": "State", "name": "California"},
-            {"@type": "City", "name": "Los Angeles"},
-            {"@type": "City", "name": "San Diego"},
-            {"@type": "City", "name": "Sacramento"},
-            {"@type": "City", "name": "San Francisco"},
-            {"@type": "City", "name": "Fresno"},
-            {"@type": "City", "name": "Oakland"},
-            {"@type": "City", "name": "San Jose"},
-            {"@type": "City", "name": "Long Beach"},
-            {"@type": "City", "name": "Anaheim"},
-            {"@type": "City", "name": "Riverside"}
-          ],
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.8",
-            "reviewCount": "1250",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
-          "sameAs": [
-            "https://www.facebook.com/creditmonkey",
-            "https://twitter.com/creditmonkey",
-            "https://www.linkedin.com/company/creditmonkey"
-          ]
+          "url": "https://creditmonkey.com"
+        }
+      },
+      "sameAs": [
+        "https://www.facebook.com/creditmonkey",
+        "https://twitter.com/creditmonkey",
+        "https://www.linkedin.com/company/creditmonkey"
+      ]
+    },
+    {
+      "@type": "FinancialService",
+      "@id": "https://creditmonkey.com/#financialservice",
+      "name": "Credit Monkey Credit Repair Services",
+      "url": "https://creditmonkey.com",
+      "telephone": "+1-877-701-7307",
+      "priceRange": "$99\u2013$199/month",
+      "description": "Professional credit repair, credit restoration, bureau dispute support, hard inquiry removal, collections removal, late payment challenges, and credit score improvement services.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "US",
+        "addressRegion": "CA"
+      },
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "United States"
         },
         {
-          "@type": "FinancialService",
-          "@id": "https://creditmonkey.com/#financialservice",
-          "name": "Credit Monkey Credit Repair Services",
-          "url": "https://creditmonkey.com",
-          "telephone": "+1-877-701-7307",
-          "priceRange": "$99–$199/month",
-          "description": "Professional credit repair, credit restoration, bureau dispute support, hard inquiry removal, collections removal, late payment challenges, and credit score improvement services.",
-          "address": {"@type": "PostalAddress", "addressCountry": "US", "addressRegion": "CA"},
-          "areaServed": [{"@type": "Country", "name": "United States"}, {"@type": "State", "name": "California"}],
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Credit Repair Service Plans",
-            "itemListElement": [
-              {"@type": "Offer", "name": "Plan A – Negative Items", "price": "99", "priceCurrency": "USD", "description": "Disputes to all 3 bureaus, creditor letters, score tracking, 90-day guarantee"},
-              {"@type": "Offer", "name": "Plan B – Negative Items + Inquiries", "price": "159", "priceCurrency": "USD", "description": "All Plan A features plus enhanced hard inquiry removal strategy"},
-              {"@type": "Offer", "name": "Plan C – Premium Service", "price": "199", "priceCurrency": "USD", "description": "Full-service premium credit restoration with priority support"}
-            ]
+          "@type": "State",
+          "name": "California"
+        }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Credit Repair Service Plans",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "name": "Plan A \u2013 Negative Items",
+            "price": "99",
+            "priceCurrency": "USD",
+            "description": "Disputes to all 3 bureaus, creditor letters, score tracking, 90-day guarantee"
+          },
+          {
+            "@type": "Offer",
+            "name": "Plan B \u2013 Negative Items + Inquiries",
+            "price": "159",
+            "priceCurrency": "USD",
+            "description": "All Plan A features plus enhanced hard inquiry removal strategy"
+          },
+          {
+            "@type": "Offer",
+            "name": "Plan C \u2013 Premium Service",
+            "price": "199",
+            "priceCurrency": "USD",
+            "description": "Full-service premium credit restoration with priority support"
           }
+        ]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://creditmonkey.com/#website",
+      "url": "https://creditmonkey.com",
+      "name": "Credit Monkey Credit Repair Services",
+      "description": "Expert credit repair services serving California and all 50 states.",
+      "publisher": {
+        "@id": "https://creditmonkey.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://creditmonkey.com/resources/credit-score-improvement?q={search_term_string}"
         },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://creditmonkey.com/#webpage",
+      "url": "https://creditmonkey.com/",
+      "name": "Credit Monkey | Best Credit Repair Services California | From $99/Month",
+      "description": "Credit Monkey offers expert credit repair services from $99/month. Serving California and all 50 states. Disputes, collections removal, hard inquiry challenges. 90-day guarantee.",
+      "isPartOf": {
+        "@id": "https://creditmonkey.com/#website"
+      },
+      "about": {
+        "@id": "https://creditmonkey.com/#financialservice"
+      },
+      "datePublished": "2020-01-01",
+      "dateModified": "2026-05-20",
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://creditmonkey.com/#breadcrumb",
+      "itemListElement": [
         {
-          "@type": "WebSite",
-          "@id": "https://creditmonkey.com/#website",
-          "url": "https://creditmonkey.com",
-          "name": "Credit Monkey Credit Repair Services",
-          "description": "Expert credit repair services serving California and all 50 states.",
-          "publisher": {"@id": "https://creditmonkey.com/#organization"},
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": {"@type": "EntryPoint", "urlTemplate": "https://creditmonkey.com/resources/credit-score-improvement?q={search_term_string}"},
-            "query-input": "required name=search_term_string"
-          }
-        },
-        {
-          "@type": "WebPage",
-          "@id": "https://creditmonkey.com/#webpage",
-          "url": "https://creditmonkey.com/",
-          "name": "Credit Monkey | Best Credit Repair Services California | From $99/Month",
-          "description": "Credit Monkey offers expert credit repair services from $99/month. Serving California and all 50 states. Disputes, collections removal, hard inquiry challenges. 90-day guarantee.",
-          "isPartOf": {"@id": "https://creditmonkey.com/#website"},
-          "about": {"@id": "https://creditmonkey.com/#financialservice"},
-          "datePublished": "2020-01-01",
-          "dateModified": "2026-05-20",
-          "inLanguage": "en-US"
-        },
-        {
-          "@type": "BreadcrumbList",
-          "@id": "https://creditmonkey.com/#breadcrumb",
-          "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://creditmonkey.com/"}
-          ]
-        },
-        {
-          "@type": "Service",
-          "@id": "https://creditmonkey.com/#service",
-          "name": "Credit Repair Services",
-          "serviceType": "Credit Repair",
-          "provider": {"@id": "https://creditmonkey.com/#organization"},
-          "areaServed": [{"@type": "Country", "name": "United States"}, {"@type": "State", "name": "California"}],
-          "offers": {"@type": "AggregateOffer", "lowPrice": "99", "highPrice": "199", "priceCurrency": "USD"}
-        },
-        {
-          "@type": "FAQPage",
-          "@id": "https://creditmonkey.com/#faq",
-          "mainEntity": [
-            {"@type": "Question", "name": "How long does credit repair take?", "acceptedAnswer": {"@type": "Answer", "text": "Most clients see initial bureau responses within 30–45 days. Full programs typically run 3–6 months depending on the number and complexity of disputed items."}},
-            {"@type": "Question", "name": "Is credit repair legal?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Under the Fair Credit Reporting Act (FCRA) and Credit Repair Organizations Act (CROA), consumers have the legal right to dispute inaccurate, incomplete, outdated, or unverifiable information. Credit Monkey follows a compliance-first process."}},
-            {"@type": "Question", "name": "Can Credit Monkey guarantee removals or score increases?", "acceptedAnswer": {"@type": "Answer", "text": "No. No reputable credit repair company can guarantee removal of accurate, current, and verifiable information or a specific score increase. Individual results vary."}},
-            {"@type": "Question", "name": "Do you serve California?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Credit Monkey provides credit repair services throughout California, with dedicated local pages for Los Angeles, San Diego, Sacramento, San Francisco, Fresno, Oakland, San Jose, Anaheim, Long Beach, and Riverside."}},
-            {"@type": "Question", "name": "What's included in the $99/month plan?", "acceptedAnswer": {"@type": "Answer", "text": "Plan A includes personalized credit repair strategy, disputes to all 3 credit bureaus (Equifax, Experian, TransUnion), creditor intervention letters, hard inquiry challenges, score tracking, 24/7 client portal access, email & phone support, and a 90-day money-back guarantee."}},
-            {"@type": "Question", "name": "Can I do credit repair myself for free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — you have the right to dispute items directly with credit bureaus at no cost. However, Credit Monkey's 15+ years of experience, knowledge of dispute law, and proven workflows often produce faster, more comprehensive results than self-disputes."}},
-            {"@type": "Question", "name": "What types of negative items can you dispute?", "acceptedAnswer": {"@type": "Answer", "text": "Credit Monkey can challenge collections, charge-offs, late payments, repossessions, medical debt, hard inquiries, identity theft accounts, duplicate accounts, and mixed-file errors — any item that is inaccurate, outdated, incomplete, or unverifiable."}},
-            {"@type": "Question", "name": "How does the 90-day money-back guarantee work?", "acceptedAnswer": {"@type": "Answer", "text": "If you are not satisfied with Credit Monkey's service within the first 90 days of enrollment, you may request a full refund. No questions asked, no cancellation fees."}}
-          ]
-        },
-        {
-          "@type": "Review",
-          "itemReviewed": {"@id": "https://creditmonkey.com/#financialservice"},
-          "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
-          "author": {"@type": "Person", "name": "Jennifer K."},
-          "reviewBody": "Credit Monkey made the process clear and easy. They explained every step and helped challenge multiple inaccurate items on my credit report."
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://creditmonkey.com/"
         }
       ]
+    },
+    {
+      "@type": "Service",
+      "@id": "https://creditmonkey.com/#service",
+      "name": "Credit Repair Services",
+      "serviceType": "Credit Repair",
+      "provider": {
+        "@id": "https://creditmonkey.com/#organization"
+      },
+      "areaServed": [
+        {
+          "@type": "Country",
+          "name": "United States"
+        },
+        {
+          "@type": "State",
+          "name": "California"
+        }
+      ],
+      "offers": {
+        "@type": "AggregateOffer",
+        "lowPrice": "99",
+        "highPrice": "199",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://creditmonkey.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long does credit repair take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Most clients see initial bureau responses within 30\u201345 days. Full programs typically run 3\u20136 months depending on the number and complexity of disputed items."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is credit repair legal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Under the Fair Credit Reporting Act (FCRA) and Credit Repair Organizations Act (CROA), consumers have the legal right to dispute inaccurate, incomplete, outdated, or unverifiable information. Credit Monkey follows a compliance-first process."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Credit Monkey guarantee removals or score increases?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. No reputable credit repair company can guarantee removal of accurate, current, and verifiable information or a specific score increase. Individual results vary."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you serve California?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Credit Monkey provides credit repair services throughout California, with dedicated local pages for Los Angeles, San Diego, Sacramento, San Francisco, Fresno, Oakland, San Jose, Anaheim, Long Beach, and Riverside."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's included in the $99/month plan?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Plan A includes personalized credit repair strategy, disputes to all 3 credit bureaus (Equifax, Experian, TransUnion), creditor intervention letters, hard inquiry challenges, score tracking, 24/7 client portal access, email & phone support, and a 90-day money-back guarantee."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I do credit repair myself for free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes \u2014 you have the right to dispute items directly with credit bureaus at no cost. However, Credit Monkey's 15+ years of experience, knowledge of dispute law, and proven workflows often produce faster, more comprehensive results than self-disputes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What types of negative items can you dispute?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Credit Monkey can challenge collections, charge-offs, late payments, repossessions, medical debt, hard inquiries, identity theft accounts, duplicate accounts, and mixed-file errors \u2014 any item that is inaccurate, outdated, incomplete, or unverifiable."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does the 90-day money-back guarantee work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If you are not satisfied with Credit Monkey's service within the first 90 days of enrollment, you may request a full refund. No questions asked, no cancellation fees."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@id": "https://creditmonkey.com/#financialservice"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Jennifer K."
+      },
+      "reviewBody": "Credit Monkey made the process clear and easy. They explained every step and helped challenge multiple inaccurate items on my credit report."
     }
-    </script>
+  ]
+}</script>
 <!-- Ahrefs Analytics -->
 <script async="" data-key="JFNXT4H7oGFXERk+25AXyw" src="https://analytics.ahrefs.com/analytics.js"></script>
 <meta content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' https: data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;" http-equiv="Content-Security-Policy"/></head>
