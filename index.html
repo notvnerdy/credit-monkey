@@ -1136,7 +1136,18 @@
     events.forEach(function(e) {
         window.addEventListener(e, loadCalendly, { once: true, passive: true });
     });
-    setTimeout(loadCalendly, 3500);
+    if ('IntersectionObserver' in window) {
+        var target = document.querySelector('.calendly-inline-widget');
+        if (target) {
+            var observer = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) {
+                    loadCalendly();
+                    observer.disconnect();
+                }
+            }, { rootMargin: '200px' });
+            observer.observe(target);
+        }
+    }
 })();
 </script>
 </div>

@@ -10,7 +10,7 @@ const PRECACHE_ASSETS = [
   '/pricing.html',
   '/assets/css/styles.css?v=2026071701',
   '/assets/js/script.js?v=2026071701',
-  '/assets/images/logo.png',
+  '/assets/images/logo.webp',
   '/offline.html'
 ];
 
