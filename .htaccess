@@ -9,7 +9,18 @@ RewriteBase /
 RewriteRule ^api/leads/?$ api/leads.php [L,QSA,NC]
 RewriteRule ^api/flexoffers/postback/?$ api/flexoffers-postback.php [L,QSA,NC]
 
-# Clean URLs for County and City pages
+# Clean URLs for State, County and City pages
+RewriteRule ^states/?$ /states/index.html [L,QSA,NC]
+RewriteRule ^locations/?$ /locations/index.html [L,QSA,NC]
+
+# Rewrite states/[state-slug] to states/[state-slug].html
+RewriteCond %{DOCUMENT_ROOT}/states/$1.html -f
+RewriteRule ^states/([^/]+)/?$ /states/$1.html [L,QSA,NC]
+
+# Rewrite locations/[city-slug] to locations/[city-slug].html
+RewriteCond %{DOCUMENT_ROOT}/locations/$1.html -f
+RewriteRule ^locations/([^/]+)/?$ /locations/$1.html [L,QSA,NC]
+
 # Rewrite states/[state-slug]/[county-slug] to states/county.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
