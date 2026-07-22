@@ -1148,7 +1148,23 @@
 <div class="col-lg-7" data-aos="fade-left">
 <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
 <div class="calendly-inline-widget" data-url="https://calendly.com/creditmonkey/credit-repair-consultation?hide_event_type_details=1&amp;hide_gdpr_banner=1" style="width:100%;min-width:0;height:680px;"></div>
-<script async="" src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
+<script type="text/javascript">
+(function() {
+    function loadCalendly() {
+        if (window.calendlyScriptLoaded) return;
+        window.calendlyScriptLoaded = true;
+        var s = document.createElement('script');
+        s.src = 'https://assets.calendly.com/assets/external/widget.js';
+        s.async = true;
+        document.body.appendChild(s);
+    }
+    var events = ['pointerdown', 'touchstart', 'scroll'];
+    events.forEach(function(e) {
+        window.addEventListener(e, loadCalendly, { once: true, passive: true });
+    });
+    setTimeout(loadCalendly, 3500);
+})();
+</script>
 </div>
 </div>
 </div>

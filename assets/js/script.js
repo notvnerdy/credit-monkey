@@ -1640,6 +1640,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Mobile touch optimizations
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile) {
         // Improve tap response on buttons
         document.addEventListener('touchstart', function(e) {
