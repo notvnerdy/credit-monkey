@@ -219,7 +219,7 @@ def create_state_page(state_name, counties):
     for idx, county in enumerate(counties):
         delay = (idx % 10) * 10 + 50  # Stagger animations
         county_slug = county.lower().replace(" ", "-") + "-county"
-        html_content += f'                <a class="state-chip county-link w-100 text-center text-decoration-none" href="{state_url}/{county_slug}" data-county="{county}" data-state="{state_name}" data-aos="zoom-in" data-aos-delay="{delay}">{county} County</a>\n'
+        html_content += f'                <div class="state-chip county-chip w-100 text-center" data-county="{county}" data-state="{state_name}" data-aos="zoom-in" data-aos-delay="{delay}">{county} County</div>\n'
     
     html_content += f'''            </div>
         </div>
